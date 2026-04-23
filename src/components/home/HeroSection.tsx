@@ -47,23 +47,23 @@ export default function HeroSection() {
               </p>
 
               {/* Social proof row */}
-              <div className="flex items-center gap-5 mb-8">
+              <div className="flex flex-wrap items-center gap-x-6 gap-y-3 mb-8">
                 <div className="flex items-center gap-1.5">
                   <Star size={18} className="fill-warning text-warning" />
                   <span className="font-bold text-text-heading">4.8</span>
-                  <span className="text-text-muted text-sm">Rating</span>
+                  <span className="text-text-muted text-sm ml-1">Rating</span>
                 </div>
-                <div className="w-px h-5 bg-slate-300" />
+                <div className="hidden sm:block w-px h-5 bg-slate-300" />
                 <div className="flex items-center gap-1.5">
                   <Users size={18} className="text-primary" />
-                  <span className="font-bold text-text-heading">2,000+</span>
-                  <span className="text-text-muted text-sm">Patients</span>
+                  <span className="font-bold text-text-heading">100+</span>
+                  <span className="text-text-muted text-sm ml-1">Patients</span>
                 </div>
-                <div className="w-px h-5 bg-slate-300" />
+                <div className="hidden sm:block w-px h-5 bg-slate-300" />
                 <div className="flex items-center gap-1.5">
                   <Clock size={18} className="text-success" />
                   <span className="font-bold text-text-heading">3.8h</span>
-                  <span className="text-text-muted text-sm">Avg. Arrival</span>
+                  <span className="text-text-muted text-sm ml-1">Avg. Arrival</span>
                 </div>
               </div>
 

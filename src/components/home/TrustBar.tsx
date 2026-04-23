@@ -11,18 +11,20 @@ export default function TrustBar() {
   return (
     <div className="trust-bar py-4">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 divide-x divide-white/10">
-          {metrics.map(({ icon: Icon, value, label }) => (
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-y-8 md:gap-4 md:divide-x md:divide-white/10">
+          {metrics.map(({ icon: Icon, value, label }, i) => (
             <div
               key={label}
-              className="flex items-center gap-3 justify-center pl-4 first:pl-0"
+              className={`flex items-center gap-3 justify-center md:pl-4 first:md:pl-0 ${
+                i % 2 === 0 ? "border-r border-white/10 md:border-none" : ""
+              }`}
             >
-              <div className="w-9 h-9 rounded-lg bg-white/15 flex items-center justify-center flex-shrink-0">
+              <div className="w-9 h-9 rounded-lg bg-white/10 flex items-center justify-center flex-shrink-0">
                 <Icon size={18} className="text-white" />
               </div>
-              <div>
-                <p className="text-white font-bold text-sm leading-none">{value}</p>
-                <p className="text-blue-200 text-xs mt-0.5">{label}</p>
+              <div className="min-w-0">
+                <p className="text-white font-bold text-sm md:text-base leading-none truncate">{value}</p>
+                <p className="text-blue-200 text-[10px] md:text-xs mt-1 leading-tight">{label}</p>
               </div>
             </div>
           ))}

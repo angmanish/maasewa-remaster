@@ -12,9 +12,9 @@ interface Stat {
 }
 
 const stats: Stat[] = [
-  { value: 2000, suffix: "+", label: "Patients Served", prefix: "" },
+  { value: 200, suffix: "+", label: "Patients Served", prefix: "" },
   { value: 4.8, suffix: "★", label: "Average Rating", prefix: "" },
-  { value: 15, suffix: "+", label: "Cities Covered", prefix: "" },
+  { value: 2, suffix: "+", label: "Cities Covered", prefix: "" },
   { value: 98, suffix: "%", label: "Satisfaction Rate", prefix: "" },
 ];
 

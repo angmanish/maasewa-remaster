@@ -153,19 +153,19 @@ export default function Navbar() {
             </div>
 
             {/* Mobile actions */}
-            <div className="flex lg:hidden items-center gap-2">
+            <div className="flex lg:hidden items-center gap-3">
               <Link
                 href="/login"
                 className="p-2 text-text-body hover:text-primary transition-colors"
               >
-                <User size={20} />
+                <User size={22} />
               </Link>
               <button
                 onClick={() => setMobileOpen(!mobileOpen)}
-                className="p-2 rounded-lg text-text-heading hover:bg-blue-50 transition-colors"
+                className="p-2 -mr-2 rounded-lg text-text-heading hover:bg-blue-50 transition-colors"
                 aria-label="Toggle menu"
               >
-                {mobileOpen ? <X size={22} /> : <Menu size={22} />}
+                {mobileOpen ? <X size={26} /> : <Menu size={26} />}
               </button>
             </div>
           </div>
@@ -280,13 +280,13 @@ export default function Navbar() {
                   Get Aftercare Now
                 </Link>
                 <div className="flex items-center justify-center gap-4 pt-1">
-                  <a href="#" className="text-text-muted hover:text-primary transition-colors">
+                  <a href="https://www.facebook.com/profile.php?id=61578668799642" className="text-text-muted hover:text-primary transition-colors">
                     <FaFacebook size={20} />
                   </a>
-                  <a href="#" className="text-text-muted hover:text-primary transition-colors">
+                  <a href="https://www.instagram.com/maasewa/" className="text-text-muted hover:text-primary transition-colors">
                     <FaInstagram size={20} />
                   </a>
-                  <a href="#" className="text-text-muted hover:text-primary transition-colors">
+                  <a href="https://x.com/Maasewa_care" className="text-text-muted hover:text-primary transition-colors">
                     <FaTwitter size={20} />
                   </a>
                 </div>
