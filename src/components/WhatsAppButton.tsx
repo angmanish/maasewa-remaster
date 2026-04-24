@@ -3,13 +3,17 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { MessageCircle } from "lucide-react";
 import { useState } from "react";
+import { usePathname } from "next/navigation";
 
 export default function WhatsAppButton() {
+  const pathname = usePathname();
   const [hovered, setHovered] = useState(false);
   const phone = "916361376521";
   const message = encodeURIComponent(
     "Hi! I need home healthcare services. Can you help me?"
   );
+
+  if (pathname.startsWith("/dashboard")) return null;
 
   return (
     <a

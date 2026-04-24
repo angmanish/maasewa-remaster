@@ -49,6 +49,8 @@ export default function Navbar() {
     setMobileOpen(false);
   }, [pathname]);
 
+  if (pathname.startsWith("/dashboard")) return null;
+
   return (
     <>
       <header

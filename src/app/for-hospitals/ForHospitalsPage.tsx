@@ -26,9 +26,39 @@ export default function ForHospitalsPage() {
   const [form, setForm] = useState({ hospital: "", name: "", email: "", phone: "", city: "", message: "" });
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubmitted(true);
+    setIsSubmitting(true);
+
+    try {
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+        },
+        body: JSON.stringify({
+          access_key: "39faab4c-e920-4d0f-ad46-fb7ace0a94c6", // Replace with your key
+          subject: `New Hospital Partner Inquiry from ${form.hospital}`,
+          from_name: "Maasewa Healthcare Website",
+          ...form,
+        }),
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        setSubmitted(true);
+      } else {
+        alert("Something went wrong. Please try again or call us directly.");
+      }
+    } catch (error) {
+      console.error("Form submission error:", error);
+      alert("Something went wrong. Please check your connection or call us directly.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -144,9 +174,19 @@ export default function ForHospitalsPage() {
                 />
               </div>
               <button type="submit"
-                className="w-full py-4 bg-primary text-white rounded-full font-bold text-base hover:bg-primary-dark transition-all hover:shadow-lg flex items-center justify-center gap-2"
+                disabled={isSubmitting}
+                className={`w-full py-4 rounded-full font-bold text-base transition-all flex items-center justify-center gap-2 ${isSubmitting ? "bg-slate-400 cursor-not-allowed" : "bg-primary text-white hover:bg-primary-dark hover:shadow-lg"}`}
               >
-                <Phone size={18} /> Request Partnership
+                {isSubmitting ? (
+                  <>
+                    <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                    Processing...
+                  </>
+                ) : (
+                  <>
+                    <Phone size={18} /> Request Partnership
+                  </>
+                )}
               </button>
             </form>
           )}

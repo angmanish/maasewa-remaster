@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import WhatsAppButton from "@/components/WhatsAppButton";
+import { AuthProvider } from "@/context/AuthContext";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -52,9 +53,7 @@ export const metadata: Metadata = {
   publisher: "Maasewa Healthcare",
   category: "Healthcare",
   applicationName: "Maasewa Healthcare",
-  alternates: {
-    canonical: BASE_URL,
-  },
+  alternates: { canonical: BASE_URL },
   robots: {
     index: true,
     follow: true,
@@ -74,22 +73,14 @@ export const metadata: Metadata = {
     title: "Maasewa Healthcare — Home Nursing & Post-Discharge Care Services",
     description:
       "Professional home nursing, ICU setup, elder care & post-operative care delivered to your doorstep. Certified nurses in 15+ Indian cities. Available 24/7.",
-    images: [
-      {
-        url: `${BASE_URL}/og-image.png`,
-        width: 1200,
-        height: 630,
-        alt: "Maasewa Healthcare — Professional Home Care Services",
-      },
-    ],
+    images: [{ url: `${BASE_URL}/og-image.png`, width: 1200, height: 630, alt: "Maasewa Healthcare" }],
   },
   twitter: {
     card: "summary_large_image",
     site: "@MaasewaHealth",
     creator: "@MaasewaHealth",
     title: "Maasewa Healthcare — Home Nursing & Post-Discharge Care",
-    description:
-      "Certified home nurses, ICU home setup & post-op care in 15+ Indian cities. Verified staff. 24/7 available. Average arrival in 3.8 hours.",
+    description: "Certified home nurses, ICU home setup & post-op care. Verified staff. 24/7 available.",
     images: [`${BASE_URL}/og-image.png`],
   },
   icons: {
@@ -98,17 +89,18 @@ export const metadata: Metadata = {
   },
 };
 
-
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${inter.variable} ${plusJakarta.variable}`}>
       <body className="min-h-screen flex flex-col bg-white antialiased">
-        <Navbar />
-        <main className="flex-1">{children}</main>
-        <Footer />
-        <WhatsAppButton />
+        <AuthProvider>
+          <Navbar />
+          <main className="flex-1">{children}</main>
+          <Footer />
+          <WhatsAppButton />
+        </AuthProvider>
       </body>
     </html>
   );
