@@ -8,7 +8,7 @@ import { useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import {
   LayoutDashboard, Users, ClipboardList, CalendarDays,
-  LogOut, Menu, X, Shield, User, ChevronRight,
+  LogOut, Menu, X, Shield, User,
   DollarSign, Handshake, ClipboardCheck, CalendarCheck, FileText,
 } from "lucide-react";
 

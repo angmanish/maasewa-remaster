@@ -1,4 +1,4 @@
-import mongoose, { Schema, model, models } from "mongoose";
+import { Schema, model, models } from "mongoose";
 
 const LeaveSchema = new Schema({
   staffEmail: { type: String, required: true },

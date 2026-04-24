@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Phone, MessageCircle, ArrowRight } from "lucide-react";
+import { Phone, MessageCircle } from "lucide-react";
 
 export default function CTABanner() {
   return (

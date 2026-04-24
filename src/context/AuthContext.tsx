@@ -40,7 +40,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setCurrentUser(data);
       localStorage.setItem("maasewa_user", JSON.stringify(data));
       return { success: true };
-    } catch (error) {
+    } catch (err) {
       return { success: false, error: "An unexpected error occurred." };
     }
   };

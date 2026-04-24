@@ -112,7 +112,7 @@ export default function UsersPage() {
     }
 
     try {
-      const payload = { ...form };
+      const payload: any = { ...form };
       if (editingUser && !form.password) {
         delete payload.password; // Don't update password if empty
       }
@@ -148,7 +148,7 @@ export default function UsersPage() {
         fetchUsers();
         setDeleteTarget(null);
       }
-    } catch (error) {
+    } catch (err) {
       showToast("Delete failed.", "error");
     }
   };
