@@ -7,8 +7,9 @@ import { User, UserRole } from "@/types/auth";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Plus, Pencil, Trash2, X, Search, Shield,
-  CheckCircle, UserCheck, AlertTriangle,
+  CheckCircle, UserCheck, AlertTriangle, Camera, Loader2,
 } from "lucide-react";
+import Skeleton from "@/components/ui/Skeleton";
 import { getLocalDateString } from "@/lib/dateUtils";
 
 const ROLE_OPTIONS: UserRole[] = ["ADMIN", "SUB_ADMIN", "STAFF"];
@@ -32,6 +33,12 @@ const emptyForm = {
   city: "",
   role: "STAFF" as UserRole,
   status: "Active" as "Active" | "Inactive",
+  profilePic: "",
+  qualifications: "",
+  experience: "",
+  specialization: "",
+  aadharNumber: "",
+  dob: "",
 };
 
 export default function UsersPage() {
@@ -58,7 +65,7 @@ export default function UsersPage() {
   const fetchUsers = async () => {
     setIsLoading(true);
     try {
-      const res = await fetch("/api/dashboard/users");
+      const res = await fetch("/api/dashboard/users", { cache: "no-store" });
       const data = await res.json();
       if (Array.isArray(data)) setUsers(data);
     } catch (error) {
@@ -100,9 +107,30 @@ export default function UsersPage() {
       phone: u.phone || "", 
       city: u.city || "", 
       role: u.role, 
-      status: u.status 
+      status: u.status,
+      profilePic: u.profilePic || "",
+      qualifications: u.qualifications || "",
+      experience: u.experience || "",
+      specialization: u.specialization || "",
+      aadharNumber: u.aadharNumber || "",
+      dob: u.dob || "",
     });
     setModalOpen(true);
+  };
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      if (file.size > 2 * 1024 * 1024) {
+        showToast("Image must be smaller than 2MB", "error");
+        return;
+      }
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setForm({ ...form, profilePic: reader.result as string });
+      };
+      reader.readAsDataURL(file);
+    }
   };
 
   const handleSave = async () => {
@@ -219,7 +247,20 @@ export default function UsersPage() {
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100">
-              {filtered.length === 0 ? (
+              {isLoading ? (
+                Array.from({ length: 8 }).map((_, i) => (
+                  <tr key={i}>
+                    <td className="px-5 py-4"><Skeleton className="w-32 h-4" /></td>
+                    <td className="px-5 py-4"><Skeleton className="w-40 h-4" /></td>
+                    <td className="px-5 py-4 hidden md:table-cell"><Skeleton className="w-24 h-4" /></td>
+                    <td className="px-5 py-4 hidden lg:table-cell"><Skeleton className="w-20 h-4" /></td>
+                    <td className="px-5 py-4"><Skeleton className="w-16 h-6 rounded-full" /></td>
+                    <td className="px-5 py-4"><Skeleton className="w-16 h-6 rounded-full" /></td>
+                    <td className="px-5 py-4 hidden lg:table-cell"><Skeleton className="w-24 h-3" /></td>
+                    <td className="px-5 py-4"><div className="flex justify-end gap-2"><Skeleton className="w-8 h-8 rounded-lg" /><Skeleton className="w-8 h-8 rounded-lg" /></div></td>
+                  </tr>
+                ))
+              ) : filtered.length === 0 ? (
                 <tr>
                   <td colSpan={8} className="text-center py-12 text-slate-400">
                     No users found.
@@ -310,23 +351,46 @@ export default function UsersPage() {
                   </button>
                 </div>
 
-                <div className="space-y-4">
-                  {(["name", "email", "password", "phone", "city"] as const).map((field) => (
+                <div className="space-y-4 max-h-[60vh] overflow-y-auto pr-2 custom-scrollbar">
+                  {(["name", "email", "password", "phone", "city", "dob", "profilePic", "qualifications", "experience", "specialization", "aadharNumber"] as const).map((field) => (
                     <div key={field}>
                       <label className="block text-xs font-semibold text-slate-600 mb-1.5 capitalize">
-                        {field === "password" && editingUser ? "New Password (Leave blank to keep current)" : field}
+                        {field === "password" && editingUser ? "New Password (Leave blank to keep current)" : 
+                         field === "profilePic" ? "Profile Image" :
+                         field === "aadharNumber" ? "Aadhar Number" :
+                         field === "dob" ? "Date of Birth" :
+                         field}
                       </label>
-                      <input
-                        type={field === "email" ? "email" : field === "password" ? "password" : "text"}
-                        value={form[field]}
-                        onChange={(e) => setForm({ ...form, [field]: e.target.value })}
-                        placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
-                        className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm text-slate-800 focus:outline-none focus:border-primary focus:ring-2 focus:ring-blue-100"
-                      />
+                      {field === "profilePic" ? (
+                        <div className="flex items-center gap-4">
+                          <div className="w-12 h-12 rounded-xl bg-slate-100 overflow-hidden flex-shrink-0 border border-slate-200">
+                            {form.profilePic ? (
+                              // eslint-disable-next-line @next/next/no-img-element
+                              <img src={form.profilePic} alt="Preview" className="w-full h-full object-cover" />
+                            ) : (
+                              <div className="w-full h-full flex items-center justify-center text-slate-300">
+                                <Camera size={20} />
+                              </div>
+                            )}
+                          </div>
+                          <label className="flex-1 cursor-pointer bg-slate-50 hover:bg-slate-100 border border-dashed border-slate-300 rounded-xl py-2 px-4 text-xs font-bold text-slate-500 text-center transition-colors">
+                            <input type="file" accept="image/*" onChange={handleFileUpload} className="hidden" />
+                            {form.profilePic ? "Change Photo" : "Upload Photo"}
+                          </label>
+                        </div>
+                      ) : (
+                        <input
+                          type={field === "email" ? "email" : field === "password" ? "password" : field === "dob" ? "date" : "text"}
+                          value={form[field]}
+                          onChange={(e) => setForm({ ...form, [field]: e.target.value })}
+                          placeholder={field.charAt(0).toUpperCase() + field.slice(1)}
+                          className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm text-slate-800 focus:outline-none focus:border-primary focus:ring-2 focus:ring-blue-100"
+                        />
+                      )}
                     </div>
                   ))}
 
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-2 gap-4 pb-2">
                     <div>
                       <label className="block text-xs font-semibold text-slate-600 mb-1.5">Role</label>
                       <select

@@ -8,8 +8,9 @@ import { useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import {
   LayoutDashboard, Users, ClipboardList, CalendarDays,
-  LogOut, Menu, X, Shield, User,
+  LogOut, Menu, X, Shield, User, UserCircle,
   DollarSign, Handshake, ClipboardCheck, CalendarCheck, FileText,
+  Clock, Receipt
 } from "lucide-react";
 
 interface NavItem {
@@ -23,13 +24,16 @@ interface NavItem {
 const navItems: NavItem[] = [
   // All roles
   { href: "/dashboard", label: "Overview", icon: LayoutDashboard, roles: ["ADMIN", "SUB_ADMIN", "STAFF"], section: "Main" },
+  { href: "/dashboard/profile", label: "My Profile", icon: UserCircle, roles: ["ADMIN", "SUB_ADMIN", "STAFF"], section: "Main" },
   // Admin only
   { href: "/dashboard/users", label: "User Management", icon: Users, roles: ["ADMIN"], section: "Admin" },
   { href: "/dashboard/salary", label: "Salary", icon: DollarSign, roles: ["ADMIN"], section: "Admin" },
   { href: "/dashboard/vendors", label: "Vendors", icon: Handshake, roles: ["ADMIN"], section: "Admin" },
+  { href: "/dashboard/invoices", label: "Invoices", icon: Receipt, roles: ["ADMIN"], section: "Admin" },
   // Sub-Admin + Admin
   { href: "/dashboard/staff", label: "Staff Management", icon: ClipboardCheck, roles: ["ADMIN", "SUB_ADMIN"], section: "Management" },
   { href: "/dashboard/attendance", label: "Attendance", icon: CalendarCheck, roles: ["ADMIN", "SUB_ADMIN"], section: "Management" },
+  { href: "/dashboard/shifts", label: "Shifts", icon: Clock, roles: ["ADMIN", "SUB_ADMIN"], section: "Management" },
   // Tasks
   { href: "/dashboard/tasks", label: "Tasks", icon: ClipboardList, roles: ["ADMIN", "SUB_ADMIN", "STAFF"], section: "Work" },
   // Leaves
@@ -87,8 +91,12 @@ export default function DashboardSidebar() {
       <div className="px-4 py-6 flex-shrink-0">
         <div className="relative group p-4 rounded-2xl bg-gradient-to-br from-slate-50 to-white border border-slate-200/60 shadow-sm overflow-hidden">
           <div className="relative z-10 flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-primary shadow-lg shadow-primary/20 flex items-center justify-center flex-shrink-0 group-hover:rotate-6 transition-transform">
-              <User size={18} className="text-white" />
+            <div className="w-10 h-10 rounded-xl bg-primary shadow-lg shadow-primary/20 flex items-center justify-center flex-shrink-0 group-hover:rotate-6 transition-transform relative overflow-hidden">
+              {currentUser?.profilePic ? (
+                <Image src={currentUser.profilePic} alt={currentUser?.name || "User"} fill className="object-cover" />
+              ) : (
+                <User size={18} className="text-white" />
+              )}
             </div>
             <div className="min-w-0">
               <p className="text-sm font-bold text-slate-800 truncate" style={{ fontFamily: "var(--font-jakarta)" }}>

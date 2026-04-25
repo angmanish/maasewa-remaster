@@ -8,22 +8,23 @@ import { Vendor } from "@/types/dashboard";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   Plus, Pencil, Trash2, X, Search, Handshake,
-  Phone, Mail, MapPin, CheckCircle, AlertTriangle, Building2,
+  Phone, Mail, MapPin, CheckCircle, AlertTriangle, Building2, Loader2,
 } from "lucide-react";
 import { getLocalDateString } from "@/lib/dateUtils";
+import Skeleton from "@/components/ui/Skeleton";
 
 const CATEGORIES = ["Medical Equipment", "Medicines & Consumables", "Lab Services", "Ambulance", "Physiotherapy", "Other"];
 
 const emptyVendor: Omit<Vendor, "id"> = {
   name: "", category: "Medical Equipment", contactPerson: "",
   phone: "", email: "", city: "", tieUpDate: getLocalDateString(),
-  status: "Active", notes: "",
+  status: "Active", price: "", notes: "",
 };
 
 export default function VendorsPage() {
   const { currentUser } = useAuth();
   const router = useRouter();
-  const { vendors, addVendor, updateVendor, deleteVendor } = useDashboard();
+  const { vendors, addVendor, updateVendor, deleteVendor, isLoading } = useDashboard();
 
   useEffect(() => {
     if (currentUser && currentUser.role !== "ADMIN") router.replace("/dashboard");
@@ -45,7 +46,7 @@ export default function VendorsPage() {
   const openCreate = () => { setEditingId(null); setForm(emptyVendor); setModalOpen(true); };
   const openEdit = (v: Vendor) => {
     setEditingId(v.id);
-    setForm({ name: v.name, category: v.category, contactPerson: v.contactPerson, phone: v.phone, email: v.email, city: v.city, tieUpDate: v.tieUpDate, status: v.status, notes: v.notes });
+    setForm({ name: v.name, category: v.category, contactPerson: v.contactPerson, phone: v.phone, email: v.email, city: v.city, tieUpDate: v.tieUpDate, status: v.status, price: v.price || "", notes: v.notes });
     setModalOpen(true);
   };
 
@@ -110,7 +111,31 @@ export default function VendorsPage() {
 
       {/* Vendor Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
-        {filtered.map((vendor, i) => (
+        {isLoading ? (
+          Array.from({ length: 6 }).map((_, i) => (
+            <div key={i} className="bg-white rounded-2xl border border-slate-200 p-5 space-y-4">
+              <div className="flex justify-between items-start">
+                <div className="flex gap-3">
+                  <Skeleton className="w-10 h-10 rounded-xl" />
+                  <div className="space-y-2">
+                    <Skeleton className="w-24 h-4" />
+                    <Skeleton className="w-16 h-3" />
+                  </div>
+                </div>
+                <Skeleton className="w-12 h-5 rounded-full" />
+              </div>
+              <Skeleton className="w-full h-8 rounded-lg" />
+              <div className="space-y-2">
+                <Skeleton className="w-1/2 h-3" />
+                <Skeleton className="w-2/3 h-3" />
+              </div>
+              <div className="flex justify-between pt-2">
+                <Skeleton className="w-16 h-3" />
+                <div className="flex gap-2"><Skeleton className="w-8 h-8 rounded-lg" /><Skeleton className="w-8 h-8 rounded-lg" /></div>
+              </div>
+            </div>
+          ))
+        ) : filtered.map((vendor, i) => (
           <motion.div
             key={vendor.id}
             initial={{ opacity: 0, y: 20 }}
@@ -131,6 +156,11 @@ export default function VendorsPage() {
               <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${vendor.status === "Active" ? "bg-emerald-100 text-emerald-700" : "bg-slate-100 text-slate-500"}`}>
                 {vendor.status}
               </span>
+            </div>
+
+            <div className="mb-3 px-3 py-1.5 bg-slate-50 rounded-lg flex items-center justify-between">
+              <span className="text-[10px] text-slate-400 font-bold uppercase tracking-wider">Rate / Price</span>
+              <span className="text-sm font-bold text-primary">{vendor.price || "Contact for Price"}</span>
             </div>
 
             <div className="space-y-1.5 text-xs text-slate-500 mb-4">
@@ -219,6 +249,10 @@ export default function VendorsPage() {
                     <div>
                       <label className="block text-xs font-semibold text-slate-600 mb-1">Tie-Up Date</label>
                       <input type="date" value={form.tieUpDate} onChange={(e) => setForm({ ...form, tieUpDate: e.target.value })} className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-primary" />
+                    </div>
+                    <div>
+                      <label className="block text-xs font-semibold text-slate-600 mb-1">Price / Rate</label>
+                      <input value={form.price} onChange={(e) => setForm({ ...form, price: e.target.value })} placeholder="e.g. ₹500/day" className="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-primary font-bold text-primary" />
                     </div>
                     <div className="col-span-2">
                       <label className="block text-xs font-semibold text-slate-600 mb-1">Notes</label>

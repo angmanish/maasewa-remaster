@@ -48,6 +48,7 @@ export interface Vendor {
   city: string;
   tieUpDate: string;
   status: "Active" | "Inactive";
+  price: string;
   notes: string;
 }
 
@@ -65,4 +66,36 @@ export interface LeaveRequest {
   subAdminNote?: string;
   adminNote?: string;
   appliedAt: string;
+}
+
+export interface Shift {
+  id: string;
+  staffEmail: string;
+  staffName: string;
+  date: string; // YYYY-MM-DD
+  startTime: string; // HH:mm
+  endTime: string; // HH:mm
+  patientName: string;
+  location: string;
+  status: "Scheduled" | "In-Progress" | "Completed" | "Cancelled";
+}
+
+export interface InvoiceItem {
+  description: string;
+  qty: number;
+  rate: number;
+  amount: number;
+}
+
+export interface Invoice {
+  id: string;
+  billNumber: string;
+  patientName: string;
+  patientPhone?: string;
+  date: string;
+  items: InvoiceItem[];
+  subtotal: number;
+  tax: number;
+  total: number;
+  status: "Paid" | "Unpaid" | "Pending";
 }

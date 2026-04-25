@@ -9,4 +9,10 @@ export interface User {
   city?: string;
   status: "Active" | "Inactive";
   joinedAt: string;
+  profilePic?: string;
+  qualifications?: string;
+  experience?: string;
+  specialization?: string;
+  aadharNumber?: string;
+  dob?: string;
 }

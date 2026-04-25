@@ -13,6 +13,7 @@ const VendorSchema = new Schema({
     enum: ["Active", "Inactive"], 
     default: "Active" 
   },
+  price: { type: String },
   notes: { type: String },
 }, { 
   timestamps: true,

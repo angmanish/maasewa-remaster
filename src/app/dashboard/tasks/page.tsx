@@ -8,8 +8,9 @@ import { getLocalDateString } from "@/lib/dateUtils";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   CheckCircle, Clock, AlertCircle, MapPin, User,
-  Plus, X, CheckCheck, ClipboardList, ArrowRight, Shield,
+  Plus, X, CheckCheck, ClipboardList, ArrowRight, Shield, Loader2,
 } from "lucide-react";
+import Skeleton from "@/components/ui/Skeleton";
 
 
 const statusConfig: Record<string, { icon: React.ElementType; style: string; label: string }> = {
@@ -39,7 +40,7 @@ const emptyTask = {
 
 export default function TasksPage() {
   const { currentUser } = useAuth();
-  const { tasks, addTask, updateTaskStatus } = useDashboard();
+  const { tasks, addTask, updateTaskStatus, isLoading } = useDashboard();
   const [staffList, setStaffList] = useState<{ email: string; name: string }[]>([]);
 
   const fetchStaff = async () => {
@@ -152,15 +153,28 @@ export default function TasksPage() {
 
       {/* Task Cards */}
       <div className="space-y-6">
-        {filtered.length === 0 && (
+        {isLoading ? (
+          Array.from({ length: 4 }).map((_, i) => (
+            <div key={i} className="bg-white rounded-3xl border border-slate-100 p-8 space-y-4">
+              <div className="flex items-center gap-3">
+                <Skeleton className="w-20 h-6 rounded-lg" />
+                <Skeleton className="w-20 h-6 rounded-lg" />
+              </div>
+              <Skeleton className="w-2/3 h-8" />
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <Skeleton className="w-full h-16 rounded-2xl" />
+                <Skeleton className="w-full h-16 rounded-2xl" />
+                <Skeleton className="w-full h-16 rounded-2xl" />
+              </div>
+            </div>
+          ))
+        ) : filtered.length === 0 ? (
           <div className="text-center py-24 bg-white rounded-3xl border border-slate-100 border-dashed">
             <div className="w-20 h-20 bg-slate-50 rounded-full flex items-center justify-center mx-auto mb-4">
               <ClipboardList size={40} className="text-slate-300" />
             </div>
             <p className="text-slate-400 font-bold uppercase tracking-widest text-xs">No tasks found in this category</p>
           </div>
-        )}
-        {filtered.map((task, i) => {
           const sc = statusConfig[task.status];
           const StatusIcon = sc.icon;
           return (
