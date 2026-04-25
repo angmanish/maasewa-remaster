@@ -175,9 +175,11 @@ export default function TasksPage() {
             </div>
             <p className="text-slate-400 font-bold uppercase tracking-widest text-xs">No tasks found in this category</p>
           </div>
-          const sc = statusConfig[task.status];
-          const StatusIcon = sc.icon;
-          return (
+        ) : (
+          filtered.map((task, i) => {
+            const sc = statusConfig[task.status];
+            const StatusIcon = sc.icon;
+            return (
             <motion.div
               key={task.id}
               initial={{ opacity: 0, y: 15 }}
@@ -285,7 +287,8 @@ export default function TasksPage() {
               </div>
             </motion.div>
           );
-        })}
+          })
+        )}
       </div>
 
       {/* Assign Task Modal */}
