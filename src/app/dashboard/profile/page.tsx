@@ -36,7 +36,7 @@ export default function ProfilePage() {
         const data = await res.json();
         setProfileData(data);
         setCurrentUser(data);
-        localStorage.setItem("maasewa_user", JSON.stringify(data));
+        localStorage.setItem("Maa Sewa_user", JSON.stringify(data));
       }
     } catch (error) {
       console.error("Background sync failed:", error);
@@ -83,7 +83,7 @@ export default function ProfilePage() {
           const updatedUser = await res.json();
           setProfileData(updatedUser);
           setCurrentUser(updatedUser);
-          localStorage.setItem("maasewa_user", JSON.stringify(updatedUser));
+          localStorage.setItem("Maa Sewa_user", JSON.stringify(updatedUser));
           showToast("Profile picture updated!");
         } else {
           showToast("Failed to update profile picture", "error");

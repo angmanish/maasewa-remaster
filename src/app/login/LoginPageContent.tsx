@@ -51,10 +51,10 @@ export default function LoginPageContent() {
         {/* Logo */}
         <div className="text-center mb-8">
           <Link href="/" className="inline-flex items-center gap-2.5 justify-center mb-4">
-            <Image src="/logo.png" alt="Maasewa Healthcare" width={48} height={48} className="rounded-xl object-contain" />
+            <Image src="/logo.png" alt="Maa Sewa Healthcare" width={48} height={48} className="rounded-xl object-contain" />
             <div className="flex flex-col leading-none text-left">
               <span className="text-lg font-bold text-primary-deeper" style={{ fontFamily: "var(--font-jakarta)" }}>
-                Maasewa
+                Maa Sewa
               </span>
               <span className="text-[10px] text-text-body font-medium tracking-wide">Healthcare Portal</span>
             </div>
@@ -62,7 +62,7 @@ export default function LoginPageContent() {
           <h1 className="text-2xl font-extrabold text-text-heading" style={{ fontFamily: "var(--font-jakarta)" }}>
             Welcome Back
           </h1>
-          <p className="text-text-body text-sm mt-1">Sign in to the Maasewa Healthcare portal</p>
+          <p className="text-text-body text-sm mt-1">Sign in to the Maa Sewa Healthcare portal</p>
         </div>
 
         {/* Demo Quick Login */}

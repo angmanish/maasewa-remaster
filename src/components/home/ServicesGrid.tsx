@@ -19,42 +19,42 @@ const services = [
     title: "Home Nursing",
     desc: "Certified GNM/BSc nurses for ICU care, tracheostomy, wound dressing, and 24/7 post-hospitalization monitoring.",
     color: "blue",
-    href: "/services",
+    href: "/services/home-nursing",
   },
   {
     icon: Activity,
     title: "ICU Home Setup",
     desc: "Critical care infrastructure including cardiac monitors, ventilators, and infusion pumps with expert clinical supervision.",
     color: "purple",
-    href: "/services",
+    href: "/services/icu-home-setup",
   },
   {
     icon: UserCheck,
     title: "Elder Care",
     desc: "Professional caregivers for mobility support, hygiene, and companionship tailored for senior safety and dignity.",
     color: "green",
-    href: "/services",
+    href: "/services/elder-care",
   },
   {
     icon: HeartPulse,
     title: "Post-Op Care",
     desc: "Dedicated recovery support after surgery, focusing on wound healing, pain management, and preventing complications.",
     color: "rose",
-    href: "/services",
+    href: "/services/post-op-care",
   },
   {
     icon: Pill,
     title: "Specialized Care",
     desc: "Tailored care plans for complex neurological needs, including Stroke, Dementia, and Palliative recovery support.",
     color: "amber",
-    href: "/services",
+    href: "/services/specialized-care",
   },
   {
     icon: Syringe,
     title: "Injection Visit",
     desc: "Trained nurses for IM/IV injections, IV drips, vaccinations, and diagnostic blood collection at your preferred time.",
     color: "teal",
-    href: "/services",
+    href: "/services/injection-visit",
   },
 ];
 
@@ -97,10 +97,10 @@ export default function ServicesGrid() {
           {services.map((service, i) => (
             <motion.div
               key={service.title}
-              initial={{ opacity: 0, y: 30 }}
+              initial={{ opacity: 0, y: 15 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: i * 0.07 }}
+              transition={{ duration: 0.3, delay: i * 0.04 }}
               whileHover={{ y: -6, transition: { duration: 0.2 } }}
               className="bg-white rounded-2xl p-6 shadow-sm border border-border-color hover:shadow-xl transition-all group cursor-pointer"
             >

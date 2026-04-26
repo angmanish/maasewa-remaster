@@ -24,7 +24,7 @@ export default function ContactPageContent() {
         body: JSON.stringify({
           access_key: "39faab4c-e920-4d0f-ad46-fb7ace0a94c6", // Replace with your key
           subject: `New Care Request from ${form.name}`,
-          from_name: "Maasewa Healthcare Website",
+          from_name: "Maa Sewa Healthcare Website",
           ...form,
         }),
       });

@@ -8,7 +8,7 @@ const testimonials = [
     name: "Anita Mehta",
     city: "Pune",
     rating: 5,
-    text: "My father was discharged after a hip replacement. Maasewa sent a nurse within 4 hours. The nurse was professional, caring, and my father recovered comfortably at home. Highly recommended!",
+    text: "My father was discharged after a hip replacement. Maa Sewa sent a nurse within 4 hours. The nurse was professional, caring, and my father recovered comfortably at home. Highly recommended!",
     service: "Post-Op Care",
   },
   {
@@ -22,7 +22,7 @@ const testimonials = [
     name: "Rinki Devi",
     city: "Pune",
     rating: 5,
-    text: "The elder care service for my 82-year-old father-in-law has been a blessing. The caregiver treats him like family. We couldn't have managed without Maasewa's help.",
+    text: "The elder care service for my 82-year-old father-in-law has been a blessing. The caregiver treats him like family. We couldn't have managed without Maa Sewa's help.",
     service: "Elder Care",
   },
 ];
@@ -47,7 +47,7 @@ export default function Testimonials() {
             Real People. Real Recovery.
           </h2>
           <p className="text-text-body text-lg max-w-xl mx-auto">
-            Hear from families who trusted Maasewa with their most vulnerable
+            Hear from families who trusted Maa Sewa with their most vulnerable
             moments.
           </p>
         </motion.div>

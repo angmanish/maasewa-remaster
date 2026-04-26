@@ -12,7 +12,7 @@ const BASE_URL = "https://maasewahealthcare.com";
 const websiteSchema = {
   "@context": "https://schema.org",
   "@type": "WebSite",
-  name: "Maasewa Healthcare",
+  name: "Maa Sewa Healthcare",
   url: BASE_URL,
   potentialAction: {
     "@type": "SearchAction",
@@ -24,7 +24,7 @@ const websiteSchema = {
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "MedicalOrganization",
-  name: "Maasewa Healthcare",
+  name: "Maa Sewa Healthcare",
   url: BASE_URL,
   logo: `${BASE_URL}/logo.png`,
   contactPoint: {

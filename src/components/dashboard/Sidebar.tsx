@@ -79,9 +79,9 @@ export default function DashboardSidebar() {
       {/* Logo */}
       <div className="px-6 py-5 border-b border-slate-200 flex-shrink-0">
         <Link href="/" className="flex items-center gap-2.5">
-          <Image src="/logo.png" alt="Maasewa" width={40} height={40} className="rounded-xl object-contain" />
+          <Image src="/logo.png" alt="Maa Sewa" width={40} height={40} className="rounded-xl object-contain" />
           <div className="flex flex-col leading-none">
-            <span className="text-sm font-bold text-slate-800" style={{ fontFamily: "var(--font-jakarta)" }}>Maasewa</span>
+            <span className="text-sm font-bold text-slate-800" style={{ fontFamily: "var(--font-jakarta)" }}>Maa Sewa</span>
             <span className="text-[10px] text-slate-500 tracking-wide">Healthcare Portal</span>
           </div>
         </Link>

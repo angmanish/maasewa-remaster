@@ -11,17 +11,18 @@ const footerLinks = {
     { href: "/", label: "Home" },
     { href: "/services", label: "Our Services" },
     { href: "/how-it-works", label: "How It Works" },
+    { href: "/packages", label: "Care Packages" },
     { href: "/for-hospitals", label: "For Hospitals" },
     { href: "/blog", label: "Blog" },
     { href: "/contact", label: "Contact Us" },
   ],
   services: [
-    { href: "/services", label: "Home Nursing" },
-    { href: "/services", label: "Elder Care" },
-    { href: "/services", label: "ICU Home Setup" },
-    { href: "/services", label: "Post-Op Care" },
-    { href: "/services", label: "Physiotherapy" },
-    { href: "/services", label: "Injection Visit" },
+    { href: "/services/home-nursing", label: "Home Nursing" },
+    { href: "/services/elder-care", label: "Elder Care" },
+    { href: "/services/icu-home-setup", label: "ICU Home Setup" },
+    { href: "/services/post-op-care", label: "Post-Op Care" },
+    { href: "/services/specialized-care", label: "Specialized Care" },
+    { href: "/services/injection-visit", label: "Injection Visit" },
   ],
 };
 
@@ -42,13 +43,13 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-1">
             <Link href="/" className="flex items-center gap-2.5 mb-4">
-              <Image src="/logo.png" alt="Maasewa Healthcare Logo" width={60} height={36} className="rounded-xl object-contain" />
+              <Image src="/logo.png" alt="Maa Sewa Healthcare Logo" width={60} height={36} className="rounded-xl object-contain" />
               <div className="flex flex-col leading-none">
                 <span
                   className="text-base font-bold text-white"
                   style={{ fontFamily: "var(--font-jakarta)" }}
                 >
-                  Maasewa
+                  Maa Sewa
                 </span>
                 <span className="text-[10px] text-blue-200 font-medium tracking-wide">
                   Healthcare
@@ -163,15 +164,14 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Trust Badges */}
         <div className="border-t border-blue-800 pt-8 mb-8">
-          <div className="flex flex-wrap items-center justify-center gap-6 md:gap-10">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-10">
             {trustBadges.map(({ icon: Icon, label }) => (
-              <div key={label} className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-lg bg-success/20 flex items-center justify-center">
-                  <Icon size={16} className="text-success" />
+              <div key={label} className="flex items-center gap-4 w-full max-w-[260px] sm:max-w-none sm:w-auto px-4 sm:px-0">
+                <div className="w-10 h-10 rounded-xl bg-success/10 flex items-center justify-center border border-success/20 flex-shrink-0">
+                  <Icon size={20} className="text-success" />
                 </div>
-                <span className="text-blue-100 text-sm font-medium">
+                <span className="text-blue-50 text-sm font-semibold tracking-tight whitespace-nowrap">
                   {label}
                 </span>
               </div>
@@ -182,15 +182,15 @@ export default function Footer() {
         {/* Bottom */}
         <div className="border-t border-blue-800 pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-blue-300 text-sm">
           <p>
-            &copy; {new Date().getFullYear()} Maasewa Healthcare. All rights
+            &copy; {new Date().getFullYear()} Maa Sewa Healthcare. All rights
             reserved.
           </p>
           <div className="flex items-center gap-4">
-            <Link href="/contact" className="hover:text-white transition-colors">
+            <Link href="/privacy" className="hover:text-white transition-colors">
               Privacy Policy
             </Link>
-            <Link href="/contact" className="hover:text-white transition-colors">
-              Terms of Service
+            <Link href="/terms" className="hover:text-white transition-colors">
+              Terms of Use
             </Link>
           </div>
         </div>

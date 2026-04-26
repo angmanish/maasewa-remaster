@@ -10,6 +10,14 @@ const nextConfig: NextConfig = {
     // Similarly, ignore type errors during build for now to ensure deployment
     ignoreBuildErrors: true,
   },
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'i.pravatar.cc',
+      },
+    ],
+  },
 };
 
 export default nextConfig;

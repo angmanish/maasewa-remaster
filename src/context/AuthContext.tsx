@@ -19,7 +19,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     try {
-      const stored = localStorage.getItem("maasewa_user");
+      const stored = localStorage.getItem("Maa Sewa_user");
       if (stored) setCurrentUser(JSON.parse(stored));
     } catch {}
     setIsLoading(false);
@@ -39,7 +39,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
 
       setCurrentUser(data);
-      localStorage.setItem("maasewa_user", JSON.stringify(data));
+      localStorage.setItem("Maa Sewa_user", JSON.stringify(data));
       return { success: true };
     } catch (err) {
       return { success: false, error: "An unexpected error occurred." };
@@ -48,7 +48,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const logout = () => {
     setCurrentUser(null);
-    localStorage.removeItem("maasewa_user");
+    localStorage.removeItem("Maa Sewa_user");
   };
 
   return (

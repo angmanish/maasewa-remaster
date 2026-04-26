@@ -424,12 +424,12 @@ export default function InvoicesPage() {
                         <div className="relative w-12 h-12">
                           <Image
                             src="/maasewa-icon.png"
-                            alt="Maasewa Logo"
+                            alt="Maa Sewa Logo"
                             fill
                             className="object-contain"
                           />
                         </div>
-                        <span className="text-xl font-black text-slate-800 uppercase tracking-tighter">Maasewa Healthcare</span>
+                        <span className="text-xl font-black text-slate-800 uppercase tracking-tighter">Maa Sewa Healthcare</span>
                       </div>
                       <p className="text-xs text-slate-500 max-w-[200px]">
                         Professional Home Healthcare Services<br />
@@ -501,7 +501,7 @@ export default function InvoicesPage() {
 
                   {/* Footer */}
                   <div className="mt-20 pt-10 border-t border-slate-100 text-center">
-                    <p className="text-xs text-slate-400">Thank you for choosing Maasewa Healthcare. This is a computer-generated invoice.</p>
+                    <p className="text-xs text-slate-400">Thank you for choosing Maa Sewa Healthcare. This is a computer-generated invoice.</p>
                   </div>
                 </div>
 

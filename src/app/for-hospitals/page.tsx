@@ -7,7 +7,7 @@ const BASE_URL = "https://maasewahealthcare.com";
 export const metadata: Metadata = {
   title: "Partner With Us — Reduce Readmissions by 40% | Home Care for Hospitals",
   description:
-    "Maasewa Healthcare partners with hospitals across India to provide seamless post-discharge home care. Reduce readmission rates by 40%, improve patient satisfaction, and free up beds. 50+ hospital partners.",
+    "Maa Sewa Healthcare partners with hospitals across India to provide seamless post-discharge home care. Reduce readmission rates by 40%, improve patient satisfaction, and free up beds. 50+ hospital partners.",
   keywords: [
     "hospital discharge home care India",
     "reduce hospital readmission rates",
@@ -20,21 +20,21 @@ export const metadata: Metadata = {
   alternates: { canonical: `${BASE_URL}/for-hospitals` },
   openGraph: {
     url: `${BASE_URL}/for-hospitals`,
-    title: "Reduce Readmissions by 40% — Partner With Maasewa Healthcare",
+    title: "Reduce Readmissions by 40% — Partner With Maa Sewa Healthcare",
     description:
-      "Maasewa's post-discharge home care program helps hospitals reduce readmission rates, improve CSAT, and free up beds. 50+ partners across India.",
+      "Maa Sewa's post-discharge home care program helps hospitals reduce readmission rates, improve CSAT, and free up beds. 50+ partners across India.",
   },
 };
 
 const organizationSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
-  name: "Hospital Partnership Program — Maasewa Healthcare",
+  name: "Hospital Partnership Program — Maa Sewa Healthcare",
   description:
     "A post-discharge home care program for hospitals to reduce readmission rates, improve patient outcomes and satisfaction through certified home nursing.",
   provider: {
     "@type": "MedicalBusiness",
-    name: "Maasewa Healthcare",
+    name: "Maa Sewa Healthcare",
     url: BASE_URL,
   },
   areaServed: {

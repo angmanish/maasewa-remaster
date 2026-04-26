@@ -5,21 +5,21 @@ import JsonLd from "@/components/JsonLd";
 const BASE_URL = "https://maasewahealthcare.com";
 
 export const metadata: Metadata = {
-  title: "Contact Us — Book a Home Nurse in 30 Minutes | Maasewa Healthcare",
+  title: "Contact Us — Book a Home Nurse in 30 Minutes | Maa Sewa Healthcare",
   description:
-    "Contact Maasewa Healthcare to book a certified home nurse. Call +91 6361376521 or fill the form. Located in Pune, serving 15+ cities across India. Our coordinators respond within 30 minutes, 24/7.",
+    "Contact Maa Sewa Healthcare to book a certified home nurse. Call +91 6361376521 or fill the form. Located in Pune, serving 15+ cities across India. Our coordinators respond within 30 minutes, 24/7.",
   keywords: [
     "contact home nursing service India",
     "book home nurse Pune",
     "home nursing helpline India",
     "home healthcare contact number",
-    "Maasewa Healthcare phone number",
+    "Maa Sewa Healthcare phone number",
     "home nurse booking",
   ],
   alternates: { canonical: `${BASE_URL}/contact` },
   openGraph: {
     url: `${BASE_URL}/contact`,
-    title: "Contact Maasewa Healthcare — Book a Home Nurse in 30 Minutes",
+    title: "Contact Maa Sewa Healthcare — Book a Home Nurse in 30 Minutes",
     description:
       "Call +91 6361376521 or fill the form to book a certified home nurse. Available 24/7. Response within 30 minutes.",
   },
@@ -28,12 +28,12 @@ export const metadata: Metadata = {
 const contactSchema = {
   "@context": "https://schema.org",
   "@type": "ContactPage",
-  name: "Contact Maasewa Healthcare",
+  name: "Contact Maa Sewa Healthcare",
   description: "Contact page to book home nursing services",
   url: `${BASE_URL}/contact`,
   mainEntity: {
     "@type": "MedicalBusiness",
-    name: "Maasewa Healthcare",
+    name: "Maa Sewa Healthcare",
     telephone: "+916361376521",
     email: "info@maasewahealthcare.com",
     address: {

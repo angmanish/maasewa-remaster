@@ -41,7 +41,7 @@ export default function ForHospitalsPage() {
         body: JSON.stringify({
           access_key: "39faab4c-e920-4d0f-ad46-fb7ace0a94c6", // Replace with your key
           subject: `New Hospital Partner Inquiry from ${form.hospital}`,
-          from_name: "Maasewa Healthcare Website",
+          from_name: "Maa Sewa Healthcare Website",
           ...form,
         }),
       });
@@ -73,7 +73,7 @@ export default function ForHospitalsPage() {
               Reduce Readmission Rates<br />by <span className="text-yellow-300">40%</span>
             </h1>
             <p className="text-white/90 text-xl max-w-2xl mx-auto mb-8">
-              Partner with Maasewa Healthcare to provide seamless post-discharge home care for your patients — improving outcomes and freeing up beds.
+              Partner with Maa Sewa Healthcare to provide seamless post-discharge home care for your patients — improving outcomes and freeing up beds.
             </p>
             <a href="#partner-form" className="inline-flex items-center gap-2 px-8 py-4 bg-white text-primary rounded-full font-bold hover:bg-blue-50 transition-all hover:shadow-xl hover:-translate-y-1">
               Become a Partner <ArrowRight size={18} />
@@ -105,7 +105,7 @@ export default function ForHospitalsPage() {
       <section className="py-16 bg-bg-ice">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-extrabold text-text-heading mb-3" style={{ fontFamily: "var(--font-jakarta)" }}>Why Hospitals Choose Maasewa</h2>
+            <h2 className="text-3xl font-extrabold text-text-heading mb-3" style={{ fontFamily: "var(--font-jakarta)" }}>Why Hospitals Choose Maa Sewa</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {benefits.map((b, i) => (

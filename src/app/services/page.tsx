@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `${BASE_URL}/services` },
   openGraph: {
     url: `${BASE_URL}/services`,
-    title: "Home Nursing Services — 8h, 12h & 24h Shifts | Maasewa Healthcare",
+    title: "Home Nursing Services — 8h, 12h & 24h Shifts | Maa Sewa Healthcare",
     description:
       "Professional home nursing, ICU setup, elder care & post-op care. Certified, police-verified nurses available 24/7 in 15+ Indian cities.",
   },
@@ -30,7 +30,7 @@ export const metadata: Metadata = {
 const servicesSchema = {
   "@context": "https://schema.org",
   "@type": "ItemList",
-  name: "Maasewa Healthcare Services",
+  name: "Maa Sewa Healthcare Services",
   description: "Professional home healthcare services across India",
   itemListElement: [
     {

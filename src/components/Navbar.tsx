@@ -21,14 +21,16 @@ const navLinks = [
     href: "/services",
     label: "Services",
     children: [
-      { href: "/services", label: "Nursing Staff" },
-      { href: "/services", label: "Elder Care" },
-      { href: "/services", label: "ICU Home Setup" },
-      { href: "/services", label: "Post-Op Care" },
-      { href: "/services", label: "Injection Visit" },
+      { href: "/services/home-nursing", label: "Nursing Staff" },
+      { href: "/services/elder-care", label: "Elder Care" },
+      { href: "/services/icu-home-setup", label: "ICU Home Setup" },
+      { href: "/services/post-op-care", label: "Post-Op Care" },
+      { href: "/services/specialized-care", label: "Specialized Care" },
+      { href: "/services/injection-visit", label: "Injection Visit" },
     ],
   },
   { href: "/how-it-works", label: "How It Works" },
+  { href: "/packages", label: "Packages" },
   { href: "/for-hospitals", label: "For Hospitals" },
   { href: "/blog", label: "Blog" },
 ];
@@ -63,13 +65,13 @@ export default function Navbar() {
           <div className="flex items-center justify-between h-16 md:h-18">
             {/* Logo */}
             <Link href="/" className="flex items-center gap-2.5 flex-shrink-0">
-              <Image src="/logo.png" alt="Maasewa Healthcare Logo" width={60} height={36} className="rounded-xl object-contain" priority loading="eager" />
+              <Image src="/logo.png" alt="Maa Sewa Healthcare Logo" width={60} height={36} className="rounded-xl object-contain" priority loading="eager" />
               <div className="flex flex-col leading-none">
                 <span
                   className="text-base font-bold text-primary-deeper"
                   style={{ fontFamily: "var(--font-jakarta)" }}
                 >
-                  Maasewa
+                  Maa Sewa
                 </span>
                 <span className="text-[10px] text-text-body font-medium tracking-wide">
                   Healthcare
@@ -77,8 +79,8 @@ export default function Navbar() {
               </div>
             </Link>
 
-            {/* Desktop Nav */}
-            <nav className="hidden lg:flex items-center gap-1">
+            {/* Desktop Nav - Centered */}
+            <nav className="hidden lg:flex items-center gap-2 absolute left-1/2 -translate-x-1/2">
               {navLinks.map((link) =>
                 link.children ? (
                   <div
@@ -137,20 +139,18 @@ export default function Navbar() {
             </nav>
 
             {/* Desktop CTA */}
-            <div className="hidden lg:flex items-center gap-3">
+            <div className="hidden lg:flex items-center gap-5">
               <Link
                 href="/login"
-                className="p-2 rounded-lg text-text-body hover:text-primary hover:bg-blue-50 transition-colors"
-                title="Login"
+                className="text-text-heading font-semibold hover:text-primary transition-colors text-sm"
               >
-                <User size={20} />
+                Login
               </Link>
               <Link
                 href="/contact"
-                className="flex items-center gap-2 px-5 py-2.5 bg-primary text-white rounded-full text-sm font-semibold hover:bg-primary-dark transition-all hover:shadow-lg hover:-translate-y-0.5"
+                className="px-6 py-2.5 bg-text-heading text-white rounded-xl text-sm font-bold hover:shadow-xl transition-all hover:-translate-y-0.5"
               >
-                <Phone size={15} />
-                Get Aftercare Now
+                Book Appointment
               </Link>
             </div>
 
@@ -195,12 +195,12 @@ export default function Navbar() {
               {/* Mobile header */}
               <div className="flex items-center justify-between px-5 py-4 border-b border-border-color">
                 <div className="flex items-center gap-2">
-                  <Image src="/logo.png" alt="Maasewa Healthcare Logo" width={32} height={32} className="rounded-lg object-contain" priority />
+                  <Image src="/logo.png" alt="Maa Sewa Healthcare Logo" width={32} height={32} className="rounded-lg object-contain" priority />
                   <span
                     className="font-bold text-primary-deeper"
                     style={{ fontFamily: "var(--font-jakarta)" }}
                   >
-                    Maasewa Healthcare
+                    Maa Sewa Healthcare
                   </span>
                 </div>
                 <button

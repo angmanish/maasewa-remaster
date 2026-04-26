@@ -7,7 +7,7 @@ const BASE_URL = "https://maasewahealthcare.com";
 export const metadata: Metadata = {
   title: "How Home Nursing Works — Nurse at Your Door in 3.8 Hours",
   description:
-    "See how Maasewa Healthcare gets a certified home nurse to your door in just 3.8 hours after hospital discharge. Simple 4-step process — Assessment Call → Nurse Dispatch → Home Care begins.",
+    "See how Maa Sewa Healthcare gets a certified home nurse to your door in just 3.8 hours after hospital discharge. Simple 4-step process — Assessment Call → Nurse Dispatch → Home Care begins.",
   keywords: [
     "how home nursing works India",
     "home nurse after hospital discharge",
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   alternates: { canonical: `${BASE_URL}/how-it-works` },
   openGraph: {
     url: `${BASE_URL}/how-it-works`,
-    title: "How Home Nursing Works — Nurse at Your Door in 3.8 Hours | Maasewa",
+    title: "How Home Nursing Works — Nurse at Your Door in 3.8 Hours | Maa Sewa",
     description:
       "4-step process from hospital discharge to certified nurse at your home. Average arrival time: 3.8 hours. Available 24/7 across India.",
   },
@@ -66,7 +66,7 @@ const faqSchema = {
   mainEntity: [
     {
       "@type": "Question",
-      name: "How quickly can Maasewa Healthcare get a nurse to my home?",
+      name: "How quickly can Maa Sewa Healthcare get a nurse to my home?",
       acceptedAnswer: {
         "@type": "Answer",
         text: "Our average response time is 3.8 hours from first contact to nurse arrival. In urgent cases, we can often dispatch within 2 hours.",
@@ -74,7 +74,7 @@ const faqSchema = {
     },
     {
       "@type": "Question",
-      name: "Are Maasewa nurses certified and background-checked?",
+      name: "Are Maa Sewa nurses certified and background-checked?",
       acceptedAnswer: {
         "@type": "Answer",
         text: "All nurses are GNM/B.Sc Nursing qualified, police verified, and undergo comprehensive background checks before joining our team.",
@@ -90,7 +90,7 @@ const faqSchema = {
     },
     {
       "@type": "Question",
-      name: "Which cities does Maasewa Healthcare serve?",
+      name: "Which cities does Maa Sewa Healthcare serve?",
       acceptedAnswer: {
         "@type": "Answer",
         text: "We currently serve 15 major cities across India including Delhi, Mumbai, Bengaluru, Pune, Hyderabad, Chennai, Kolkata, and more.",
