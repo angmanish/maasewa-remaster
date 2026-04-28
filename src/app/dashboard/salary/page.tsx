@@ -5,7 +5,7 @@ import { useAuth } from "@/context/AuthContext";
 import { useDashboard } from "@/context/DashboardContext";
 import { SalaryRecord } from "@/types/dashboard";
 import { motion, AnimatePresence } from "framer-motion";
-import { Plus, X, CheckCircle, DollarSign, TrendingUp, Minus, Clock, Users } from "lucide-react";
+import { Plus, X, CheckCircle, DollarSign, TrendingUp, Minus, Clock, Users, AlertCircle, Loader2 } from "lucide-react";
 import { getLocalDateString } from "@/lib/dateUtils";
 
 
@@ -19,12 +19,18 @@ const emptyForm = {
   month: "2025-04",
   baseSalary: 18000,
   bonus: 0,
+  allowances: {
+    travel: 0,
+    overtime: 0,
+    other: 0,
+  },
   deductions: 0,
+  advanceDeduction: 0,
 };
 
 export default function SalaryPage() {
   const { currentUser } = useAuth();
-  const { salaries, addSalary, updateSalaryStatus } = useDashboard();
+  const { salaries, addSalary, updateSalaryStatus, refreshData } = useDashboard();
   const [staffList, setStaffList] = useState<{ email: string; name: string }[]>([]);
 
   const fetchStaff = async () => {
@@ -51,8 +57,50 @@ export default function SalaryPage() {
   const isStaff = currentUser?.role === "STAFF";
 
   const [modalOpen, setModalOpen] = useState(false);
+  const [advanceModalOpen, setAdvanceModalOpen] = useState(false);
   const [form, setForm] = useState({ ...emptyForm });
   const [filterStaff, setFilterStaff] = useState("all");
+  const [advanceAmount, setAdvanceAmount] = useState("");
+  const [advanceReason, setAdvanceReason] = useState("");
+  const [advanceLoading, setAdvanceLoading] = useState(false);
+
+  const handleAdvanceRequest = async () => {
+    if (!advanceAmount) return;
+    setAdvanceLoading(true);
+    try {
+      // Find current salary record for this month
+      const currentMonth = new Date().toISOString().substring(0, 7);
+      const sal = salaries.find(s => s.staffEmail === currentUser?.email && s.month === currentMonth);
+      
+      if (sal) {
+        const res = await fetch("/api/dashboard/salaries", {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            id: sal.id,
+            advanceRequest: {
+              amount: Number(advanceAmount),
+              reason: advanceReason,
+              status: "Pending",
+              requestedAt: new Date().toISOString()
+            }
+          })
+        });
+        if (res.ok) {
+          setAdvanceModalOpen(false);
+          setAdvanceAmount("");
+          setAdvanceReason("");
+          refreshData();
+        }
+      } else {
+        alert("Salary record for this month not found. Please wait for Admin to generate it.");
+      }
+    } catch (error) {
+      console.error("Advance request failed:", error);
+    } finally {
+      setAdvanceLoading(false);
+    }
+  };
 
   const visibleSalaries = isStaff
     ? salaries.filter((s) => s.staffEmail === currentUser?.email)
@@ -61,7 +109,7 @@ export default function SalaryPage() {
     : salaries.filter((s) => s.staffEmail === filterStaff);
 
   const staffForForm = staffList.find((s) => s.email === form.staffEmail);
-  const net = form.baseSalary + form.bonus - form.deductions;
+  const net = form.baseSalary + form.bonus + form.allowances.travel + form.allowances.overtime + form.allowances.other - form.deductions - form.advanceDeduction;
 
   const handleGenerate = () => {
     const alreadyExists = salaries.some(
@@ -77,7 +125,9 @@ export default function SalaryPage() {
       month: form.month,
       baseSalary: Number(form.baseSalary),
       bonus: Number(form.bonus),
+      allowances: form.allowances,
       deductions: Number(form.deductions),
+      advanceDeduction: Number(form.advanceDeduction),
       netSalary: Number(net),
       status: "Generated",
       generatedAt: getLocalDateString(),
@@ -108,6 +158,14 @@ export default function SalaryPage() {
             className="flex items-center gap-2 px-5 py-2.5 bg-primary text-white rounded-full font-semibold text-sm hover:bg-primary-dark transition-all hover:shadow-lg flex-shrink-0"
           >
             <Plus size={16} /> Generate Salary
+          </button>
+        )}
+        {isStaff && (
+          <button
+            onClick={() => setAdvanceModalOpen(true)}
+            className="flex items-center gap-2 px-6 py-3 bg-white border-2 border-primary text-primary rounded-2xl font-black text-xs uppercase tracking-widest hover:bg-primary/5 transition-all shadow-lg active:scale-95 flex-shrink-0"
+          >
+            <DollarSign size={16} /> Request Advance
           </button>
         )}
       </div>
@@ -183,11 +241,12 @@ export default function SalaryPage() {
                   <h3 className="font-black text-slate-800 text-xl md:text-2xl mb-4" style={{ fontFamily: "var(--font-jakarta)" }}>
                     {monthLabel}
                   </h3>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                  <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
                     {[
                       { label: "Base", value: `₹${sal.baseSalary.toLocaleString()}`, color: "text-slate-700", bg: "bg-slate-50" },
                       { label: "Bonus", value: `+₹${sal.bonus.toLocaleString()}`, color: "text-emerald-600", bg: "bg-emerald-50/50" },
-                      { label: "Deductions", value: `-₹${sal.deductions.toLocaleString()}`, color: "text-rose-500", bg: "bg-rose-50/50" },
+                      { label: "Allowances", value: `+₹${(sal.allowances?.travel + sal.allowances?.overtime + sal.allowances?.other).toLocaleString()}`, color: "text-blue-600", bg: "bg-blue-50/50" },
+                      { label: "Deductions", value: `-₹${(sal.deductions + (sal.advanceDeduction || 0)).toLocaleString()}`, color: "text-rose-500", bg: "bg-rose-50/50" },
                       { label: "Net Pay", value: `₹${sal.netSalary.toLocaleString()}`, color: "text-primary", bg: "bg-primary/5" },
                     ].map((item) => (
                       <div key={item.label} className={`${item.bg} rounded-2xl p-4 border border-slate-100/50`}>
@@ -196,8 +255,15 @@ export default function SalaryPage() {
                       </div>
                     ))}
                   </div>
-                  <div className="flex items-center gap-2 mt-4 text-[10px] text-slate-400 font-bold uppercase tracking-widest">
-                    <Clock size={12} /> Generated on {sal.generatedAt}
+                  <div className="flex flex-wrap items-center gap-4 mt-4">
+                    <div className="flex items-center gap-2 text-[10px] text-slate-400 font-bold uppercase tracking-widest">
+                      <Clock size={12} /> Generated on {sal.generatedAt}
+                    </div>
+                    {sal.status === "Paid" && (
+                      <button className="flex items-center gap-2 text-[10px] text-primary font-black uppercase tracking-widest hover:underline">
+                        <TrendingUp size={12} /> Download Payslip
+                      </button>
+                    )}
                   </div>
                 </div>
                 {isAdmin && sal.status === "Generated" && (
@@ -278,6 +344,73 @@ export default function SalaryPage() {
                 <div className="flex gap-3 mt-5">
                   <button onClick={() => setModalOpen(false)} className="flex-1 py-2.5 rounded-full border border-slate-200 text-sm font-semibold text-slate-600 hover:bg-slate-50">Cancel</button>
                   <button onClick={handleGenerate} className="flex-1 py-2.5 rounded-full bg-primary text-white text-sm font-semibold hover:bg-primary-dark">Generate</button>
+                </div>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+
+      {/* Advance Request Modal */}
+      <AnimatePresence>
+        {advanceModalOpen && (
+          <>
+            <motion.div className="fixed inset-0 bg-black/40 z-40" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setAdvanceModalOpen(false)} />
+            <motion.div
+              className="fixed inset-0 z-50 flex items-center justify-center p-4"
+              initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.95 }}
+            >
+              <div className="bg-white rounded-[2.5rem] shadow-2xl w-full max-w-md p-8" onClick={(e) => e.stopPropagation()}>
+                <div className="flex items-center justify-between mb-8">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
+                      <DollarSign size={20} />
+                    </div>
+                    <h2 className="text-xl font-black text-slate-800" style={{ fontFamily: "var(--font-jakarta)" }}>Request Advance</h2>
+                  </div>
+                  <button onClick={() => setAdvanceModalOpen(false)} className="p-2 hover:bg-slate-100 rounded-full transition-colors">
+                    <X size={20} className="text-slate-400" />
+                  </button>
+                </div>
+                
+                <div className="space-y-6">
+                  <div>
+                    <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Request Amount (₹)</label>
+                    <input
+                      type="number"
+                      placeholder="e.g. 5000"
+                      value={advanceAmount}
+                      onChange={(e) => setAdvanceAmount(e.target.value)}
+                      className="w-full px-5 py-4 rounded-2xl bg-slate-50 border border-slate-100 text-sm font-black text-slate-700 focus:outline-none focus:ring-2 focus:ring-primary/10 focus:border-primary transition-all"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-[10px] font-black text-slate-400 uppercase tracking-widest mb-2">Reason for Request</label>
+                    <textarea
+                      placeholder="Medical, family emergency, etc."
+                      rows={3}
+                      value={advanceReason}
+                      onChange={(e) => setAdvanceReason(e.target.value)}
+                      className="w-full p-5 rounded-[1.5rem] bg-slate-50 border border-slate-100 text-sm font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-primary/10 focus:border-primary transition-all resize-none"
+                    />
+                  </div>
+                  <div className="bg-amber-50 rounded-2xl p-4 border border-amber-100 flex items-start gap-3">
+                    <AlertCircle size={16} className="text-amber-600 mt-0.5 flex-shrink-0" />
+                    <p className="text-[10px] font-bold text-amber-700 leading-relaxed uppercase tracking-tight">
+                      Advance requests are subject to approval by Admin. Approved amounts will be deducted from your next month's salary.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex gap-4 mt-8">
+                  <button onClick={() => setAdvanceModalOpen(false)} className="flex-1 py-4 rounded-2xl border-2 border-slate-100 text-xs font-black text-slate-500 hover:bg-slate-50 transition-all uppercase tracking-widest">Cancel</button>
+                  <button 
+                    disabled={advanceLoading || !advanceAmount}
+                    onClick={handleAdvanceRequest}
+                    className="flex-1 py-4 rounded-2xl bg-primary text-white text-xs font-black hover:bg-primary-dark transition-all shadow-xl shadow-primary/20 uppercase tracking-widest flex items-center justify-center gap-2"
+                  >
+                    {advanceLoading ? <Loader2 className="animate-spin" size={16} /> : "Submit Request"}
+                  </button>
                 </div>
               </div>
             </motion.div>

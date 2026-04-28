@@ -7,7 +7,7 @@ import Link from "next/link";
 import { 
   Users, ClipboardList, CalendarDays, TrendingUp, Shield, 
   Activity, ArrowRight, Star, Clock, CheckCircle, 
-  Handshake, DollarSign, PlusCircle
+  Handshake, DollarSign, PlusCircle, Phone
 } from "lucide-react";
 
 const roleConfig: Record<string, { title: string; subtitle: string; gradient: string }> = {
@@ -180,7 +180,14 @@ export default function DashboardPage() {
                 </div>
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-bold text-slate-800 truncate">{task.title}</p>
-                  <p className="text-[10px] text-slate-500">{task.patient} • {task.time}</p>
+                  <div className="flex items-center gap-2">
+                    <p className="text-[10px] text-slate-500">{task.patient} • {task.time}</p>
+                    {task.patientPhone && (
+                      <a href={`tel:${task.patientPhone}`} className="p-1 rounded-md bg-emerald-50 text-emerald-600 hover:bg-emerald-100 transition-colors">
+                        <Phone size={8} />
+                      </a>
+                    )}
+                  </div>
                 </div>
                 <span className={`text-[10px] font-bold px-2.5 py-1 rounded-full ${task.priority === "High" ? "bg-rose-500 text-white" : "bg-blue-500 text-white"}`}>
                   {task.priority}

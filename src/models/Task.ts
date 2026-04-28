@@ -4,6 +4,7 @@ const TaskSchema = new Schema({
   title: { type: String, required: true },
   description: { type: String },
   patient: { type: String, required: true },
+  patientPhone: { type: String },
   location: { type: String },
   time: { type: String },
   date: { type: String, required: true },
@@ -21,11 +22,21 @@ const TaskSchema = new Schema({
     default: "Normal" 
   },
   completedAt: { type: String },
+  medications: [{
+    name: { type: String, required: true },
+    time: { type: String },
+    status: { type: String, enum: ["Pending", "Completed"], default: "Pending" }
+  }],
 }, { 
   timestamps: true,
   toJSON: { virtuals: true },
   toObject: { virtuals: true }
 });
 
-const Task = models.Task || model("Task", TaskSchema);
+// For Next.js HMR/Schema updates
+if (models.Task) {
+  delete models.Task;
+}
+
+const Task = model("Task", TaskSchema);
 export default Task;

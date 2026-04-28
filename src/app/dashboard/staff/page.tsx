@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { UserCheck, Phone, MapPin, CalendarDays, Search, Award, Briefcase, ShieldCheck, GraduationCap, IdCard, Loader2 } from "lucide-react";
+import { UserCheck, Phone, MapPin, CalendarDays, Search, Award, Briefcase, ShieldCheck, GraduationCap, IdCard, Loader2, Star } from "lucide-react";
 import { User } from "@/types/auth";
 import Image from "next/image";
 import Skeleton from "@/components/ui/Skeleton";
@@ -130,6 +130,15 @@ export default function StaffPage() {
                       <div>
                         <p className="font-bold text-slate-800 text-base">{staff.name}</p>
                         <p className="text-xs font-semibold text-primary">{staff.specialization || "General Staff"}</p>
+                        <div className="flex items-center gap-1.5 mt-1">
+                          <div className="flex items-center gap-0.5">
+                            {[1, 2, 3, 4, 5].map((star) => (
+                              <Star key={star} size={10} className={star <= 4 ? "text-yellow-400 fill-yellow-400" : "text-slate-200"} />
+                            ))}
+                          </div>
+                          <span className="text-[10px] font-black text-slate-700">4.8</span>
+                          <span className="text-[10px] font-bold text-slate-400">(24)</span>
+                        </div>
                         {staff.dob && <p className="text-[10px] text-slate-400 mt-1 font-medium italic opacity-70">DOB: {staff.dob}</p>}
                       </div>
                     </div>

@@ -34,3 +34,19 @@ export async function PUT(req: Request) {
     return NextResponse.json({ error: "Failed to update salary status" }, { status: 500 });
   }
 }
+export async function PATCH(req: Request) {
+  try {
+    await connectDB();
+    const { id, advanceRequest, ...updates } = await req.json();
+    
+    let query = updates;
+    if (advanceRequest) {
+      query = { $push: { advanceRequests: advanceRequest }, ...updates };
+    }
+
+    const updated = await Salary.findByIdAndUpdate(id, query, { new: true });
+    return NextResponse.json(updated);
+  } catch (error) {
+    return NextResponse.json({ error: "Failed to update salary" }, { status: 500 });
+  }
+}

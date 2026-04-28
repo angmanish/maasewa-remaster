@@ -6,11 +6,12 @@ import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { useAuth } from "@/context/AuthContext";
+import { useDashboard } from "@/context/DashboardContext";
 import {
   LayoutDashboard, Users, ClipboardList, CalendarDays,
   LogOut, Menu, X, Shield, User, UserCircle,
   DollarSign, Handshake, ClipboardCheck, CalendarCheck, FileText,
-  Clock, Receipt
+  Clock, Receipt, Package, AlertTriangle, ShieldAlert
 } from "lucide-react";
 
 interface NavItem {
@@ -30,17 +31,20 @@ const navItems: NavItem[] = [
   { href: "/dashboard/salary", label: "Salary", icon: DollarSign, roles: ["ADMIN"], section: "Admin" },
   { href: "/dashboard/vendors", label: "Vendors", icon: Handshake, roles: ["ADMIN"], section: "Admin" },
   { href: "/dashboard/invoices", label: "Invoices", icon: Receipt, roles: ["ADMIN"], section: "Admin" },
+  { href: "/dashboard/inventory", label: "Inventory", icon: Package, roles: ["ADMIN", "SUB_ADMIN"], section: "Management" },
   // Sub-Admin + Admin
   { href: "/dashboard/staff", label: "Staff Management", icon: ClipboardCheck, roles: ["ADMIN", "SUB_ADMIN"], section: "Management" },
   { href: "/dashboard/attendance", label: "Attendance", icon: CalendarCheck, roles: ["ADMIN", "SUB_ADMIN"], section: "Management" },
   { href: "/dashboard/shifts", label: "Shifts", icon: Clock, roles: ["ADMIN", "SUB_ADMIN"], section: "Management" },
   // Tasks
   { href: "/dashboard/tasks", label: "Tasks", icon: ClipboardList, roles: ["ADMIN", "SUB_ADMIN", "STAFF"], section: "Work" },
+  { href: "/dashboard/history", label: "Patient History", icon: Clock, roles: ["ADMIN", "SUB_ADMIN", "STAFF"], section: "Work" },
   // Leaves
   { href: "/dashboard/leaves", label: "Leave Requests", icon: FileText, roles: ["ADMIN", "SUB_ADMIN", "STAFF"], section: "Work" },
   // Staff only
   { href: "/dashboard/attendance", label: "My Attendance", icon: CalendarDays, roles: ["STAFF"], section: "Work" },
   { href: "/dashboard/salary", label: "My Salary", icon: DollarSign, roles: ["STAFF"], section: "Work" },
+  { href: "/dashboard/resources", label: "Resources", icon: FileText, roles: ["ADMIN", "SUB_ADMIN", "STAFF"], section: "Work" },
 ];
 
 const roleBadge: Record<string, { label: string; color: string }> = {
@@ -51,6 +55,7 @@ const roleBadge: Record<string, { label: string; color: string }> = {
 
 export default function DashboardSidebar() {
   const { currentUser, logout } = useAuth();
+  const { addIncident, tasks } = useDashboard();
   const pathname = usePathname();
   const router = useRouter();
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -155,6 +160,50 @@ export default function DashboardSidebar() {
           </div>
         ))}
       </nav>
+
+      {/* Emergency SOS Button (Staff Only) */}
+      {currentUser?.role === "STAFF" && (
+        <div className="px-3 py-2">
+          <button
+            onClick={async () => {
+              if (confirm("🚨 TRIGGER EMERGENCY SOS?\n\nThis will send a critical alert with your location to all Admins & Sub-Admins. Use only for real medical or safety emergencies.")) {
+                try {
+                  // Find any task assigned to this staff to get patient/location context
+                  const activeTask = tasks.find(t => t.assignedTo === currentUser?.email && (t.status === "In Progress" || t.status === "Scheduled"));
+
+                  await addIncident({
+                    type: "Medical Emergency",
+                    severity: "Critical",
+                    description: "CRITICAL: EMERGENCY SOS TRIGGERED BY STAFF VIA SIDEBAR",
+                    staffId: currentUser.email,
+                    staffName: currentUser.name || "Maa Sewa Staff",
+                    staffPhone: currentUser.phone || "No Phone Recorded",
+                    patientName: activeTask?.patient || "Assigned Patient",
+                    patientPhone: "Contact Admin", // Fallback for now
+                    location: activeTask?.location || "Field Location",
+                    status: "Reported",
+                    reportedAt: new Date().toISOString(),
+                  });
+                  alert("SOS Alert Sent! Help is on the way.");
+                } catch (err) {
+                  console.error("SOS Trigger failed:", err);
+                }
+              }
+            }}
+            className="group relative flex items-center gap-3 w-full px-4 py-4 rounded-2xl bg-rose-600 text-white shadow-lg shadow-rose-200 overflow-hidden transition-all hover:bg-rose-700 active:scale-95"
+          >
+            <div className="absolute inset-0 bg-white/10 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-500" />
+            <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center animate-pulse">
+              <AlertTriangle size={18} className="text-white" />
+            </div>
+            <div className="text-left">
+              <p className="text-[10px] font-black uppercase tracking-tighter opacity-80 leading-none">Emergency</p>
+              <p className="text-sm font-black uppercase tracking-widest leading-none mt-1">SOS Trigger</p>
+            </div>
+            <ShieldAlert size={14} className="ml-auto opacity-40" />
+          </button>
+        </div>
+      )}
 
       {/* Logout */}
       <div className="px-3 py-4 border-t border-slate-200 flex-shrink-0">

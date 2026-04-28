@@ -5,6 +5,7 @@ export interface Task {
   title: string;
   description: string;
   patient: string;
+  patientPhone?: string;
   location: string;
   time: string;
   date: string;
@@ -14,6 +15,11 @@ export interface Task {
   status: "Pending" | "In Progress" | "Completed";
   priority: "High" | "Normal" | "Low";
   completedAt?: string;
+  medications?: {
+    name: string;
+    time?: string;
+    status: "Pending" | "Completed";
+  }[];
 }
 
 export interface AttendanceRecord {
@@ -31,8 +37,20 @@ export interface SalaryRecord {
   month: string; // "2025-04"
   baseSalary: number;
   bonus: number;
+  allowances: {
+    travel: number;
+    overtime: number;
+    other: number;
+  };
   deductions: number;
+  advanceDeduction: number;
   netSalary: number;
+  advanceRequests: {
+    amount: number;
+    reason?: string;
+    status: "Pending" | "Approved" | "Rejected";
+    requestedAt: string;
+  }[];
   status: "Generated" | "Paid";
   generatedAt: string;
   generatedBy: string;
@@ -98,4 +116,64 @@ export interface Invoice {
   tax: number;
   total: number;
   status: "Paid" | "Unpaid" | "Pending";
+}
+
+export interface ClinicalNote {
+  id: string;
+  taskId: string;
+  staffId: string;
+  patientName: string;
+  vitals: {
+    bp: string;
+    pulse: number;
+    temp: number;
+    spO2: number;
+    respiration: number;
+  };
+  clinicalNotes: string;
+  medicationAdministered: string[];
+  handoverInstructions?: string;
+  sharedWith?: string[];
+  loggedAt: string;
+}
+
+export interface Rating {
+  id: string;
+  staffId: string;
+  patientName: string;
+  score: number;
+  categories: {
+    careQuality: number;
+    punctuality: number;
+    hygiene: number;
+    communication: number;
+  };
+  comment?: string;
+  ratedAt: string;
+}
+
+export interface Equipment {
+  id: string;
+  itemName: string;
+  serialNumber: string;
+  category: "Diagnostic" | "Support" | "Consumable" | "Emergency" | "Other";
+  status: "Available" | "Assigned" | "Under Maintenance" | "Damaged" | "Retired";
+  assignedTo?: string;
+  lastAssignedAt?: string;
+}
+
+export interface IncidentReport {
+  id: string;
+  type: "Medical Emergency" | "Safety Issue" | "Patient Dispute" | "Equipment Failure" | "Other";
+  severity: "Low" | "Medium" | "High" | "Critical";
+  description: string;
+  staffId: string;
+  staffName?: string;
+  staffPhone?: string;
+  patientName?: string;
+  patientPhone?: string;
+  taskId?: string;
+  location?: string;
+  status: "Reported" | "Investigating" | "Resolved" | "Dismissed";
+  reportedAt: string;
 }

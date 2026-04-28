@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { DashboardProvider } from "@/context/DashboardContext";
 import DashboardSidebar from "@/components/dashboard/Sidebar";
+import SOSButton from "@/components/dashboard/SOSButton";
+import SOSAlert from "@/components/dashboard/SOSAlert";
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const { currentUser, isLoading } = useAuth();
@@ -37,6 +39,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
           <div className="p-4 sm:p-6 lg:p-8 pt-16 lg:pt-8">
             {children}
           </div>
+          <SOSButton />
+          <SOSAlert />
         </div>
       </div>
     </DashboardProvider>
