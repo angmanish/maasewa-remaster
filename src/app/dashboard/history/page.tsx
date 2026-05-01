@@ -4,16 +4,19 @@ import { useState, useEffect } from "react";
 import { useDashboard } from "@/context/DashboardContext";
 import { useAuth } from "@/context/AuthContext";
 import { motion, AnimatePresence } from "framer-motion";
-import { Clock, User, HeartPulse, Activity, Thermometer, Droplets, Wind, Clipboard, Calendar, Share2, ArrowRight, X, Shield, CheckCircle2 } from "lucide-react";
+import { Clock, User, HeartPulse, Activity, Thermometer, Droplets, Wind, Clipboard, Calendar, Share2, ArrowRight, X, Shield, CheckCircle2, Trash2 } from "lucide-react";
+import ConfirmModal from "@/components/ui/ConfirmModal";
 
 export default function HistoryPage() {
   const { currentUser } = useAuth();
-  const { clinicalNotes, tasks, isLoading, updateClinicalNote } = useDashboard();
+  const { clinicalNotes, tasks, isLoading, updateClinicalNote, deleteClinicalNote } = useDashboard();
   const [staffList, setStaffList] = useState<{ name: string; email: string }[]>([]);
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const [sharingNote, setSharingNote] = useState<any>(null);
   const [sharingStaffEmail, setSharingStaffEmail] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [noteToDelete, setNoteToDelete] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchStaff = async () => {
@@ -156,100 +159,119 @@ ${note.handoverInstructions || "Continue standard care"}
               </div>
 
               {/* Card */}
-              <div className="bg-white rounded-[2.5rem] border border-slate-100 shadow-xl shadow-slate-200/40 overflow-hidden group">
-                <div className="p-8">
+              <div className="bg-white rounded-[2rem] border border-slate-100 shadow-lg shadow-slate-200/30 overflow-hidden group hover:shadow-xl hover:shadow-slate-200/40 transition-all duration-300">
+                <div className="p-6">
                   {/* Header */}
-                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-8">
-                      <div className="flex items-center gap-4">
-                        <div className="w-12 h-12 rounded-2xl bg-slate-50 text-slate-400 flex items-center justify-center">
-                          <User size={24} />
-                        </div>
-                        <div>
-                          <h3 className="text-xl font-black text-slate-800">{note.patientName}</h3>
-                          <div className="flex items-center gap-2 mt-1">
-                            <Calendar size={12} className="text-slate-400" />
-                            <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">
-                              {new Date(note.loggedAt).toLocaleDateString()} • {new Date(note.loggedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                            </span>
-                          </div>
-                        </div>
+                  <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6">
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-xl bg-primary/5 text-primary flex items-center justify-center border border-primary/10">
+                        <User size={20} />
                       </div>
-                      <div className="flex items-center gap-3">
-                        <button
-                          onClick={() => handleShare(note)}
-                          className="flex items-center gap-2 px-4 py-2 rounded-xl bg-primary/10 text-primary text-[10px] font-black uppercase tracking-widest hover:bg-primary hover:text-white transition-all"
-                          title="Share to WhatsApp/Others"
-                        >
-                          <Share2 size={12} /> External
-                        </button>
-                        <button
-                          onClick={() => {
-                            setSharingNote(note);
-                            setIsShareModalOpen(true);
-                          }}
-                          className="flex items-center gap-2 px-4 py-2 rounded-xl bg-primary text-white text-[10px] font-black uppercase tracking-widest shadow-lg shadow-primary/20 hover:scale-105 transition-all"
-                        >
-                          <ArrowRight size={12} /> Send Handover
-                        </button>
-                        <div className="px-4 py-2 rounded-xl bg-primary/5 text-primary text-[10px] font-black uppercase tracking-widest border border-primary/10">
-                          Staff ID: {note.staffId}
+                      <div>
+                        <h3 className="text-lg font-black text-slate-800 leading-tight">{note.patientName}</h3>
+                        <div className="flex items-center gap-2 mt-0.5">
+                          <Calendar size={10} className="text-slate-400" />
+                          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                            {new Date(note.loggedAt).toLocaleDateString()} • {new Date(note.loggedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                          </span>
                         </div>
                       </div>
                     </div>
+                    
+                    <div className="flex flex-wrap items-center gap-2">
+                      <button
+                        onClick={() => handleShare(note)}
+                        className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-50 text-slate-500 text-[9px] font-black uppercase tracking-widest hover:bg-primary hover:text-white transition-all border border-slate-100"
+                      >
+                        <Share2 size={10} /> Share
+                      </button>
+                      <button
+                        onClick={() => {
+                          setSharingNote(note);
+                          setIsShareModalOpen(true);
+                        }}
+                        className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-primary text-white text-[9px] font-black uppercase tracking-widest shadow-md shadow-primary/20 hover:bg-primary-dark transition-all"
+                      >
+                        <ArrowRight size={10} /> Handover
+                      </button>
+                      {(currentUser?.role === "ADMIN" || currentUser?.role === "SUB_ADMIN") && (
+                        <button
+                          onClick={() => {
+                            setNoteToDelete(note.id);
+                            setIsDeleteModalOpen(true);
+                          }}
+                          className="p-1.5 rounded-lg bg-rose-50 text-rose-500 hover:bg-rose-500 hover:text-white transition-all border border-rose-100"
+                          title="Delete Record"
+                        >
+                          <Trash2 size={12} />
+                        </button>
+                      )}
+                    </div>
+                  </div>
 
-                    {note.sharedWith && note.sharedWith.length > 0 && (
-                      <div className="flex items-center gap-2 mb-6 p-3 rounded-2xl bg-emerald-50/50 border border-emerald-100/50">
-                        <Shield size={12} className="text-emerald-500" />
-                        <span className="text-[10px] font-bold text-emerald-600 uppercase tracking-widest">
-                          Shared with: {note.sharedWith.map((email: string) => staffList.find(s => s.email === email)?.name || email).join(", ")}
-                        </span>
-                      </div>
-                    )}
+                  {note.sharedWith && note.sharedWith.length > 0 && (
+                    <div className="flex items-center gap-2 mb-4 p-2 rounded-xl bg-emerald-50/50 border border-emerald-100/50">
+                      <Shield size={10} className="text-emerald-500" />
+                      <span className="text-[9px] font-bold text-emerald-600 uppercase tracking-widest">
+                        Shared with: {note.sharedWith.map((email: string) => staffList.find(s => s.email === email)?.name || email).join(", ")}
+                      </span>
+                    </div>
+                  )}
 
-                  {/* Vitals Grid */}
-                  <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
+                  {/* Vitals Grid - More Compact */}
+                  <div className="grid grid-cols-2 md:grid-cols-5 gap-3 mb-6">
                     {[
-                      { label: "BP", value: note.vitals.bp, icon: HeartPulse, color: "text-rose-500", bg: "bg-rose-50" },
-                      { label: "Pulse", value: `${note.vitals.pulse} bpm`, icon: Activity, color: "text-blue-500", bg: "bg-blue-50" },
-                      { label: "Temp", value: `${note.vitals.temp} °F`, icon: Thermometer, color: "text-amber-500", bg: "bg-amber-50" },
-                      { label: "SpO2", value: `${note.vitals.spO2} %`, icon: Droplets, color: "text-teal-500", bg: "bg-teal-50" },
-                      { label: "Resp", value: note.vitals.respiration, icon: Wind, color: "text-indigo-500", bg: "bg-indigo-50" },
+                      { label: "BP", value: note.vitals.bp, icon: HeartPulse, color: "text-rose-500", bg: "bg-rose-50/30" },
+                      { label: "Pulse", value: `${note.vitals.pulse} bpm`, icon: Activity, color: "text-blue-500", bg: "bg-blue-50/30" },
+                      { label: "Temp", value: `${note.vitals.temp} °F`, icon: Thermometer, color: "text-amber-500", bg: "bg-amber-50/30" },
+                      { label: "SpO2", value: `${note.vitals.spO2} %`, icon: Droplets, color: "text-teal-500", bg: "bg-teal-50/30" },
+                      { label: "Resp", value: note.vitals.respiration, icon: Wind, color: "text-indigo-500", bg: "bg-indigo-50/30" },
                     ].map((v) => (
-                      <div key={v.label} className="p-4 rounded-2xl bg-slate-50 border border-slate-100">
-                        <div className="flex items-center gap-2 mb-2">
-                          <v.icon size={12} className={v.color} />
-                          <span className="text-[10px] font-black text-slate-400 uppercase tracking-tighter">{v.label}</span>
+                      <div key={v.label} className={`px-3 py-2.5 rounded-xl ${v.bg} border border-slate-100/50`}>
+                        <div className="flex items-center gap-1.5 mb-1">
+                          <v.icon size={10} className={v.color} />
+                          <span className="text-[9px] font-black text-slate-400 uppercase tracking-tighter">{v.label}</span>
                         </div>
-                        <p className="text-sm font-black text-slate-700">{v.value || "—"}</p>
+                        <p className="text-xs font-black text-slate-700">{v.value || "—"}</p>
                       </div>
                     ))}
                   </div>
 
-                  {/* Notes Section */}
-                  <div className="space-y-6">
-                    <div>
-                      <h4 className="text-xs font-black text-slate-400 uppercase tracking-widest mb-3 flex items-center gap-2">
-                        <Clipboard size={14} /> Clinical Findings
-                      </h4>
-                      <p className="text-sm text-slate-600 leading-relaxed bg-slate-50/50 p-6 rounded-[2rem] border border-slate-100 italic">
+                  {/* Notes Section - Elegant */}
+                  <div className="space-y-4">
+                    <div className="bg-slate-50/50 p-4 rounded-2xl border border-slate-100 relative group/notes">
+                      <div className="absolute top-3 right-3 opacity-20 group-hover/notes:opacity-40 transition-opacity">
+                        <Clipboard size={12} className="text-slate-400" />
+                      </div>
+                      <h4 className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-2">Findings</h4>
+                      <p className="text-xs text-slate-600 leading-relaxed font-medium italic">
                         "{note.clinicalNotes}"
                       </p>
                     </div>
 
-                    {note.medicationAdministered?.length > 0 && (
-                      <div className="flex flex-wrap gap-2">
-                        {note.medicationAdministered.map((med: string) => (
-                          <span key={med} className="px-3 py-1.5 rounded-lg bg-emerald-50 text-emerald-600 text-[10px] font-black uppercase tracking-widest border border-emerald-100">
-                            {med}
-                          </span>
-                        ))}
+                    <div className="flex flex-wrap items-center justify-between gap-4">
+                      {note.medicationAdministered?.length > 0 && (
+                        <div className="flex flex-wrap gap-1.5">
+                          {note.medicationAdministered.map((med: string) => (
+                            <span key={med} className="px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-600 text-[9px] font-black uppercase tracking-widest border border-emerald-100/50">
+                              {med}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                      
+                      <div className="text-[9px] font-bold text-slate-300 uppercase tracking-tighter ml-auto">
+                        Staff ID: {note.staffId}
                       </div>
-                    )}
+                    </div>
 
                     {note.handoverInstructions && (
-                      <div className="pt-6 border-t border-slate-100">
-                        <h4 className="text-xs font-black text-rose-400 uppercase tracking-widest mb-2">Handover Alert</h4>
-                        <p className="text-sm font-bold text-slate-700">{note.handoverInstructions}</p>
+                      <div className="pt-3 border-t border-slate-100/60">
+                        <div className="flex items-center gap-2 mb-1">
+                          <div className="w-1.5 h-1.5 rounded-full bg-rose-500 animate-pulse" />
+                          <h4 className="text-[9px] font-black text-rose-500 uppercase tracking-widest">Handover Alert</h4>
+                        </div>
+                        <p className="text-xs font-bold text-slate-700 leading-snug">{note.handoverInstructions}</p>
                       </div>
                     )}
                   </div>
@@ -341,6 +363,22 @@ ${note.handoverInstructions || "Continue standard care"}
           </motion.div>
         )}
       </AnimatePresence>
+
+      <ConfirmModal
+        isOpen={isDeleteModalOpen}
+        onClose={() => {
+          setIsDeleteModalOpen(false);
+          setNoteToDelete(null);
+        }}
+        onConfirm={() => {
+          if (noteToDelete) {
+            deleteClinicalNote(noteToDelete);
+          }
+        }}
+        title="Delete Record"
+        message="Are you sure you want to delete this clinical record? This action cannot be undone."
+        confirmText="Delete Now"
+      />
     </div>
   );
 }

@@ -13,6 +13,7 @@ import {
 } from "lucide-react";
 import Skeleton from "@/components/ui/Skeleton";
 import ClinicalNoteModal from "@/components/dashboard/ClinicalNoteModal";
+import ConfirmModal from "@/components/ui/ConfirmModal";
 
 
 const statusConfig: Record<string, { icon: React.ElementType; style: string; label: string }> = {
@@ -32,6 +33,7 @@ const emptyTask = {
   description: "",
   patient: "",
   patientPhone: "",
+  patientEmail: "",
   location: "",
   time: "",
   date: getLocalDateString(),
@@ -44,7 +46,7 @@ const emptyTask = {
 
 export default function TasksPage() {
   const { currentUser } = useAuth();
-  const { tasks, addTask, updateTaskStatus, isLoading } = useDashboard();
+  const { tasks, addTask, updateTaskStatus, deleteTask, isLoading } = useDashboard();
   const [staffList, setStaffList] = useState<{ email: string; name: string }[]>([]);
 
   const fetchStaff = async () => {
@@ -76,6 +78,8 @@ export default function TasksPage() {
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const [form, setForm] = useState(emptyTask);
   const [filterStatus, setFilterStatus] = useState<string>("All");
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [taskToDelete, setTaskToDelete] = useState<string | null>(null);
 
   const isAdmin = currentUser?.role === "ADMIN";
   const isSubAdmin = currentUser?.role === "SUB_ADMIN";
@@ -191,186 +195,130 @@ export default function TasksPage() {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.05 }}
-              className="bg-white rounded-3xl border border-slate-100 shadow-sm p-6 md:p-8 hover:shadow-xl transition-all duration-300 group"
+              className="bg-white rounded-2xl border border-slate-100 shadow-sm p-4 md:p-6 hover:shadow-md transition-all duration-300 group"
             >
-              <div className="flex flex-col lg:flex-row lg:items-center gap-6">
+              <div className="flex flex-col xl:flex-row xl:items-center gap-4 xl:gap-8">
+                {/* Left Side: Basic Info */}
                 <div className="flex-1 min-w-0">
-                  <div className="flex flex-wrap items-center gap-3 mb-4">
-                    <span className={`inline-flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] px-3 py-1.5 rounded-lg ${sc.style}`}>
-                      <StatusIcon size={12} /> {sc.label}
+                  <div className="flex flex-wrap items-center gap-2 mb-2">
+                    <span className={`inline-flex items-center gap-1.5 text-[9px] font-black uppercase tracking-wider px-2 py-1 rounded-md ${sc.style}`}>
+                      <StatusIcon size={10} /> {sc.label}
                     </span>
-                    <span className={`text-[10px] font-black uppercase tracking-[0.2em] px-3 py-1.5 rounded-lg ${priorityStyle[task.priority]}`}>
+                    <span className={`text-[9px] font-black uppercase tracking-wider px-2 py-1 rounded-md ${priorityStyle[task.priority]}`}>
                       {task.priority} Priority
                     </span>
+                    {(isAdmin || isSubAdmin) && (
+                      <button
+                        onClick={() => {
+                          setTaskToDelete(task.id);
+                          setIsDeleteModalOpen(true);
+                        }}
+                        className="ml-auto p-1 rounded-md bg-rose-50 text-rose-500 hover:bg-rose-500 hover:text-white transition-all opacity-0 group-hover:opacity-100"
+                        title="Delete Task"
+                      >
+                        <Trash2 size={12} />
+                      </button>
+                    )}
                   </div>
                   
-                  <h3 className="text-2xl font-black text-slate-800 mb-4" style={{ fontFamily: "var(--font-jakarta)" }}>
+                  <h3 className="text-lg font-black text-slate-800 leading-tight mb-3" style={{ fontFamily: "var(--font-jakarta)" }}>
                     {task.title}
                   </h3>
                   
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-                    <div className="flex items-center gap-3 p-3 rounded-2xl bg-slate-50/50 border border-slate-100 group/patient">
-                      <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center shadow-sm">
-                        <User size={14} className="text-primary" />
-                      </div>
-                      <div className="flex-1">
-                        <p className="text-[10px] text-slate-400 font-black uppercase tracking-widest">Patient</p>
-                        <div className="flex items-center justify-between gap-2">
-                          <p className="text-sm font-bold text-slate-700">{task.patient}</p>
-                          {task.patientPhone && (
-                            <div className="flex items-center gap-2">
-                              <span className="text-[10px] font-black text-slate-400">{task.patientPhone}</span>
-                              <a 
-                                href={`tel:${task.patientPhone}`}
-                                className="p-1.5 rounded-lg bg-emerald-50 text-emerald-600 hover:bg-emerald-100 transition-all shadow-sm"
-                                title={`Call ${task.patient}`}
-                              >
-                                <Phone size={10} />
-                              </a>
-                            </div>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3 p-3 rounded-2xl bg-slate-50/50 border border-slate-100">
-                      <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center shadow-sm">
-                        <MapPin size={14} className="text-emerald-500" />
-                      </div>
-                      <div>
-                        <p className="text-[10px] text-slate-400 font-black uppercase tracking-widest">Location</p>
-                        <div className="flex items-center gap-2">
-                          <p className="text-sm font-bold text-slate-700">{task.location}</p>
-                          <a 
-                            href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(task.location)}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="p-1 rounded-md bg-blue-50 text-blue-600 hover:bg-blue-100 transition-colors"
-                            title="Get Directions"
-                          >
-                            <MapPin size={10} />
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-3 p-3 rounded-2xl bg-slate-50/50 border border-slate-100">
-                      <div className="w-8 h-8 rounded-lg bg-white flex items-center justify-center shadow-sm">
-                        <Clock size={14} className="text-blue-500" />
-                      </div>
-                      <div>
-                        <p className="text-[10px] text-slate-400 font-black uppercase tracking-widest">Scheduled</p>
-                        <p className="text-sm font-bold text-slate-700">{task.date} • {task.time}</p>
-                      </div>
-                    </div>
-                  </div>
-
-                  {task.description && (
-                    <p className="text-sm text-slate-500 leading-relaxed bg-slate-50 p-4 rounded-2xl border border-slate-100 italic">
-                      "{task.description}"
-                    </p>
-                  )}
-
-                  {/* Medication Checklist */}
-                  {task.medications?.length > 0 && (
-                    <div className="mt-6 p-6 rounded-3xl bg-slate-50/50 border border-slate-100">
-                      <div className="flex items-center gap-2 mb-4">
-                        <Pill size={16} className="text-primary" />
-                        <h4 className="text-xs font-black text-slate-800 uppercase tracking-widest">Medication Checklist</h4>
-                      </div>
-                      <div className="space-y-3">
-                        {task.medications.map((med: any, midx: number) => (
-                          <div 
-                            key={midx}
-                            className={`flex items-center justify-between p-3 rounded-xl border transition-all ${
-                              med.status === "Completed" ? "bg-emerald-50 border-emerald-100 opacity-60" : "bg-white border-slate-100 shadow-sm"
-                            }`}
-                          >
-                            <div className="flex items-center gap-3">
-                              <div className={`w-2 h-2 rounded-full ${med.status === "Completed" ? "bg-emerald-500" : "bg-slate-300"}`} />
-                              <div>
-                                <p className={`text-sm font-bold ${med.status === "Completed" ? "text-emerald-700 line-through" : "text-slate-700"}`}>
-                                  {med.name}
-                                </p>
-                                <p className="text-[10px] font-medium text-slate-400">{med.time}</p>
-                              </div>
-                            </div>
-                            {isStaff && task.status === "In Progress" && med.status !== "Completed" && (
-                              <button 
-                                onClick={() => {
-                                  const newMeds = [...task.medications];
-                                  newMeds[midx].status = "Completed";
-                                  updateTaskStatus(task.id, task.status, { medications: newMeds });
-                                }}
-                                className="px-3 py-1 bg-primary text-white rounded-lg text-[10px] font-black uppercase tracking-widest hover:bg-primary-dark transition-all"
-                              >
-                                Done
-                              </button>
-                            )}
-                            {med.status === "Completed" && <CheckCircle2 size={16} className="text-emerald-500" />}
-                          </div>
-                        ))}
-                      </div>
-                    </div>
-                  )}
-                  
-                  <div className="flex items-center justify-between mt-6 pt-6 border-t border-slate-100">
-                    <div className="flex items-center gap-4">
-                      {!isStaff && (
-                        <div className="flex items-center gap-2">
-                          <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center">
-                            <Shield size={10} className="text-primary" />
-                          </div>
-                          <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
-                            Assigned to: <span className="text-slate-600">{task.assignedToName}</span>
-                          </span>
-                        </div>
+                  {/* Metadata Row */}
+                  <div className="flex flex-wrap items-center gap-y-2 gap-x-6 text-[11px] text-slate-500 font-bold uppercase tracking-tight">
+                    <div className="flex items-center gap-2">
+                      <User size={12} className="text-primary" />
+                      <span>Patient: <span className="text-slate-800">{task.patient}</span></span>
+                      {task.patientPhone && (
+                        <a href={`tel:${task.patientPhone}`} className="p-1 rounded bg-emerald-50 text-emerald-600 hover:bg-emerald-100 transition-all">
+                          <Phone size={8} />
+                        </a>
                       )}
                     </div>
-                    {task.completedAt && (
-                      <div className="flex items-center gap-2 text-emerald-600">
-                        <CheckCircle size={14} />
-                        <span className="text-[10px] font-black uppercase tracking-widest">Completed on {new Date(task.completedAt).toLocaleDateString()}</span>
-                      </div>
-                    )}
+                    <div className="flex items-center gap-2">
+                      <MapPin size={12} className="text-emerald-500" />
+                      <span className="truncate max-w-[150px]">{task.location}</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Clock size={12} className="text-blue-500" />
+                      <span>{task.date} • {task.time}</span>
+                    </div>
                   </div>
                 </div>
 
-                {/* Action Buttons */}
-                <div className="flex-shrink-0 flex flex-col gap-3">
-                  {isStaff && task.status !== "Completed" && (
-                    <div className="flex flex-col gap-2">
-                      <button
-                        onClick={() => handleMarkComplete(task.id, task.status)}
-                        className={`flex items-center justify-center gap-3 px-8 py-4 rounded-2xl text-xs font-black uppercase tracking-widest transition-all shadow-lg active:scale-95 ${
-                          task.status === "Pending"
-                            ? "bg-blue-500 text-white shadow-blue-500/20 hover:bg-blue-600"
-                            : "bg-emerald-500 text-white shadow-emerald-500/20 hover:bg-emerald-600"
-                        }`}
-                      >
-                        <CheckCheck size={18} />
-                        {task.status === "Pending" ? "Start Task" : "Finish Task"}
-                      </button>
-                      
-                      {task.status === "In Progress" && (
-                        <button
-                          onClick={() => {
-                            setSelectedTask(task);
-                            setNoteModalOpen(true);
-                          }}
-                          className="flex items-center justify-center gap-3 px-8 py-3 rounded-2xl bg-white border-2 border-primary text-primary text-xs font-black uppercase tracking-widest transition-all hover:bg-primary/5 active:scale-95"
-                        >
-                          <HeartPulse size={18} /> Log Vitals
-                        </button>
+                {/* Middle: Description & Meds (Compact) */}
+                <div className="flex-1 min-w-0 flex flex-col gap-3">
+                  {task.description && (
+                    <div className="bg-slate-50/50 p-3 rounded-xl border border-slate-100">
+                      <p className="text-[11px] text-slate-600 italic line-clamp-1 group-hover:line-clamp-none transition-all cursor-default">
+                        "{task.description}"
+                      </p>
+                    </div>
+                  )}
+
+                  {task.medications?.length > 0 && (
+                    <div className="flex flex-wrap gap-1.5">
+                      {task.medications.slice(0, 3).map((med: any, midx: number) => (
+                        <div key={midx} className={`px-2 py-0.5 rounded-md border text-[9px] font-black uppercase flex items-center gap-1.5 ${med.status === "Completed" ? "bg-emerald-50 border-emerald-100 text-emerald-600" : "bg-white border-slate-200 text-slate-500"}`}>
+                          <Pill size={8} /> {med.name}
+                        </div>
+                      ))}
+                      {task.medications.length > 3 && (
+                        <span className="text-[9px] font-bold text-slate-400">+{task.medications.length - 3} more</span>
                       )}
                     </div>
                   )}
-                  {(isAdmin || isSubAdmin) && task.status !== "Completed" && (
-                    <button
-                      onClick={() => updateTaskStatus(task.id, "Completed")}
-                      className="flex items-center justify-center gap-3 px-8 py-4 rounded-2xl bg-slate-800 text-white text-xs font-black uppercase tracking-widest transition-all shadow-lg shadow-slate-800/10 hover:bg-slate-900 active:scale-95"
-                    >
-                      <CheckCheck size={18} /> Mark Complete
-                    </button>
+                </div>
+
+                {/* Right Side: Actions & Assignee */}
+                <div className="flex flex-col sm:flex-row xl:flex-col items-start sm:items-center xl:items-end gap-4 min-w-[200px]">
+                  {!isStaff && (
+                    <div className="text-[9px] font-bold text-slate-300 uppercase tracking-widest text-right">
+                      Assigned to: <span className="text-slate-500 font-black">{task.assignedToName}</span>
+                    </div>
                   )}
+                  {task.completedAt && (
+                    <div className="flex items-center gap-1.5 text-emerald-600 text-[9px] font-black uppercase">
+                      <CheckCircle size={12} /> Done on {new Date(task.completedAt).toLocaleDateString()}
+                    </div>
+                  )}
+
+                  <div className="flex items-center gap-2 w-full sm:w-auto">
+                    {isStaff && task.status !== "Completed" && (
+                      <>
+                        <button
+                          onClick={() => handleMarkComplete(task.id, task.status)}
+                          className={`flex-1 sm:flex-none flex items-center justify-center gap-2 px-4 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all shadow-sm active:scale-95 text-white ${
+                            task.status === "Pending" ? "bg-blue-500 hover:bg-blue-600" : "bg-emerald-500 hover:bg-emerald-600"
+                          }`}
+                        >
+                          <CheckCheck size={14} /> {task.status === "Pending" ? "Start" : "Finish"}
+                        </button>
+                        
+                        {task.status === "In Progress" && (
+                          <button
+                            onClick={() => {
+                              setSelectedTask(task);
+                              setNoteModalOpen(true);
+                            }}
+                            className="p-2 rounded-xl bg-white border border-primary text-primary hover:bg-primary/5 transition-all"
+                            title="Log Vitals"
+                          >
+                            <HeartPulse size={14} />
+                          </button>
+                        )}
+                      </>
+                    )}
+                    {(isAdmin || isSubAdmin) && task.status !== "Completed" && (
+                      <button
+                        onClick={() => updateTaskStatus(task.id, "Completed")}
+                        className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2 rounded-xl bg-slate-800 text-white text-[10px] font-black uppercase tracking-widest hover:bg-slate-900 transition-all shadow-sm"
+                      >
+                        <CheckCheck size={14} /> Complete
+                      </button>
+                    )}
+                  </div>
                 </div>
               </div>
             </motion.div>
@@ -426,6 +374,12 @@ export default function TasksPage() {
                       placeholder="Location"
                       value={form.location}
                       onChange={(e) => setForm({ ...form, location: e.target.value })}
+                      className="px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-primary"
+                    />
+                    <input
+                      placeholder="Patient Email (Optional)"
+                      value={form.patientEmail || ""}
+                      onChange={(e) => setForm({ ...form, patientEmail: e.target.value })}
                       className="px-4 py-2.5 rounded-xl border border-slate-200 text-sm focus:outline-none focus:border-primary"
                     />
                     <input
@@ -535,6 +489,22 @@ export default function TasksPage() {
           }}
         />
       )}
+
+      <ConfirmModal
+        isOpen={isDeleteModalOpen}
+        onClose={() => {
+          setIsDeleteModalOpen(false);
+          setTaskToDelete(null);
+        }}
+        onConfirm={() => {
+          if (taskToDelete) {
+            deleteTask(taskToDelete);
+          }
+        }}
+        title="Delete Task"
+        message="Are you sure you want to delete this task? This action cannot be undone."
+        confirmText="Delete Now"
+      />
     </div>
   );
 }

@@ -42,3 +42,16 @@ export async function PUT(req: Request) {
     return NextResponse.json({ error: "Failed to update clinical note" }, { status: 500 });
   }
 }
+
+export async function DELETE(req: Request) {
+  try {
+    await dbConnect();
+    const { searchParams } = new URL(req.url);
+    const id = searchParams.get("id");
+    if (!id) return NextResponse.json({ error: "ID required" }, { status: 400 });
+    await ClinicalNote.findByIdAndDelete(id);
+    return NextResponse.json({ message: "Clinical note deleted" });
+  } catch (error) {
+    return NextResponse.json({ error: "Failed to delete clinical note" }, { status: 500 });
+  }
+}

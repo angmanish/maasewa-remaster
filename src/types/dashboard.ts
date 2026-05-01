@@ -6,6 +6,7 @@ export interface Task {
   description: string;
   patient: string;
   patientPhone?: string;
+  patientEmail?: string;
   location: string;
   time: string;
   date: string;

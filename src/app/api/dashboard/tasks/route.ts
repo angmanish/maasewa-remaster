@@ -2,6 +2,7 @@ export const dynamic = "force-dynamic";
 import { NextResponse } from "next/server";
 import connectDB from "@/lib/db";
 import Task from "@/models/Task";
+import { syncTaskToGoogleSheets } from "@/lib/googleSheets";
 
 export async function GET() {
   try {
@@ -18,6 +19,10 @@ export async function POST(req: Request) {
     await connectDB();
     const body = await req.json();
     const newTask = await Task.create(body);
+    
+    // Background sync to Google Sheets
+    syncTaskToGoogleSheets(newTask).catch(err => console.error("Google Sheets Sync Error:", err));
+
     return NextResponse.json(newTask, { status: 201 });
   } catch (error) {
     return NextResponse.json({ error: "Failed to create task" }, { status: 500 });
@@ -32,5 +37,18 @@ export async function PUT(req: Request) {
     return NextResponse.json(updatedTask);
   } catch (error) {
     return NextResponse.json({ error: "Failed to update task" }, { status: 500 });
+  }
+}
+
+export async function DELETE(req: Request) {
+  try {
+    await connectDB();
+    const { searchParams } = new URL(req.url);
+    const id = searchParams.get("id");
+    if (!id) return NextResponse.json({ error: "ID required" }, { status: 400 });
+    await Task.findByIdAndDelete(id);
+    return NextResponse.json({ message: "Task deleted" });
+  } catch (error) {
+    return NextResponse.json({ error: "Failed to delete task" }, { status: 500 });
   }
 }

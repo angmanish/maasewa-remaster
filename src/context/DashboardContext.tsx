@@ -9,6 +9,7 @@ interface DashboardContextType {
   tasks: Task[];
   addTask: (task: Omit<Task, "id">) => Promise<void>;
   updateTaskStatus: (id: string, status: Task["status"]) => Promise<void>;
+  deleteTask: (id: string) => Promise<void>;
 
   attendance: AttendanceRecord[];
   markAttendance: (record: Omit<AttendanceRecord, "id">) => Promise<void>;
@@ -30,6 +31,7 @@ interface DashboardContextType {
   clinicalNotes: ClinicalNote[];
   addClinicalNote: (note: Omit<ClinicalNote, "id">) => Promise<void>;
   updateClinicalNote: (id: string, updates: Partial<ClinicalNote>) => Promise<void>;
+  deleteClinicalNote: (id: string) => Promise<void>;
 
   incidents: IncidentReport[];
   activeSOS: IncidentReport[];
@@ -126,6 +128,14 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id, status, ...updates, ...(status === "Completed" ? { completedAt: new Date().toISOString() } : {}) }),
+    });
+    refreshData(true);
+  }, [refreshData]);
+
+  const deleteTask = useCallback(async (id: string) => {
+    setTasks(prev => prev.filter(t => t.id !== id));
+    const res = await fetch(`/api/dashboard/tasks?id=${id}`, {
+      method: "DELETE",
     });
     refreshData(true);
   }, [refreshData]);
@@ -249,6 +259,14 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
     refreshData(true);
   }, [refreshData]);
 
+  const deleteClinicalNote = useCallback(async (id: string) => {
+    setClinicalNotes(prev => prev.filter(n => n.id !== id));
+    const res = await fetch(`/api/dashboard/clinical-notes?id=${id}`, {
+      method: "DELETE",
+    });
+    refreshData(true);
+  }, [refreshData]);
+
   // Incidents
   const addIncident = useCallback(async (incident: Omit<IncidentReport, "id">) => {
     const tempId = `temp-${Date.now()}`;
@@ -322,12 +340,12 @@ export function DashboardProvider({ children }: { children: ReactNode }) {
 
   return (
     <DashboardContext.Provider value={{
-      tasks, addTask, updateTaskStatus,
+      tasks, addTask, updateTaskStatus, deleteTask,
       attendance, markAttendance,
       salaries, addSalary, updateSalaryStatus,
       vendors, addVendor, updateVendor, deleteVendor,
       leaves, addLeave, subAdminApproveLeave, adminApproveLeave,
-      clinicalNotes, addClinicalNote, updateClinicalNote,
+      clinicalNotes, addClinicalNote, updateClinicalNote, deleteClinicalNote,
       incidents, activeSOS, addIncident, updateIncidentStatus,
       equipment, addEquipment, updateEquipment,
       ratings, addRating,

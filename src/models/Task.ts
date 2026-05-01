@@ -5,6 +5,7 @@ const TaskSchema = new Schema({
   description: { type: String },
   patient: { type: String, required: true },
   patientPhone: { type: String },
+  patientEmail: { type: String },
   location: { type: String },
   time: { type: String },
   date: { type: String, required: true },

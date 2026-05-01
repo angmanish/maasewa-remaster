@@ -23,28 +23,29 @@ interface NavItem {
 }
 
 const navItems: NavItem[] = [
-  // All roles
+  // MAIN SECTION
   { href: "/dashboard", label: "Overview", icon: LayoutDashboard, roles: ["ADMIN", "SUB_ADMIN", "STAFF"], section: "Main" },
   { href: "/dashboard/profile", label: "My Profile", icon: UserCircle, roles: ["ADMIN", "SUB_ADMIN", "STAFF"], section: "Main" },
-  // Admin only
+
+  // WORK SECTION (MOVED UP)
+  { href: "/dashboard/tasks", label: "Tasks", icon: ClipboardList, roles: ["ADMIN", "SUB_ADMIN", "STAFF"], section: "Work" },
+  { href: "/dashboard/history", label: "Patient History", icon: Clock, roles: ["ADMIN", "SUB_ADMIN", "STAFF"], section: "Work" },
+  { href: "/dashboard/leaves", label: "Leave Requests", icon: FileText, roles: ["ADMIN", "SUB_ADMIN", "STAFF"], section: "Work" },
+  { href: "/dashboard/attendance", label: "My Attendance", icon: CalendarDays, roles: ["STAFF"], section: "Work" },
+  { href: "/dashboard/salary", label: "My Salary", icon: DollarSign, roles: ["STAFF"], section: "Work" },
+  { href: "/dashboard/resources", label: "Resources", icon: FileText, roles: ["ADMIN", "SUB_ADMIN", "STAFF"], section: "Work" },
+
+  // MANAGEMENT SECTION
+  { href: "/dashboard/staff", label: "Staff Management", icon: ClipboardCheck, roles: ["ADMIN", "SUB_ADMIN"], section: "Management" },
+  { href: "/dashboard/attendance", label: "Attendance", icon: CalendarCheck, roles: ["ADMIN", "SUB_ADMIN"], section: "Management" },
+  { href: "/dashboard/shifts", label: "Shifts", icon: Clock, roles: ["ADMIN", "SUB_ADMIN"], section: "Management" },
+  { href: "/dashboard/inventory", label: "Inventory", icon: Package, roles: ["ADMIN", "SUB_ADMIN"], section: "Management" },
+
+  // ADMIN SECTION
   { href: "/dashboard/users", label: "User Management", icon: Users, roles: ["ADMIN"], section: "Admin" },
   { href: "/dashboard/salary", label: "Salary", icon: DollarSign, roles: ["ADMIN"], section: "Admin" },
   { href: "/dashboard/vendors", label: "Vendors", icon: Handshake, roles: ["ADMIN"], section: "Admin" },
   { href: "/dashboard/invoices", label: "Invoices", icon: Receipt, roles: ["ADMIN"], section: "Admin" },
-  { href: "/dashboard/inventory", label: "Inventory", icon: Package, roles: ["ADMIN", "SUB_ADMIN"], section: "Management" },
-  // Sub-Admin + Admin
-  { href: "/dashboard/staff", label: "Staff Management", icon: ClipboardCheck, roles: ["ADMIN", "SUB_ADMIN"], section: "Management" },
-  { href: "/dashboard/attendance", label: "Attendance", icon: CalendarCheck, roles: ["ADMIN", "SUB_ADMIN"], section: "Management" },
-  { href: "/dashboard/shifts", label: "Shifts", icon: Clock, roles: ["ADMIN", "SUB_ADMIN"], section: "Management" },
-  // Tasks
-  { href: "/dashboard/tasks", label: "Tasks", icon: ClipboardList, roles: ["ADMIN", "SUB_ADMIN", "STAFF"], section: "Work" },
-  { href: "/dashboard/history", label: "Patient History", icon: Clock, roles: ["ADMIN", "SUB_ADMIN", "STAFF"], section: "Work" },
-  // Leaves
-  { href: "/dashboard/leaves", label: "Leave Requests", icon: FileText, roles: ["ADMIN", "SUB_ADMIN", "STAFF"], section: "Work" },
-  // Staff only
-  { href: "/dashboard/attendance", label: "My Attendance", icon: CalendarDays, roles: ["STAFF"], section: "Work" },
-  { href: "/dashboard/salary", label: "My Salary", icon: DollarSign, roles: ["STAFF"], section: "Work" },
-  { href: "/dashboard/resources", label: "Resources", icon: FileText, roles: ["ADMIN", "SUB_ADMIN", "STAFF"], section: "Work" },
 ];
 
 const roleBadge: Record<string, { label: string; color: string }> = {
