@@ -231,15 +231,24 @@ export default function TasksPage() {
                       <User size={12} className="text-primary" />
                       <span>Patient: <span className="text-slate-800">{task.patient}</span></span>
                       {task.patientPhone && (
-                        <a href={`tel:${task.patientPhone}`} className="p-1 rounded bg-emerald-50 text-emerald-600 hover:bg-emerald-100 transition-all">
-                          <Phone size={8} />
+                        <a 
+                          href={`tel:${task.patientPhone}`} 
+                          className="p-1.5 rounded-md bg-emerald-50 text-emerald-600 hover:bg-emerald-600 hover:text-white transition-all border border-emerald-100"
+                          title="Call Patient"
+                        >
+                          <Phone size={10} fill="currentColor" className="opacity-80" />
                         </a>
                       )}
                     </div>
-                    <div className="flex items-center gap-2">
-                      <MapPin size={12} className="text-emerald-500" />
+                                        <a 
+                      href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(task.location)}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 hover:text-primary transition-colors group/loc"
+                    >
+                      <MapPin size={14} className="text-emerald-500 group-hover/loc:scale-125 transition-all" />
                       <span className="truncate max-w-[150px]">{task.location}</span>
-                    </div>
+                    </a>
                     <div className="flex items-center gap-2">
                       <Clock size={12} className="text-blue-500" />
                       <span>{task.date} • {task.time}</span>
