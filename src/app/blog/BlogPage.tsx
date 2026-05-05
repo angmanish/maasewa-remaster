@@ -21,7 +21,7 @@ const articles = [
     category: "Recovery",
     readTime: "5 min read",
     date: "Apr 15, 2026",
-    image: "/blog_postop.png",
+    image: "/blog_postop_new.png",
     slug: "#",
   },
   {
@@ -50,7 +50,7 @@ const articles = [
     category: "Equipment",
     readTime: "7 min read",
     date: "Apr 5, 2026",
-    image: "/blog_icu.png",
+    image: "/blog_icu_new.png",
     slug: "#",
   },
   {
@@ -64,7 +64,7 @@ const articles = [
     category: "Recovery",
     readTime: "6 min read",
     date: "Apr 1, 2026",
-    image: "/blog_postop.png",
+    image: "/blog_postop_new.png",
     slug: "#",
   },
   {
@@ -78,7 +78,7 @@ const articles = [
     category: "Recovery",
     readTime: "5 min read",
     date: "Mar 25, 2026",
-    image: "/blog_icu.png",
+    image: "/blog_physio.png",
     slug: "#",
   },
   {
@@ -92,7 +92,97 @@ const articles = [
     category: "Elder Care",
     readTime: "7 min read",
     date: "Mar 20, 2026",
-    image: "/blog_postop.png",
+    image: "/blog_nutrition.png",
+    slug: "#",
+  },
+  {
+    title: "Managing Chronic Pain at Home",
+    excerpt: "Chronic pain management requires a multi-faceted approach. Learn how professional nursing helps.",
+    content: `
+      Chronic pain can significantly reduce the quality of life. Effective management involves consistent medication, 
+      proper positioning, and psychological support. Our nurses are trained in pain management protocols, 
+      ensuring that patients receive their analgesics on time and utilize non-pharmacological techniques 
+      like hot/cold therapy and guided relaxation to manage discomfort effectively.
+    `,
+    category: "Nursing",
+    readTime: "6 min read",
+    date: "Mar 15, 2026",
+    image: "/blog_medication.png",
+    slug: "#",
+  },
+  {
+    title: "The Role of Emotional Support in Recovery",
+    excerpt: "Healing isn't just physical. Mental well-being is a critical component of the recovery journey.",
+    content: `
+      A positive mindset can accelerate physical healing. Patients recovering at home often feel isolated. 
+      Our caregivers provide more than just medical support; they provide companionship and emotional 
+      encouragement. This holistic approach helps reduce anxiety and depression, which are common 
+      during long-term recovery, leading to better overall health outcomes.
+    `,
+    category: "Recovery",
+    readTime: "5 min read",
+    date: "Mar 10, 2026",
+    image: "/nurse_hero.png",
+    slug: "#",
+  },
+  {
+    title: "Common Mistakes in Home Healthcare",
+    excerpt: "Avoid these frequent errors to ensure a safe and effective recovery environment at home.",
+    content: `
+      Common mistakes include improper medication storage, ignoring 'minor' symptoms like slight fever, 
+      and inadequate sterilization during wound dressing. Professional oversight by a certified nurse 
+      eliminates these risks. We provide a structured environment where every medical protocol is followed 
+      strictly, preventing avoidable hospital readmissions.
+    `,
+    category: "Nursing",
+    readTime: "8 min read",
+    date: "Mar 5, 2026",
+    image: "/blog_postop_new.png",
+    slug: "#",
+  },
+  {
+    title: "Home Safety Checklist for Seniors",
+    excerpt: "Simple home modifications can prevent life-altering falls and injuries for the elderly.",
+    content: `
+      Falls are the leading cause of injury among seniors. A safe home environment includes non-slip mats, 
+      grab bars in bathrooms, and bright lighting in hallways. Our elder care assessment includes 
+      a full home safety audit, where we suggest modifications to ensure your loved ones can move 
+      independently and safely within their own homes.
+    `,
+    category: "Elder Care",
+    readTime: "5 min read",
+    date: "Feb 28, 2026",
+    image: "/blog_physio.png",
+    slug: "#",
+  },
+  {
+    title: "Dementia Care: A Guide for Families",
+    excerpt: "Understanding and managing dementia requires patience, empathy, and specialized techniques.",
+    content: `
+      Caring for a loved one with dementia is uniquely challenging. It requires a structured routine 
+      and specialized communication skills. Our dementia care specialists focus on creating a calm 
+      environment and engaging patients in cognitive stimulation activities. We also provide support 
+      and 'respite care' for family members to prevent caregiver burnout.
+    `,
+    category: "Elder Care",
+    readTime: "9 min read",
+    date: "Feb 20, 2026",
+    image: "/blog_dementia.png",
+    slug: "#",
+  },
+  {
+    title: "Technology in Home Healthcare",
+    excerpt: "How digital monitoring and tele-health are improving patient outcomes in home settings.",
+    content: `
+      The future of home care is digital. From remote vitals monitoring to digital health records 
+      that doctors can access instantly, technology ensures better coordination of care. 
+      Maa Sewa Healthcare utilizes an integrated platform to share daily progress reports 
+      with families and physicians, ensuring everyone is aligned on the patient's recovery path.
+    `,
+    category: "Nursing",
+    readTime: "6 min read",
+    date: "Feb 15, 2026",
+    image: "/nurse_hero.png",
     slug: "#",
   },
 ];

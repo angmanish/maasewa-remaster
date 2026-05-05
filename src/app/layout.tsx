@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     template: "%s | Maa Sewa Healthcare",
   },
   description:
-    "Maa Sewa Healthcare provides professional home nursing, elder care, ICU home setup, and post-operative care in Pune and 15+ cities across India. Certified, police-verified nurses available 24/7. Average arrival in 3.8 hours.",
+    "Maa Sewa Healthcare provides professional home nursing, elder care, ICU home setup, and post-operative care in Pune and Mumbai. Certified, police-verified nurses available 24/7. Average arrival in 3.8 hours.",
   keywords: [
     "home nursing services",
     "home healthcare Pune",
@@ -74,7 +74,7 @@ export const metadata: Metadata = {
     siteName: "Maa Sewa Healthcare",
     title: "Maa Sewa Healthcare — Home Nursing & Post-Discharge Care Services",
     description:
-      "Professional home nursing, ICU setup, elder care & post-operative care delivered to your doorstep. Certified nurses in 15+ Indian cities. Available 24/7.",
+      "Professional home nursing, ICU setup, elder care & post-operative care delivered to your doorstep. Certified nurses in Pune and Mumbai. Available 24/7.",
     images: [{ url: `${BASE_URL}/og-image.png`, width: 1200, height: 630, alt: "Maa Sewa Healthcare" }],
   },
   twitter: {

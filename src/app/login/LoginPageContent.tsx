@@ -1,18 +1,12 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
-import { Mail, Lock, Eye, EyeOff, ArrowRight, AlertCircle } from "lucide-react";
-
-const DEMO_CREDENTIALS = [
-  { role: "Admin", email: "admin@maasewa.com", password: "admin123", color: "bg-rose-50 text-rose-700 border-rose-200" },
-  { role: "Sub-Admin", email: "subadmin@maasewa.com", password: "subadmin123", color: "bg-amber-50 text-amber-700 border-amber-200" },
-  { role: "Staff", email: "staff@maasewa.com", password: "staff123", color: "bg-emerald-50 text-emerald-700 border-emerald-200" },
-];
+import { Mail, Lock, Eye, EyeOff, AlertCircle } from "lucide-react";
 
 export default function LoginPageContent() {
   const { login } = useAuth();
@@ -31,128 +25,128 @@ export default function LoginPageContent() {
     if (result.success) {
       router.push("/dashboard");
     } else {
-      setError(result.error || "Login failed.");
+      setError(result.error || "Invalid credentials. Please try again.");
     }
   };
 
-  const fillDemo = (email: string, password: string) => {
-    setForm({ email, password });
-    setError("");
-  };
-
   return (
-    <div className="min-h-screen hero-gradient flex items-center justify-center py-16 px-4">
+    <div className="min-h-screen bg-slate-50 flex items-center justify-center p-4 relative overflow-hidden">
+      {/* Subtle Background Elements */}
+      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary/5 rounded-full blur-[100px] -mr-48 -mt-48 pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-emerald-500/5 rounded-full blur-[80px] -ml-24 -mb-24 pointer-events-none" />
+
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
+        initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="w-full max-w-md"
+        transition={{ duration: 0.4 }}
+        className="w-full max-w-md relative z-10"
       >
-        {/* Logo */}
-        <div className="text-center mb-8">
-          <Link href="/" className="inline-flex items-center gap-2.5 justify-center mb-4">
-            <Image src="/logo.png" alt="Maa Sewa Healthcare" width={48} height={48} className="rounded-xl object-contain" />
-            <div className="flex flex-col leading-none text-left">
-              <span className="text-lg font-bold text-primary-deeper" style={{ fontFamily: "var(--font-jakarta)" }}>
-                Maa Sewa
-              </span>
-              <span className="text-[10px] text-text-body font-medium tracking-wide">Healthcare Portal</span>
+        {/* Simple Centered Header */}
+        <div className="text-center mb-10">
+          <div className="inline-flex flex-col items-center justify-center mb-6">
+            <div className="w-16 h-16 bg-white rounded-2xl shadow-sm border border-slate-100 flex items-center justify-center mb-4">
+              <Image src="/logo.png" alt="Maa Sewa Healthcare" width={48} height={48} className="object-contain" />
             </div>
-          </Link>
-          <h1 className="text-2xl font-extrabold text-text-heading" style={{ fontFamily: "var(--font-jakarta)" }}>
+            <div className="leading-tight">
+              <span className="block text-lg font-black text-slate-900 tracking-tight" style={{ fontFamily: "var(--font-jakarta)" }}>Maa Sewa Healthcare</span>
+              <span className="block text-[10px] text-primary uppercase tracking-[0.3em] font-bold mt-1">Staff Portal</span>
+            </div>
+          </div>
+          <h1 className="text-3xl font-black text-slate-900 mb-2" style={{ fontFamily: "var(--font-jakarta)" }}>
             Welcome Back
           </h1>
-          <p className="text-text-body text-sm mt-1">Sign in to the Maa Sewa Healthcare portal</p>
+          <p className="text-slate-500 text-sm">Please sign in to your account.</p>
         </div>
 
-        {/* Demo Quick Login */}
-        <div className="mb-5">
-          <p className="text-xs font-semibold text-text-muted text-center mb-3 uppercase tracking-wider">
-            Demo Accounts — Click to fill
-          </p>
-          <div className="grid grid-cols-3 gap-2">
-            {DEMO_CREDENTIALS.map((cred) => (
-              <button
-                key={cred.role}
-                type="button"
-                onClick={() => fillDemo(cred.email, cred.password)}
-                className={`text-xs font-bold py-2 px-2 rounded-xl border transition-colors hover:opacity-80 ${cred.color}`}
-              >
-                {cred.role}
-              </button>
-            ))}
-          </div>
-        </div>
-
-        {/* Card */}
-        <div className="bg-white rounded-2xl shadow-xl border border-border-color p-8">
-          <form className="space-y-5" onSubmit={handleSubmit}>
+        {/* Login Card */}
+        <div className="bg-white rounded-[2rem] shadow-xl shadow-slate-200/50 border border-slate-100 p-8 sm:p-10">
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {/* Email */}
             <div>
-              <label className="block text-sm font-semibold text-text-heading mb-1.5">Email Address</label>
+              <label className="block text-[11px] font-black uppercase tracking-widest text-slate-400 mb-2 pl-1">
+                Email Address
+              </label>
               <div className="relative">
-                <Mail size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-text-muted" />
+                <Mail size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
                 <input
                   type="email"
-                  placeholder="you@maasewa.com"
+                  placeholder="name@maasewa.com"
                   required
                   value={form.email}
                   onChange={(e) => setForm({ ...form, email: e.target.value })}
-                  className="w-full pl-10 pr-4 py-3 rounded-xl border border-border-color text-text-heading placeholder-text-muted focus:outline-none focus:border-primary focus:ring-2 focus:ring-blue-100 text-sm"
+                  className="w-full pl-12 pr-4 py-4 bg-slate-50 border border-slate-200 rounded-2xl text-slate-800 font-medium text-sm placeholder-slate-400 focus:bg-white focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all"
                 />
               </div>
             </div>
 
+            {/* Password */}
             <div>
-              <label className="block text-sm font-semibold text-text-heading mb-1.5">Password</label>
+              <div className="flex items-center justify-between mb-2 pl-1 pr-1">
+                <label className="block text-[11px] font-black uppercase tracking-widest text-slate-400">
+                  Password
+                </label>
+              </div>
               <div className="relative">
-                <Lock size={16} className="absolute left-4 top-1/2 -translate-y-1/2 text-text-muted" />
+                <Lock size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
                 <input
                   type={showPassword ? "text" : "password"}
                   placeholder="Enter your password"
                   required
                   value={form.password}
                   onChange={(e) => setForm({ ...form, password: e.target.value })}
-                  className="w-full pl-10 pr-12 py-3 rounded-xl border border-border-color text-text-heading placeholder-text-muted focus:outline-none focus:border-primary focus:ring-2 focus:ring-blue-100 text-sm"
+                  className="w-full pl-12 pr-12 py-4 bg-slate-50 border border-slate-200 rounded-2xl text-slate-800 font-medium text-sm placeholder-slate-400 focus:bg-white focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-text-muted hover:text-primary transition-colors"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-slate-400 hover:text-primary p-1 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-primary/20"
+                  aria-label={showPassword ? "Hide password" : "Show password"}
                 >
-                  {showPassword ? <EyeOff size={16} /> : <Eye size={16} />}
+                  {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                 </button>
               </div>
             </div>
 
-            {error && (
-              <motion.div
-                initial={{ opacity: 0, y: -5 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="flex items-center gap-2 text-rose-600 text-sm bg-rose-50 rounded-xl px-4 py-3"
-              >
-                <AlertCircle size={15} className="flex-shrink-0" />
-                {error}
-              </motion.div>
-            )}
+            {/* Error Message */}
+            <AnimatePresence>
+              {error && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0, marginBottom: 0 }}
+                  animate={{ opacity: 1, height: "auto", marginBottom: 16 }}
+                  exit={{ opacity: 0, height: 0, marginBottom: 0 }}
+                  className="overflow-hidden"
+                >
+                  <div className="flex items-start gap-3 text-rose-600 text-sm bg-rose-50 border border-rose-100 rounded-2xl px-4 py-3">
+                    <AlertCircle size={18} className="flex-shrink-0 mt-0.5" />
+                    <span className="font-medium">{error}</span>
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
 
+            {/* Submit Button */}
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-4 bg-primary text-white rounded-full font-bold text-base hover:bg-primary-dark transition-all hover:shadow-lg flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
+              className="w-full py-4 bg-primary text-white rounded-2xl font-black text-sm uppercase tracking-[0.2em] hover:bg-primary-dark transition-all shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 hover:-translate-y-0.5 disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:transform-none flex items-center justify-center gap-3 mt-2"
             >
               {loading ? (
-                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                <>
+                  <span className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  Signing In...
+                </>
               ) : (
-                <>Sign In <ArrowRight size={18} /></>
+                "Sign In"
               )}
             </button>
           </form>
         </div>
 
-        <p className="text-center text-sm text-text-muted mt-6">
-          Need access?{" "}
-          <Link href="/contact" className="text-primary font-semibold hover:underline">
-            Contact administration
+        {/* Footer Link */}
+        <p className="text-center text-sm text-slate-500 mt-8 font-medium">
+          Need access or forgot password?{" "}
+          <Link href="/contact" className="text-primary font-bold hover:underline">
+            Contact Support
           </Link>
         </p>
       </motion.div>

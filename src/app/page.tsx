@@ -5,6 +5,9 @@ import StatsSection from "@/components/home/StatsSection";
 import HowItWorksPreview from "@/components/home/HowItWorksPreview";
 import Testimonials from "@/components/home/Testimonials";
 import CTABanner from "@/components/home/CTABanner";
+import WhyChooseUs from "@/components/home/WhyChooseUs";
+import BlogPreview from "@/components/home/BlogPreview";
+import ClinicalExcellence from "@/components/home/ClinicalExcellence";
 import JsonLd from "@/components/JsonLd";
 
 const BASE_URL = "https://maasewahealthcare.com";
@@ -48,8 +51,11 @@ export default function Home() {
       <HeroSection />
       <TrustBar />
       <ServicesGrid />
+      <WhyChooseUs />
       <StatsSection />
       <HowItWorksPreview />
+      <BlogPreview />
+      <ClinicalExcellence />
       <Testimonials />
       <CTABanner />
     </>

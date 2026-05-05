@@ -20,6 +20,7 @@ const servicesData: Record<string, any> = {
     title: "Home Nursing Services",
     subtitle: "Professional Clinical Care at Your Doorstep",
     desc: "Our home nursing services bring hospital-grade clinical expertise to the comfort of your home. Whether it's post-surgical recovery, chronic illness management, or elderly support, our certified GNM and BSc nurses provide compassionate and professional care.",
+    longDesc: "At Maa Sewa Healthcare, we believe that the best healing happens at home. Our nursing services are designed to provide a comprehensive medical support system outside the hospital. Our staff is trained not only in clinical procedures but also in advanced patient monitoring and emergency response. We act as a bridge between the hospital and your home, ensuring that every medical instruction is followed to the letter, significantly reducing the risk of complications or readmissions.",
     image: "/nurse_hero.png",
     features: [
       "24/7 ICU-level monitoring",
@@ -28,23 +29,48 @@ const servicesData: Record<string, any> = {
       "IV infusion & Medication management",
       "Vital signs monitoring & Charting"
     ],
+    whoIsItFor: [
+      "Patients needing post-surgical wound care and monitoring",
+      "Individuals with chronic conditions requiring regular clinical intervention",
+      "Elderly patients who need help with catheters, feeding tubes, or IVs",
+      "Anyone requiring hospital-grade nursing in a private setting"
+    ],
+    benefits: [
+      "Personalized care plan tailored to your specific medical history",
+      "Strict adherence to sterile protocols and infection control",
+      "Continuous coordination with your primary treating physician",
+      "High-density monitoring with professional digital charting"
+    ],
     stats: [
       { label: "Certified Nurses", value: "50+" },
       { label: "Successful Recoveries", value: "500+" },
-      { label: "Available Cities", value: "3" }
+      { label: "Available Cities", value: "2" }
     ]
   },
   "icu-home-setup": {
     title: "ICU Home Setup",
     subtitle: "Critical Care in the Comfort of Home",
     desc: "We transform your home into a high-tech critical care unit. Our ICU home setup includes advanced medical equipment and a dedicated team of ICU-trained nurses and doctors to provide life-saving care without the hospital stress.",
-    image: "/blog_icu.png",
+    longDesc: "Setting up an ICU at home is a life-changing alternative for families who want their loved ones close while receiving intensive medical support. Our setup mirrors the technological capabilities of a modern hospital ICU. We provide the latest ventilators, cardiac monitors, and infusion pumps, all managed by staff with years of experience in leading hospital ICUs. This service is designed for patients who are stable enough to be at home but still require life-support or constant monitoring.",
+    image: "/blog_icu_new.png",
     features: [
       "Advanced Cardiac Monitors",
       "Portable Ventilators & BiPAP",
       "Oxygen Concentrators & Cylinders",
       "Infusion & Syringe Pumps",
       "ICU-trained Nursing Staff"
+    ],
+    whoIsItFor: [
+      "Patients on invasive or non-invasive mechanical ventilation",
+      "Critically ill patients transitioning from hospital to home",
+      "Patients requiring 24/7 intensive monitoring for multi-organ issues",
+      "Palliative care patients needing advanced life-support systems"
+    ],
+    benefits: [
+      "Significant reduction in per-day critical care costs",
+      "Peace of mind for family by being near the patient",
+      "Highly reduced risk of hospital-acquired multi-drug resistant infections",
+      "Customized nurse-to-patient ratio for 1:1 intensive care"
     ],
     stats: [
       { label: "ICU Setups Done", value: "120+" },
@@ -56,13 +82,26 @@ const servicesData: Record<string, any> = {
     title: "Elder Care Services",
     subtitle: "Dignity, Safety & Companionship for Seniors",
     desc: "Caring for aging parents requires patience and professional skill. Our elder care services focus on mobility support, hygiene maintenance, and emotional well-being, ensuring your loved ones live with dignity and safety.",
-    image: "/blog_postop.png",
+    longDesc: "Aging with dignity is a fundamental right. Our elder care program is built on the pillars of safety, empathy, and professional assistance. We understand the specific challenges of geriatric care, including fall risks, medication mismanagement, and social isolation. Our caregivers are trained to provide both medical oversight and the warm companionship that makes a house feel like a home. We act as your eyes and ears, ensuring your parents are safe, happy, and healthy.",
+    image: "/blog_nutrition.png",
     features: [
       "Mobility and fall prevention",
       "Hygiene and personal grooming",
       "Timely medication reminders",
       "Nutritional meal assistance",
       "Companionship and mental health support"
+    ],
+    whoIsItFor: [
+      "Seniors living independently who need daily living support",
+      "Elderly patients with mobility issues or high fall risks",
+      "Aging individuals managing multiple chronic medications",
+      "Seniors needing companionship and active engagement"
+    ],
+    benefits: [
+      "Dignified assistance with sensitive personal care tasks",
+      "Safe and guided mobility to prevent fractures and injuries",
+      "Regular health screenings and medication management",
+      "Enhanced quality of life through social interaction"
     ],
     stats: [
       { label: "Happy Seniors", value: "300+" },
@@ -74,13 +113,26 @@ const servicesData: Record<string, any> = {
     title: "Post-Operative Recovery",
     subtitle: "Accelerated Healing After Surgery",
     desc: "The weeks following surgery are critical for long-term health. Our post-op care plans focus on pain management, infection prevention, and physiotherapy, helping you get back on your feet faster and safer.",
-    image: "/blog_postop.png",
+    longDesc: "The success of a surgery often depends on the quality of care received in the following weeks. At home, patients face the challenge of managing surgical drains, complex wound care, and pain medications. Our post-op specialists are trained in the latest sterile dressing techniques and can detect early signs of complications before they become emergencies. We also integrate early-stage physiotherapy to prevent stiffness and deep vein thrombosis (DVT), ensuring your recovery is on track.",
+    image: "/blog_postop_new.png",
     features: [
       "Sterile wound dressing changes",
       "Pain management & monitoring",
       "Post-surgical physiotherapy",
       "Doctor-coordinated recovery plans",
       "Deep vein thrombosis (DVT) prevention"
+    ],
+    whoIsItFor: [
+      "Patients recovering from orthopedic, cardiac, or abdominal surgery",
+      "Individuals needing suture/staple removal and drain management",
+      "Post-discharge patients who live alone or need professional help",
+      "Patients requiring targeted rehabilitation after any surgical procedure"
+    ],
+    benefits: [
+      "Professional prevention of surgical site infections (SSI)",
+      "Expert monitoring of pain and timely analgesic administration",
+      "Guided rehabilitation exercises for faster mobility",
+      "Peace of mind knowing a professional is monitoring your healing"
     ],
     stats: [
       { label: "Fast Recoveries", value: "200+" },
@@ -92,13 +144,26 @@ const servicesData: Record<string, any> = {
     title: "Specialized Medical Care",
     subtitle: "Complex Care for Neurological & Chronic Needs",
     desc: "We provide specialized care for patients recovering from strokes, managing dementia, or requiring palliative support. Our care plans are tailored to the specific medical and emotional needs of complex cases.",
-    image: "/nurse_hero.png",
+    longDesc: "Complex conditions like stroke, Parkinson's, or advanced-stage cancer require a multi-disciplinary approach. Our specialized care team works closely with neurologists, oncologists, and other specialists to provide targeted support at home. We focus on enhancing the quality of life through rigorous monitoring, cognitive stimulation, and symptom relief. Our staff is trained to handle the behavioral challenges of dementia and the intensive needs of palliative care with utmost sensitivity.",
+    image: "/blog_dementia.png",
     features: [
       "Stroke rehabilitation support",
       "Dementia & Alzheimer's care",
       "Palliative and End-of-life care",
       "Neurological monitoring",
       "Customized dietary & physio plans"
+    ],
+    whoIsItFor: [
+      "Stroke survivors requiring long-term rehabilitation",
+      "Patients with progressive dementia or Alzheimer's",
+      "Individuals needing terminal care or symptom relief",
+      "Complex medical cases requiring specialized protocols"
+    ],
+    benefits: [
+      "Targeted neurological and cognitive support programs",
+      "Comfort-focused care for palliative and terminal needs",
+      "High-end monitoring of vital neurological parameters",
+      "Compassionate support for the entire family unit"
     ],
     stats: [
       { label: "Specialist Staff", value: "25+" },
@@ -110,13 +175,26 @@ const servicesData: Record<string, any> = {
     title: "Injection & IV Services",
     subtitle: "Professional Clinical Visits at Home",
     desc: "Avoid long hospital queues for simple clinical tasks. Our trained nurses visit your home for injections, IV drips, blood collection, and vaccinations at a time that suits you best.",
-    image: "/nurse_hero.png",
+    longDesc: "Why travel to a clinic for a 10-minute procedure? Our injection and clinical visit service brings the clinic to you. We maintain the highest standards of hygiene and use only high-quality sterile supplies. Whether it's a one-time injection or a 5-day course of IV antibiotics, our nurses arrive on time and handle the procedure with minimal discomfort. This service is especially beneficial for patients with limited mobility or busy schedules.",
+    image: "/blog_medication.png",
     features: [
       "IM and IV Injections",
       "IV Fluid/Drip administration",
       "Blood sample collection",
       "Adult vaccinations",
       "Minor clinical procedures"
+    ],
+    whoIsItFor: [
+      "Patients on daily or weekly injectable medications",
+      "Individuals requiring IV hydration or nutritional therapy",
+      "Children needing vaccinations in a stress-free environment",
+      "Anyone wanting to avoid hospital crowds for clinical tasks"
+    ],
+    benefits: [
+      "No travel time or waiting in hospital queues",
+      "Strict adherence to clinical hygiene and safety protocols",
+      "Stress-free environment especially for children and seniors",
+      "Reliable and punctual service at your convenience"
     ],
     stats: [
       { label: "Visits Completed", value: "5000+" },
@@ -219,11 +297,30 @@ export default function ServiceDetailPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="grid lg:grid-cols-3 gap-16">
             <div className="lg:col-span-2">
+              <h2 className="text-3xl font-black text-text-heading mb-6" style={{ fontFamily: "var(--font-jakarta)" }}>
+                Detailed Overview
+              </h2>
+              <p className="text-lg text-text-body leading-relaxed mb-12 opacity-80">
+                {service.longDesc}
+              </p>
+
+              <h2 className="text-3xl font-black text-text-heading mb-8" style={{ fontFamily: "var(--font-jakarta)" }}>
+                Key Benefits of This Service
+              </h2>
+              <div className="grid sm:grid-cols-2 gap-4 mb-16">
+                {service.benefits.map((benefit: string, i: number) => (
+                  <div key={i} className="flex items-center gap-3 p-4 rounded-2xl bg-emerald-50 border border-emerald-100/50">
+                    <CheckCircle2 size={18} className="text-success flex-shrink-0" />
+                    <span className="text-sm font-bold text-text-heading">{benefit}</span>
+                  </div>
+                ))}
+              </div>
+
               <h2 className="text-3xl font-black text-text-heading mb-8" style={{ fontFamily: "var(--font-jakarta)" }}>
                 What&apos;s Included in Our <br />
                 <span className="text-primary">{service.title}</span>
               </h2>
-              <div className="grid sm:grid-cols-2 gap-6">
+              <div className="grid sm:grid-cols-2 gap-6 mb-16">
                 {service.features.map((feature: string, i: number) => (
                   <motion.div
                     key={i}
@@ -241,7 +338,21 @@ export default function ServiceDetailPage() {
                 ))}
               </div>
 
-              <div className="mt-16 p-10 rounded-[3rem] bg-text-heading text-white relative overflow-hidden group">
+              <h2 className="text-3xl font-black text-text-heading mb-8" style={{ fontFamily: "var(--font-jakarta)" }}>
+                Who is this for?
+              </h2>
+              <div className="space-y-4 mb-16">
+                {service.whoIsItFor.map((item: string, i: number) => (
+                  <div key={i} className="flex items-start gap-4 p-5 rounded-2xl bg-slate-50 border border-slate-100">
+                    <div className="w-6 h-6 rounded-full bg-slate-200 flex items-center justify-center text-slate-600 font-bold text-xs flex-shrink-0 mt-0.5">
+                      {i + 1}
+                    </div>
+                    <p className="text-text-body font-medium">{item}</p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="p-10 rounded-[3rem] bg-text-heading text-white relative overflow-hidden group">
                  <div className="absolute top-0 right-0 w-64 h-64 bg-primary/20 rounded-full blur-3xl -mr-32 -mt-32 transition-transform group-hover:scale-125 duration-700" />
                  <div className="relative z-10">
                     <h3 className="text-2xl font-black mb-4">Patient-Centric Approach</h3>

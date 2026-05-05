@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     url: `${BASE_URL}/how-it-works`,
     title: "How Home Nursing Works — Nurse at Your Door in 3.8 Hours | Maa Sewa",
     description:
-      "4-step process from hospital discharge to certified nurse at your home. Average arrival time: 3.8 hours. Available 24/7 across India.",
+      "4-step process from hospital discharge to certified nurse at your home. Average arrival time: 3.8 hours. Available 24/7 in Pune and Mumbai.",
   },
 };
 
@@ -93,7 +93,7 @@ const faqSchema = {
       name: "Which cities does Maa Sewa Healthcare serve?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "We currently serve 15 major cities across India including Delhi, Mumbai, Bengaluru, Pune, Hyderabad, Chennai, Kolkata, and more.",
+        text: "We currently serve 2 major cities in India: Pune and Mumbai.",
       },
     },
   ],

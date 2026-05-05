@@ -14,6 +14,7 @@ const footerLinks = {
     { href: "/packages", label: "Care Packages" },
     { href: "/for-hospitals", label: "For Hospitals" },
     { href: "/blog", label: "Blog" },
+    { href: "/faq", label: "FAQ" },
     { href: "/contact", label: "Contact Us" },
   ],
   services: [
@@ -161,6 +162,24 @@ export default function Footer() {
                 </a>
               </li>
             </ul>
+            <div className="mt-8">
+              <h3
+                className="text-white font-bold mb-4 text-sm tracking-wide uppercase"
+                style={{ fontFamily: "var(--font-jakarta)" }}
+              >
+                Service Cities
+              </h3>
+              <div className="grid grid-cols-2 gap-2">
+                <div className="flex items-center gap-2 text-blue-200 text-sm">
+                  <div className="w-1.5 h-1.5 rounded-full bg-blue-400" />
+                  Pune
+                </div>
+                <div className="flex items-center gap-2 text-blue-200 text-sm">
+                  <div className="w-1.5 h-1.5 rounded-full bg-blue-400" />
+                  Mumbai
+                </div>
+              </div>
+            </div>
           </div>
         </div>
 

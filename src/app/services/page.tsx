@@ -7,7 +7,7 @@ const BASE_URL = "https://maasewahealthcare.com";
 export const metadata: Metadata = {
   title: "Home Nursing Services — 8h, 12h & 24h Shifts | Home Care India",
   description:
-    "Book certified home nursing services in Pune, Mumbai, Delhi & 15 cities. 8-hour, 12-hour & 24-hour shifts. ICU home setup, elder care, post-op care, injection visits. Police-verified nurses. Call +91 6361376521.",
+    "Book certified home nursing services in Pune and Mumbai. 8-hour, 12-hour & 24-hour shifts. ICU home setup, elder care, post-op care, injection visits. Police-verified nurses. Call +91 6361376521.",
   keywords: [
     "home nursing services India",
     "home nurse 24 hours Pune",
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     url: `${BASE_URL}/services`,
     title: "Home Nursing Services — 8h, 12h & 24h Shifts | Maa Sewa Healthcare",
     description:
-      "Professional home nursing, ICU setup, elder care & post-op care. Certified, police-verified nurses available 24/7 in 15+ Indian cities.",
+      "Professional home nursing, ICU setup, elder care & post-op care. Certified, police-verified nurses available 24/7 in Pune and Mumbai.",
   },
 };
 

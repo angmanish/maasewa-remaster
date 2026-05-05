@@ -4,13 +4,14 @@ import { useState, useEffect } from "react";
 import { useDashboard } from "@/context/DashboardContext";
 import { useAuth } from "@/context/AuthContext";
 import { motion, AnimatePresence } from "framer-motion";
-import { Clock, User, HeartPulse, Activity, Thermometer, Droplets, Wind, Clipboard, Calendar, Share2, ArrowRight, X, Shield, CheckCircle2, Trash2 } from "lucide-react";
+import { Clock, User, HeartPulse, Activity, Thermometer, Droplets, Wind, Clipboard, Calendar, Share2, ArrowRight, X, Shield, CheckCircle2, Trash2, Search } from "lucide-react";
 import ConfirmModal from "@/components/ui/ConfirmModal";
 
 export default function HistoryPage() {
   const { currentUser } = useAuth();
   const { clinicalNotes, tasks, isLoading, updateClinicalNote, deleteClinicalNote } = useDashboard();
   const [staffList, setStaffList] = useState<{ name: string; email: string }[]>([]);
+  const [searchTerm, setSearchTerm] = useState("");
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const [sharingNote, setSharingNote] = useState<any>(null);
   const [sharingStaffEmail, setSharingStaffEmail] = useState("");
@@ -93,35 +94,57 @@ ${note.handoverInstructions || "Continue standard care"}
     }
   };
 
-  // Filter notes based on role
-  // Staff see notes for their patients
-  // Admin/Sub-Admin see all
+  // Filter notes based on role and search term
   const filteredNotes = clinicalNotes.filter(note => {
+    // Role based filtering
+    let isAuthorized = true;
     if (currentUser?.role === "STAFF") {
-      // Show notes where:
-      // 1. Staff is the author
-      // 2. Note was explicitly shared with this staff
-      // 3. Staff is currently assigned to this patient
       const isSharedWithMe = note.sharedWith?.includes(currentUser.email);
       const isMyNote = note.staffId === currentUser.email;
-      
       const myPatients = tasks
         .filter(t => t.assignedTo === currentUser.email)
         .map(t => t.patient);
       const isMyPatient = myPatients.includes(note.patientName);
-
-      return isSharedWithMe || isMyNote || isMyPatient;
+      isAuthorized = isSharedWithMe || isMyNote || isMyPatient;
     }
+
+    if (!isAuthorized) return false;
+
+    // Search term filtering
+    if (searchTerm) {
+      const lowerSearch = searchTerm.toLowerCase();
+      const matchesPatient = note.patientName?.toLowerCase().includes(lowerSearch);
+      const matchesStaff = note.staffId?.toLowerCase().includes(lowerSearch);
+      const matchesNotes = note.clinicalNotes?.toLowerCase().includes(lowerSearch);
+      return matchesPatient || matchesStaff || matchesNotes;
+    }
+
     return true;
   }).sort((a, b) => new Date(b.loggedAt).getTime() - new Date(a.loggedAt).getTime());
 
   return (
     <div className="pb-10">
-      <div className="mb-10">
-        <h1 className="text-3xl font-black text-slate-800" style={{ fontFamily: "var(--font-jakarta)" }}>
-          Patient History
-        </h1>
-        <p className="text-slate-500 mt-2 font-medium">Timeline of clinical updates and vitals for your assigned patients.</p>
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 mb-10">
+        <div>
+          <h1 className="text-3xl font-black text-slate-800" style={{ fontFamily: "var(--font-jakarta)" }}>
+            Patient History
+          </h1>
+          <p className="text-slate-500 mt-2 font-medium">Timeline of clinical updates and vitals for your patients.</p>
+        </div>
+
+        {/* Search Bar */}
+        <div className="relative w-full lg:max-w-xs">
+          <div className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400">
+            <Search size={18} />
+          </div>
+          <input
+            type="text"
+            placeholder="Search patient, staff, or notes..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="w-full pl-12 pr-4 py-3 bg-white border border-slate-200 rounded-2xl focus:ring-4 focus:ring-primary/10 focus:border-primary outline-none transition-all font-bold text-slate-700 shadow-sm"
+          />
+        </div>
       </div>
 
       <div className="relative border-l-2 border-slate-100 ml-4 pl-10 space-y-12">
