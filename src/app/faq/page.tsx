@@ -33,7 +33,7 @@ const faqSchema = {
       name: "How quickly can you get a nurse to my home?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Our average response time is 3.8 hours from first contact to nurse arrival. In urgent cases, we can often dispatch within 2 hours.",
+        text: "Our average response time is 1.5 hours from first contact to nurse arrival. In urgent cases, we can often dispatch within 2 hours.",
       },
     },
     {

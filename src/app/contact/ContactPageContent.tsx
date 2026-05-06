@@ -19,7 +19,7 @@ const contactDetails = [
     icon: Mail,
     label: "Email",
     value: "info@maasewahealthcare.com",
-    sub: "Response within 30 minutes",
+    sub: "Response within 15 minutes",
     href: "mailto:info@maasewahealthcare.com",
   },
   {
@@ -69,7 +69,7 @@ export default function ContactPageContent() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="max-w-2xl"
+            className="max-w-3xl mx-auto text-center"
           >
             <p className="text-primary text-[11px] font-black uppercase tracking-[0.35em] mb-5">
               Get in Touch
@@ -82,7 +82,7 @@ export default function ContactPageContent() {
               <span className="text-primary">Maa Sewa</span>
             </h1>
             <p className="text-lg text-slate-500 leading-relaxed">
-              Reach our clinical team for patient admissions, corporate partnerships, or service inquiries. We respond within 30 minutes, around the clock.
+              Reach our clinical team for patient admissions, corporate partnerships, or service inquiries. We respond within 15 minutes, around the clock.
             </p>
           </motion.div>
         </div>
@@ -168,7 +168,7 @@ export default function ContactPageContent() {
                     Request Received
                   </h3>
                   <p className="text-slate-500 max-w-xs mb-8">
-                    A clinical coordinator will contact you within 30 minutes to discuss your care needs.
+                    A clinical coordinator will contact you within 15 minutes to discuss your care needs.
                   </p>
                   <button
                     onClick={() => setSubmitted(false)}
@@ -264,7 +264,7 @@ export default function ContactPageContent() {
                       ) : "Send Request"}
                     </button>
                     <p className="text-center text-xs text-slate-400 mt-4 font-medium">
-                      We respond within 30 minutes · Available 24 / 7
+                      We respond within 15 minutes · Available 24 / 7
                     </p>
                   </div>
                 </form>

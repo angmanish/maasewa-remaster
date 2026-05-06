@@ -16,7 +16,7 @@ const features = [
   },
   {
     icon: Clock,
-    title: "3.8h Avg. Response",
+    title: "1.5h Avg. Response",
     desc: "Our rapid dispatch system ensures that a qualified nurse reaches your doorstep within hours."
   },
   {

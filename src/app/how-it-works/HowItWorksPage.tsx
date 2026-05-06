@@ -44,7 +44,7 @@ const steps = [
     subtitle: "Step 4",
     color: "green",
     desc: "The nurse arrives, sets up, and begins care. Family members are briefed. Ongoing reports are shared with you and your doctor.",
-    details: ["Avg. arrival: 3.8 hours", "Setup in under 30 minutes", "Daily care reports sent to family"],
+    details: ["Avg. arrival: 1.5 hours", "Setup in under 15 minutes", "Daily care reports sent to family"],
   },
 ];
 
@@ -56,7 +56,7 @@ const colorMap: Record<string, { bg: string; text: string; border: string }> = {
 };
 
 const faqs = [
-  { q: "How quickly can you get a nurse to my home?", a: "Our average response time is 3.8 hours from first contact to nurse arrival. In urgent cases, we can often dispatch within 2 hours." },
+  { q: "How quickly can you get a nurse to my home?", a: "Our average response time is 1.5 hours from first contact to nurse arrival. In urgent cases, we can often dispatch within 2 hours." },
   { q: "Are your nurses certified and background-checked?", a: "Absolutely. All nurses are GNM/B.Sc Nursing qualified, police verified, and undergo comprehensive background checks before joining our team." },
   { q: "What if I'm not satisfied with the assigned nurse?", a: "Your satisfaction is our priority. If you're unhappy for any reason, we'll replace the nurse within 24 hours at no extra charge." },
   { q: "Do you cover my city?", a: "We currently serve 2 major cities: Pune and Mumbai. We are rapidly expanding to other cities soon!" },

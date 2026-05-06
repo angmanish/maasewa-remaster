@@ -5,9 +5,9 @@ import JsonLd from "@/components/JsonLd";
 const BASE_URL = "https://maasewahealthcare.com";
 
 export const metadata: Metadata = {
-  title: "Contact Us — Book a Home Nurse in 30 Minutes | Maa Sewa Healthcare",
+  title: "Contact Us — Book a Home Nurse in 15 Minutes | Maa Sewa Healthcare",
   description:
-    "Contact Maa Sewa Healthcare to book a certified home nurse. Call +91 6361376521 or fill the form. Located in Pune, serving 15+ cities across India. Our coordinators respond within 30 minutes, 24/7.",
+    "Contact Maa Sewa Healthcare to book a certified home nurse. Call +91 6361376521 or fill the form. Located in Pune, serving 15+ cities across India. Our coordinators respond within 15 minutes, 24/7.",
   keywords: [
     "contact home nursing service India",
     "book home nurse Pune",
@@ -19,9 +19,9 @@ export const metadata: Metadata = {
   alternates: { canonical: `${BASE_URL}/contact` },
   openGraph: {
     url: `${BASE_URL}/contact`,
-    title: "Contact Maa Sewa Healthcare — Book a Home Nurse in 30 Minutes",
+    title: "Contact Maa Sewa Healthcare — Book a Home Nurse in 15 Minutes",
     description:
-      "Call +91 6361376521 or fill the form to book a certified home nurse. Available 24/7. Response within 30 minutes.",
+      "Call +91 6361376521 or fill the form to book a certified home nurse. Available 24/7. Response within 15 minutes.",
   },
 };
 

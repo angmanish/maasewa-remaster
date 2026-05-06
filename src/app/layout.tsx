@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     template: "%s | Maa Sewa Healthcare",
   },
   description:
-    "Maa Sewa Healthcare provides professional home nursing, elder care, ICU home setup, and post-operative care in Pune and Mumbai. Certified, police-verified nurses available 24/7. Average arrival in 3.8 hours.",
+    "Maa Sewa Healthcare provides professional home nursing, elder care, ICU home setup, and post-operative care in Pune and Mumbai. Certified, police-verified nurses available 24/7. Average arrival in 1.5 hours.",
   keywords: [
     "home nursing services",
     "home healthcare Pune",

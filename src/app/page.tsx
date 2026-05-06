@@ -43,11 +43,65 @@ const organizationSchema = {
   ],
 };
 
+const medicalBusinessSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalBusiness",
+  name: "Maa Sewa Healthcare - Home Nursing Services",
+  image: `${BASE_URL}/og-image.png`,
+  "@id": `${BASE_URL}/#organization`,
+  url: BASE_URL,
+  telephone: "+916361376521",
+  priceRange: "₹₹",
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Office No. 12, Business Hub",
+    addressLocality: "Pune",
+    addressRegion: "Maharashtra",
+    postalCode: "411001",
+    addressCountry: "IN",
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: 18.5204,
+    longitude: 73.8567,
+  },
+  openingHoursSpecification: {
+    "@type": "OpeningHoursSpecification",
+    dayOfWeek: [
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
+      "Sunday"
+    ],
+    opens: "00:00",
+    closes: "23:59"
+  },
+  areaServed: ["Pune", "Mumbai", "Pimpri-Chinchwad"],
+};
+
+const breadcrumbSchema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    {
+      "@type": "ListItem",
+      position: 1,
+      name: "Home",
+      item: BASE_URL,
+    },
+  ],
+};
+
 export default function Home() {
   return (
     <>
       <JsonLd data={websiteSchema} />
       <JsonLd data={organizationSchema} />
+      <JsonLd data={medicalBusinessSchema} />
+      <JsonLd data={breadcrumbSchema} />
       <HeroSection />
       <TrustBar />
       <ServicesGrid />

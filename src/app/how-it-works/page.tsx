@@ -5,9 +5,9 @@ import JsonLd from "@/components/JsonLd";
 const BASE_URL = "https://maasewahealthcare.com";
 
 export const metadata: Metadata = {
-  title: "How Home Nursing Works — Nurse at Your Door in 3.8 Hours",
+  title: "How Home Nursing Works — Nurse at Your Door in 1.5 Hours",
   description:
-    "See how Maa Sewa Healthcare gets a certified home nurse to your door in just 3.8 hours after hospital discharge. Simple 4-step process — Assessment Call → Nurse Dispatch → Home Care begins.",
+    "See how Maa Sewa Healthcare gets a certified home nurse to your door in just 1.5 hours after hospital discharge. Simple 4-step process — Assessment Call → Nurse Dispatch → Home Care begins.",
   keywords: [
     "how home nursing works India",
     "home nurse after hospital discharge",
@@ -19,9 +19,9 @@ export const metadata: Metadata = {
   alternates: { canonical: `${BASE_URL}/how-it-works` },
   openGraph: {
     url: `${BASE_URL}/how-it-works`,
-    title: "How Home Nursing Works — Nurse at Your Door in 3.8 Hours | Maa Sewa",
+    title: "How Home Nursing Works — Nurse at Your Door in 1.5 Hours | Maa Sewa",
     description:
-      "4-step process from hospital discharge to certified nurse at your home. Average arrival time: 3.8 hours. Available 24/7 in Pune and Mumbai.",
+      "4-step process from hospital discharge to certified nurse at your home. Average arrival time: 1.5 hours. Available 24/7 in Pune and Mumbai.",
   },
 };
 
@@ -30,8 +30,8 @@ const howItWorksSchema = {
   "@type": "HowTo",
   name: "How to Get a Home Nurse After Hospital Discharge",
   description:
-    "A simple 4-step process to get a certified, police-verified home nurse at your doorstep within 3.8 hours of hospital discharge.",
-  totalTime: "PT3H48M",
+    "A simple 4-step process to get a certified, police-verified home nurse at your doorstep within 1.5 hours of hospital discharge.",
+  totalTime: "PT1H30M",
   step: [
     {
       "@type": "HowToStep",
@@ -69,7 +69,7 @@ const faqSchema = {
       name: "How quickly can Maa Sewa Healthcare get a nurse to my home?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Our average response time is 3.8 hours from first contact to nurse arrival. In urgent cases, we can often dispatch within 2 hours.",
+        text: "Our average response time is 1.5 hours from first contact to nurse arrival. In urgent cases, we can often dispatch within 2 hours.",
       },
     },
     {

@@ -90,7 +90,7 @@ const packages = [
 
 const benefits = [
   { icon: Shield, title: "Verified Staff", desc: "Every nurse and caregiver is police-verified and background-checked." },
-  { icon: Clock, title: "Quick Deployment", desc: "Get a caregiver at your doorstep within 3.8 hours of booking." },
+  { icon: Clock, title: "Quick Deployment", desc: "Get a caregiver at your doorstep within 1.5 hours of booking." },
   { icon: Activity, title: "Daily Reports", desc: "Digital health reports shared daily with family and treating doctors." },
   { icon: UserCheck, title: "Free Replacement", desc: "Not satisfied with the staff? We provide a free replacement within 24h." }
 ];

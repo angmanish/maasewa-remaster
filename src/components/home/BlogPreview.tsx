@@ -77,9 +77,6 @@ export default function BlogPreview() {
                    <div className="flex items-center gap-1.5">
                       <Clock size={14} /> {post.date}
                    </div>
-                   <div className="flex items-center gap-1.5">
-                      <User size={14} /> By Dr. Mehta
-                   </div>
                 </div>
                 <h3 className="text-xl font-black text-text-heading mb-4 group-hover:text-primary transition-colors line-clamp-2" style={{ fontFamily: "var(--font-jakarta)" }}>
                    {post.title}

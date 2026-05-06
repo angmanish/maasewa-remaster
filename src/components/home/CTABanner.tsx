@@ -29,7 +29,7 @@ export default function CTABanner() {
           </h2>
           <p className="text-blue-100 text-lg max-w-2xl mx-auto mb-10">
             Get a verified, trained nurse dispatched to your home in as little
-            as 3.8 hours. Available 24/7, 365 days a year.
+            as 1.5 hours. Available 24/7, 365 days a year.
           </p>
 
           <div className="flex flex-wrap items-center justify-center gap-4">

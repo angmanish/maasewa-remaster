@@ -418,90 +418,139 @@ export default function InvoicesPage() {
               <div className="bg-white rounded-3xl shadow-2xl w-full max-w-2xl overflow-hidden pointer-events-auto print:shadow-none print:w-full print:max-w-none print:rounded-none">
                 <div className="p-8 print:p-0" id="printable-invoice">
                   {/* Invoice Header */}
-                  <div className="flex justify-between items-start mb-10 border-b border-slate-100 pb-8">
+                  <div className="flex justify-between items-start mb-10 border-b-2 border-primary/20 pb-8">
                     <div>
-                      <div className="flex items-center gap-3 mb-4">
-                        <div className="relative w-12 h-12">
+                      <div className="flex items-center gap-3 mb-2">
+                        <div className="relative w-10 h-10 bg-white rounded-xl shadow-sm border border-slate-100 flex items-center justify-center p-1.5">
                           <Image
-                            src="/maasewa-icon.png"
+                            src="/logo.png"
                             alt="Maa Sewa Logo"
-                            fill
+                            width={30}
+                            height={30}
                             className="object-contain"
                           />
                         </div>
-                        <span className="text-xl font-black text-slate-800 uppercase tracking-tighter">Maa Sewa Healthcare</span>
+                        <div className="leading-none">
+                          <h2 className="text-xl font-black text-slate-900 tracking-tighter" style={{ fontFamily: "var(--font-jakarta)" }}>MAA SEWA HEALTHCARE</h2>
+                          <p className="text-[10px] text-primary font-black uppercase tracking-[0.2em] mt-1">Professional Home Healthcare</p>
+                        </div>
                       </div>
-                      <p className="text-xs text-slate-500 max-w-[200px]">
-                        Professional Home Healthcare Services<br />
-                        Pune, Maharashtra, India
-                      </p>
+                      <div className="space-y-0.5">
+                        <p className="text-[10px] font-bold text-slate-600 flex items-center gap-2">
+                          <Phone size={9} className="text-primary" /> +91 63613 76521
+                        </p>
+                        <p className="text-[10px] font-bold text-slate-600 flex items-center gap-2">
+                          <Receipt size={9} className="text-primary" /> info@maasewahealthcare.com
+                        </p>
+                        <p className="text-[10px] font-bold text-slate-600 flex items-center gap-2">
+                          <FileText size={9} className="text-primary" /> www.maasewahealthcare.com
+                        </p>
+                        <p className="text-[9px] text-slate-400 mt-1 max-w-[250px]">
+                          Office No. 12, Level 4, Business Hub, Pune 411001
+                        </p>
+                      </div>
                     </div>
                     <div className="text-right">
-                      <h3 className="text-2xl font-black text-slate-800 uppercase mb-1">Invoice</h3>
-                      <p className="text-sm font-bold text-primary">{printTarget.billNumber}</p>
-                      <p className="text-xs text-slate-400 mt-1">Date: {printTarget.date}</p>
+                      <h3 className="text-3xl font-black text-slate-900 uppercase tracking-widest mb-1">Invoice</h3>
+                      <div className="space-y-0.5">
+                        <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Bill Number</p>
+                        <p className="text-base font-black text-primary tracking-tight">{printTarget.billNumber}</p>
+                        <p className="text-[10px] font-bold text-slate-500 mt-1">Date: {printTarget.date}</p>
+                      </div>
                     </div>
                   </div>
 
                   {/* Billing Info */}
-                  <div className="grid grid-cols-2 gap-8 mb-10">
-                    <div>
-                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-3">Bill To:</p>
-                      <p className="text-lg font-bold text-slate-800">{printTarget.patientName}</p>
-                      <p className="text-sm text-slate-500">{printTarget.patientPhone || "No contact provided"}</p>
+                  <div className="grid grid-cols-2 gap-12 mb-4">
+                    <div className="bg-slate-50 rounded-xl p-4 border border-slate-100">
+                      <p className="text-[9px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">Billed To:</p>
+                      <h4 className="text-lg font-black text-slate-800">{printTarget.patientName}</h4>
                     </div>
-                    <div className="text-right">
-                      <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-3">Payment Status:</p>
-                      <span className={`inline-block px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest ${printTarget.status === "Paid" ? "bg-emerald-50 text-emerald-600" : "bg-rose-50 text-rose-600"
-                        }`}>
-                        {printTarget.status}
-                      </span>
+                    <div className="flex flex-col justify-end items-end">
+                      <div className="text-right space-y-3">
+                        <div>
+                          <p className="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] mb-1">Payment Status</p>
+                          <span className={`inline-block px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest border ${
+                            printTarget.status === "Paid" 
+                            ? "bg-emerald-50 text-emerald-600 border-emerald-100" 
+                            : "bg-rose-50 text-rose-600 border-rose-100"
+                          }`}>
+                            {printTarget.status}
+                          </span>
+                        </div>
+                      </div>
                     </div>
                   </div>
 
                   {/* Items Table */}
-                  <table className="w-full mb-10 text-sm">
-                    <thead>
-                      <tr className="border-b-2 border-slate-800">
-                        <th className="text-left py-3 font-black text-slate-800 uppercase tracking-widest text-[10px]">Description</th>
-                        <th className="text-center py-3 font-black text-slate-800 uppercase tracking-widest text-[10px]">Qty</th>
-                        <th className="text-right py-3 font-black text-slate-800 uppercase tracking-widest text-[10px]">Rate</th>
-                        <th className="text-right py-3 font-black text-slate-800 uppercase tracking-widest text-[10px]">Amount</th>
-                      </tr>
-                    </thead>
-                    <tbody className="divide-y divide-slate-100">
-                      {printTarget.items.map((item, idx) => (
-                        <tr key={idx}>
-                          <td className="py-4 font-bold text-slate-700">{item.description}</td>
-                          <td className="py-4 text-center text-slate-600">{item.qty}</td>
-                          <td className="py-4 text-right text-slate-600">₹{item.rate}</td>
-                          <td className="py-4 text-right font-bold text-slate-800">₹{item.amount}</td>
+                  <div className="rounded-xl border border-slate-200 overflow-hidden mb-4">
+                    <table className="w-full text-sm">
+                      <thead>
+                        <tr className="bg-slate-900 text-white">
+                          <th className="text-left px-5 py-2 font-black uppercase tracking-widest text-[9px]">Description</th>
+                          <th className="text-center px-4 py-2 font-black uppercase tracking-widest text-[9px]">Qty</th>
+                          <th className="text-right px-4 py-2 font-black uppercase tracking-widest text-[9px]">Rate</th>
+                          <th className="text-right px-5 py-2 font-black uppercase tracking-widest text-[9px]">Amount</th>
                         </tr>
-                      ))}
-                    </tbody>
-                  </table>
+                      </thead>
+                      <tbody className="divide-y divide-slate-100">
+                        {printTarget.items.map((item, idx) => (
+                          <tr key={idx} className="hover:bg-slate-50 transition-colors text-[11px]">
+                            <td className="px-5 py-2.5 font-bold text-slate-700">{item.description}</td>
+                            <td className="px-4 py-2.5 text-center font-bold text-slate-500">{item.qty}</td>
+                            <td className="px-4 py-2.5 text-right font-bold text-slate-500">₹{item.rate.toLocaleString()}</td>
+                            <td className="px-5 py-2.5 text-right font-black text-slate-800">₹{item.amount.toLocaleString()}</td>
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </div>
 
                   {/* Calculation Summary */}
-                  <div className="flex justify-end border-t-2 border-slate-800 pt-6">
-                    <div className="w-64 space-y-3">
-                      <div className="flex justify-between text-sm">
-                        <span className="text-slate-500 font-bold uppercase text-[10px]">Subtotal</span>
-                        <span className="font-bold text-slate-700">₹{printTarget.subtotal}</span>
+                  <div className="flex flex-col md:flex-row justify-between gap-10">
+                    <div className="flex-1">
+                      <h5 className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-3">Terms & Conditions</h5>
+                      <ul className="text-[9px] text-slate-400 space-y-1 list-disc pl-4 font-medium">
+                        <li>Payment is due within 7 days of invoice date.</li>
+                        <li>Include bill number in payment reference.</li>
+                        <li>This covers clinical home care services rendered.</li>
+                        <li>Queries: info@maasewahealthcare.com | +91 63613 76521</li>
+                      </ul>
+                    </div>
+                    
+                    <div className="w-60 space-y-1">
+                      <div className="flex justify-between text-xs py-1 px-2">
+                        <span className="text-slate-400 font-black uppercase tracking-widest text-[8px]">Subtotal</span>
+                        <span className="font-bold text-slate-700">₹{printTarget.subtotal.toLocaleString()}</span>
                       </div>
-                      <div className="flex justify-between text-sm">
-                        <span className="text-slate-500 font-bold uppercase text-[10px]">Tax (GST 18%)</span>
-                        <span className="font-bold text-slate-700">₹{printTarget.tax.toFixed(2)}</span>
+                      <div className="flex justify-between text-xs py-1 px-2 bg-slate-50 rounded-lg">
+                        <span className="text-slate-400 font-black uppercase tracking-widest text-[8px]">GST (18%)</span>
+                        <span className="font-bold text-slate-700">₹{printTarget.tax.toLocaleString()}</span>
                       </div>
-                      <div className="flex justify-between text-xl pt-3 border-t border-slate-100">
-                        <span className="font-black text-slate-800 uppercase">Total</span>
-                        <span className="font-black text-primary">₹{printTarget.total.toFixed(2)}</span>
+                      <div className="flex justify-between text-xl p-3 bg-slate-900 text-white rounded-xl mt-1">
+                        <span className="font-black uppercase tracking-tighter text-[9px] flex items-center">Total Amount</span>
+                        <span className="font-black tracking-tighter text-lg">₹{printTarget.total.toLocaleString()}</span>
                       </div>
                     </div>
                   </div>
 
-                  {/* Footer */}
-                  <div className="mt-20 pt-10 border-t border-slate-100 text-center">
-                    <p className="text-xs text-slate-400">Thank you for choosing Maa Sewa Healthcare. This is a computer-generated invoice.</p>
+                  {/* Authorized Signatory Section */}
+                  <div className="mt-8 flex justify-between items-end px-4">
+                    <div className="text-center">
+                      <p className="text-[8px] text-slate-300 mb-6 font-medium italic">Customer Signature</p>
+                      <div className="w-24 h-px bg-slate-200" />
+                    </div>
+                    <div className="text-center">
+                      <p className="text-[9px] font-black text-slate-800 uppercase tracking-widest mb-1">Authorized Signatory</p>
+                      <div className="w-32 h-px bg-slate-900" />
+                      <p className="text-[8px] text-slate-400 mt-1.5 font-bold uppercase tracking-widest">Maa Sewa Healthcare</p>
+                    </div>
+                  </div>
+
+                  {/* Final Footer */}
+                  <div className="mt-10 pt-6 border-t border-slate-100 text-center">
+                    <p className="text-[9px] text-slate-400 font-bold uppercase tracking-widest mb-1">Thank you for choosing Maa Sewa Healthcare</p>
+                    <p className="text-[8px] text-slate-300 italic uppercase">Computer Generated Invoice · No Signature Required</p>
                   </div>
                 </div>
 
@@ -550,7 +599,7 @@ export default function InvoicesPage() {
             left: 0;
             top: 0;
             width: 100%;
-            padding: 2cm;
+            padding: 1.5cm;
           }
         }
       `}</style>

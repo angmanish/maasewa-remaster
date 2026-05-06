@@ -23,7 +23,7 @@ const steps = [
     icon: Home,
     number: "03",
     title: "Nurse at Your Door",
-    desc: "A verified, trained nurse arrives at home — average time just 3.8 hours.",
+    desc: "A verified, trained nurse arrives at home — average time just 1.5 hours.",
     color: "green",
   },
 ];
@@ -46,7 +46,7 @@ export default function HowItWorksPreview() {
             style={{ fontFamily: "var(--font-jakarta)" }}
           >
             From Hospital to Home{" "}
-            <span className="text-primary">in 3.8 Hours</span>
+            <span className="text-primary">in 1.5 Hours</span>
           </h2>
           <p className="text-text-body text-lg max-w-xl mx-auto">
             A seamless, stress-free transition from discharge to comfortable

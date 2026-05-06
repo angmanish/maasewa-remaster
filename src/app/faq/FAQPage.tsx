@@ -26,7 +26,7 @@ const allFaqs = [
   {
     category: "general",
     q: "How quickly can you get a nurse to my home?",
-    a: "Our average response time is 3.8 hours from the first assessment call to the nurse's arrival. In urgent cases, we can often dispatch someone within 2 hours depending on your location in Pune or Mumbai.",
+    a: "Our average response time is 1.5 hours from the first assessment call to the nurse's arrival. In urgent cases, we can often dispatch someone within 2 hours depending on your location in Pune or Mumbai.",
   },
   {
     category: "general",
@@ -41,7 +41,7 @@ const allFaqs = [
   {
     category: "general",
     q: "How do I book a nursing service?",
-    a: "You can book by calling our 24/7 helpline at +91 6361376521 or by filling out the contact form on our website. A care coordinator will then call you within 30 minutes.",
+    a: "You can book by calling our 24/7 helpline at +91 6361376521 or by filling out the contact form on our website. A care coordinator will then call you within 15 minutes.",
   },
   {
     category: "general",

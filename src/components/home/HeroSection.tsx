@@ -36,8 +36,8 @@ export default function HeroSection() {
                 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-text-heading leading-[1.1] tracking-tighter mb-6"
                 style={{ fontFamily: "var(--font-jakarta)" }}
               >
-                WellCare Nurturing <br />
-                <span className="text-primary">Health, Inspiring Life</span>
+                Professional Home Nursing <br />
+                <span className="text-primary">& ICU setup home</span>
               </h1>
 
               <p className="text-base md:text-xl text-text-body leading-relaxed max-w-xl mb-8 opacity-80 mx-auto lg:mx-0">
