@@ -53,7 +53,7 @@ export default function HeroSection() {
                 </Link>
               </div>
 
-              <div className="flex items-center gap-4 justify-center lg:justify-start">
+              <div className="hidden lg:flex items-center gap-4 justify-center lg:justify-start">
                 <div className="flex -space-x-3">
                   <div className="w-10 h-10 rounded-full border-4 border-white bg-blue-50 flex items-center justify-center text-primary text-xs font-bold shadow-sm">PN</div>
                   <div className="w-10 h-10 rounded-full border-4 border-white bg-blue-100 flex items-center justify-center text-primary text-xs font-bold shadow-sm">MB</div>
@@ -65,8 +65,8 @@ export default function HeroSection() {
               </div>
             </motion.div>
 
-            {/* Right Image — shown only on large screens */}
-            <div className="lg:col-span-6 relative h-[420px] md:h-[560px] hidden lg:flex items-center justify-end">
+            {/* Right Image — shown on all screens */}
+            <div className="lg:col-span-6 relative h-[320px] sm:h-[420px] md:h-[560px] flex items-center justify-center lg:justify-end mt-12 lg:mt-0">
               <motion.div
                 initial={{ opacity: 0, scale: 0.95, y: 10 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -78,21 +78,21 @@ export default function HeroSection() {
                 <motion.div
                   animate={{ y: [0, -15, 0] }}
                   transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                  className="absolute top-1/4 -left-16 bg-white/90 backdrop-blur-md p-4 rounded-3xl shadow-2xl border border-white/50 z-20 flex items-center gap-4"
+                  className="absolute top-10 lg:top-1/4 left-4 lg:-left-16 bg-white/90 backdrop-blur-md p-3 lg:p-4 rounded-2xl lg:rounded-3xl shadow-2xl border border-white/50 z-20 hidden lg:flex items-center gap-3 lg:gap-4"
                 >
-                  <div className="w-12 h-12 rounded-2xl bg-blue-50 flex items-center justify-center text-primary">
+                  <div className="w-10 h-10 lg:w-12 lg:h-12 rounded-xl lg:rounded-2xl bg-blue-50 flex items-center justify-center text-primary">
                     <Users size={24} />
                   </div>
                   <div>
-                    <p className="text-xl font-black text-text-heading leading-tight">100+</p>
-                    <p className="text-[10px] font-bold text-text-muted uppercase tracking-widest">Happy Families</p>
+                    <p className="text-lg lg:text-xl font-black text-text-heading leading-tight">100+</p>
+                    <p className="text-[8px] lg:text-[10px] font-bold text-text-muted uppercase tracking-widest">Happy Families</p>
                   </div>
                 </motion.div>
 
                 <motion.div
                   animate={{ y: [0, 15, 0] }}
                   transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-                  className="absolute bottom-1/4 right-0 bg-white/90 backdrop-blur-md p-4 rounded-3xl shadow-2xl border border-white/50 z-20 flex items-center gap-4 max-w-[220px]"
+                  className="absolute bottom-10 lg:bottom-1/4 right-4 lg:right-0 bg-white/90 backdrop-blur-md p-3 lg:p-4 rounded-2xl lg:rounded-3xl shadow-2xl border border-white/50 z-20 hidden lg:flex items-center gap-3 lg:gap-4 max-w-[180px] lg:max-w-[220px]"
                 >
                   <div className="w-10 h-10 rounded-full overflow-hidden bg-slate-100 flex-shrink-0">
                     <Image src="/logo.png" alt="Doctor" width={40} height={40} />
