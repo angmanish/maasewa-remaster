@@ -44,7 +44,7 @@ const steps = [
     subtitle: "Step 4",
     color: "green",
     desc: "The nurse arrives, sets up, and begins care. Family members are briefed. Ongoing reports are shared with you and your doctor.",
-    details: ["Avg. arrival: 1.5 hours", "Setup in under 15 minutes", "Daily care reports sent to family"],
+    details: ["Avg. arrival: 1.5 hours", "Setup in under 30 minutes", "Daily care reports sent to family"],
   },
 ];
 

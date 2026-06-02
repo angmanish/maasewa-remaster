@@ -3,115 +3,160 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { Users, ArrowRight } from "lucide-react";
+import { Clock, Stethoscope, MapPin, ThumbsUp, ArrowRight } from "lucide-react";
 
 export default function HeroSection() {
   return (
-    <>
-      <section className="relative min-h-screen flex items-center overflow-hidden bg-white mesh-gradient">
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-50/50 rounded-full blur-3xl -mr-48 -mt-48 -z-10" />
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-emerald-50/30 rounded-full blur-3xl -ml-24 -mb-24 -z-10" />
+    <section className="relative min-h-screen flex items-center bg-[#F0F8FA] overflow-hidden pt-24 pb-32">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 w-full relative z-10">
+        <div className="grid lg:grid-cols-12 gap-12 lg:gap-8 items-center">
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-24 md:py-32 w-full relative z-10">
-          <div className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-
-            {/* Left Content */}
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.5 }}
-              className="lg:col-span-6 text-center lg:text-left"
-            >
-              <motion.div
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-                className="inline-flex items-center gap-2 bg-blue-50 border border-blue-100 text-primary rounded-full px-4 py-2 text-xs font-bold uppercase tracking-widest mb-6"
-              >
-                <div className="w-2 h-2 rounded-full bg-success pulse-ring" />
-                24/7 Professional Care Available
-              </motion.div>
-
-              <h1
-                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-text-heading leading-[1.1] tracking-tighter mb-6"
-                style={{ fontFamily: "var(--font-jakarta)" }}
-              >
-                Professional Home Nursing <br />
-                <span className="text-primary">& ICU setup home</span>
-              </h1>
-
-              <p className="text-base md:text-xl text-text-body leading-relaxed max-w-xl mb-8 opacity-80 mx-auto lg:mx-0">
-                Empowering wellness through comprehensive home care. Discover the journey to vibrant health with our expert medical team.
-              </p>
-
-              <div className="flex flex-col sm:flex-row gap-4 mb-10 justify-center lg:justify-start">
-                <Link href="/contact" className="w-full sm:w-auto text-center px-8 py-4 bg-primary text-white rounded-2xl font-bold text-base hover:bg-primary-dark transition-all hover:shadow-2xl hover:-translate-y-1 shadow-lg shadow-primary/25">
-                  Book Appointment
-                </Link>
-                <Link href="/how-it-works" className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-4 bg-white border border-slate-200 text-text-heading rounded-2xl font-bold text-base hover:border-primary hover:text-primary transition-all hover:-translate-y-1 shadow-sm">
-                  Contact us <ArrowRight size={18} />
-                </Link>
+          {/* Left Content */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="lg:col-span-6"
+          >
+            <div className="inline-flex items-center gap-2 bg-white rounded-full px-4 py-2 shadow-sm mb-6">
+              <div className="w-5 h-5 relative flex items-center justify-center">
+                <Image src="/logo.png" alt="Logo" fill className="object-contain" />
               </div>
-
-              <div className="hidden lg:flex items-center gap-4 justify-center lg:justify-start">
-                <div className="flex -space-x-3">
-                  <div className="w-10 h-10 rounded-full border-4 border-white bg-blue-50 flex items-center justify-center text-primary text-xs font-bold shadow-sm">PN</div>
-                  <div className="w-10 h-10 rounded-full border-4 border-white bg-blue-100 flex items-center justify-center text-primary text-xs font-bold shadow-sm">MB</div>
-                </div>
-                <div>
-                  <p className="text-base font-black text-text-heading">Serving in 2 Cities</p>
-                  <p className="text-xs text-text-muted font-bold uppercase tracking-widest">Pune &amp; Mumbai</p>
-                </div>
-              </div>
-            </motion.div>
-
-            {/* Right Image — shown on all screens */}
-            <div className="lg:col-span-6 relative h-[320px] sm:h-[420px] md:h-[560px] flex items-center justify-center lg:justify-end mt-12 lg:mt-0">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.95, y: 10 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                transition={{ duration: 0.6 }}
-                className="relative w-full h-full max-w-[550px]"
-              >
-                <Image src="/doctors_group_hero.png" alt="Maa Sewa Medical Team" fill className="object-contain object-bottom" priority />
-
-                <motion.div
-                  animate={{ y: [0, -15, 0] }}
-                  transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                  className="absolute top-10 lg:top-1/4 left-4 lg:-left-16 bg-white/90 backdrop-blur-md p-3 lg:p-4 rounded-2xl lg:rounded-3xl shadow-2xl border border-white/50 z-20 hidden lg:flex items-center gap-3 lg:gap-4"
-                >
-                  <div className="w-10 h-10 lg:w-12 lg:h-12 rounded-xl lg:rounded-2xl bg-blue-50 flex items-center justify-center text-primary">
-                    <Users size={24} />
-                  </div>
-                  <div>
-                    <p className="text-lg lg:text-xl font-black text-text-heading leading-tight">100+</p>
-                    <p className="text-[8px] lg:text-[10px] font-bold text-text-muted uppercase tracking-widest">Happy Families</p>
-                  </div>
-                </motion.div>
-
-                <motion.div
-                  animate={{ y: [0, 15, 0] }}
-                  transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-                  className="absolute bottom-10 lg:bottom-1/4 right-4 lg:right-0 bg-white/90 backdrop-blur-md p-3 lg:p-4 rounded-2xl lg:rounded-3xl shadow-2xl border border-white/50 z-20 hidden lg:flex items-center gap-3 lg:gap-4 max-w-[180px] lg:max-w-[220px]"
-                >
-                  <div className="w-10 h-10 rounded-full overflow-hidden bg-slate-100 flex-shrink-0">
-                    <Image src="/logo.png" alt="Doctor" width={40} height={40} />
-                  </div>
-                  <div className="min-w-0">
-                    <p className="text-sm font-black text-text-heading truncate">Best Doctor</p>
-                    <p className="text-[10px] font-bold text-primary uppercase tracking-widest truncate">Operation Specialist</p>
-                    <div className="mt-2">
-                      <span className="text-[9px] font-black uppercase tracking-tighter bg-primary/10 text-primary px-2 py-1 rounded-md">Book Appointment</span>
-                    </div>
-                  </div>
-                </motion.div>
-              </motion.div>
+              <span className="text-xs sm:text-sm font-bold text-[#007B8A]">MSHC Next-Gen Patient Experience</span>
             </div>
 
+            <h1
+              className="text-5xl sm:text-6xl lg:text-[4.5rem] font-bold leading-[1.1] text-slate-800 mb-6"
+              style={{ fontFamily: "var(--font-jakarta)" }}
+            >
+              Your Partner in <br />
+              <span className="text-[#007B8A]">Health and Wellness</span>
+            </h1>
+
+            <p className="text-lg text-slate-600 mb-16 lg:mb-24 max-w-lg leading-relaxed">
+              We are committed to providing you with the best medical and healthcare services to help you live healthier and happier.
+            </p>
+
+            {/* Bottom Card */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="bg-white rounded-[2rem] p-6 sm:p-8 shadow-xl max-w-xl"
+            >
+              <div className="flex flex-col sm:flex-row sm:items-center gap-6 sm:gap-12">
+                <div className="flex items-center gap-4">
+                  <div className="bg-[#E6F2F4] p-3.5 rounded-full text-[#007B8A]">
+                    <Clock size={22} />
+                  </div>
+                  <div>
+                    <p className="text-[10px] sm:text-xs text-slate-500 font-bold uppercase tracking-wider mb-0.5">Availability</p>
+                    <p className="text-sm sm:text-base font-bold text-slate-800">24x7 Support</p>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-4">
+                  <div className="bg-[#E6F2F4] p-3.5 rounded-full text-[#007B8A]">
+                    <Stethoscope size={22} />
+                  </div>
+                  <div>
+                    <p className="text-[10px] sm:text-xs text-slate-500 font-bold uppercase tracking-wider mb-0.5">Specialization</p>
+                    <p className="text-sm sm:text-base font-bold text-slate-800">Cardiology</p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="h-px w-full bg-slate-100 my-6 sm:my-8" />
+
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-6">
+                <div className="flex items-center gap-4">
+                  <div className="bg-[#E6F2F4] p-3.5 rounded-full text-[#007B8A]">
+                    <MapPin size={22} />
+                  </div>
+                  <div>
+                    <p className="text-[10px] sm:text-xs text-slate-500 font-bold uppercase tracking-wider mb-0.5">Location</p>
+                    <p className="text-sm sm:text-base font-bold text-slate-800">Pune, Mumbai </p>
+                  </div>
+                </div>
+
+                <Link href="/contact" className="bg-[#007B8A] hover:bg-[#006571] text-white px-8 py-3.5 rounded-full font-bold transition-all hover:shadow-lg w-full sm:w-auto text-center flex items-center justify-center gap-2 border-[4px] border-dashed border-[#007B8A]/30 hover:border-[#007B8A]/50 bg-clip-padding">
+                  Book Now &rarr;
+                </Link>
+              </div>
+            </motion.div>
+          </motion.div>
+
+          {/* Right Image Content */}
+          <div className="lg:col-span-6 relative flex justify-center lg:justify-end mt-12 lg:mt-0">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8 }}
+              className="relative w-full max-w-[500px] aspect-[4/5] mx-auto lg:mr-8"
+            >
+              <div className="absolute inset-0 rounded-[3rem] border-[10px] border-white shadow-2xl overflow-hidden bg-slate-100">
+                <Image
+                  src="/hero_doctor.png"
+                  alt="Doctor holographic interface"
+                  fill
+                  className="object-cover"
+                  priority
+                />
+              </div>
+
+              {/* Badges */}
+              {/* Bottom Center Badge */}
+              <motion.div
+                animate={{ y: [0, 10, 0] }}
+                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
+                className="absolute -bottom-6 left-1/2 -translate-x-1/2 bg-white rounded-full py-3 px-6 shadow-xl flex items-center gap-3 whitespace-nowrap z-20 border border-slate-50"
+              >
+                <div className="w-10 h-10 rounded-full bg-[#007B8A] flex items-center justify-center text-white">
+                  <ThumbsUp size={18} fill="currentColor" className="mt-0.5" />
+                </div>
+                <div>
+                  <p className="text-[15px] font-bold text-slate-800 leading-tight">No. 1</p>
+                  <p className="text-[11px] text-slate-500 font-medium">Top Best Hospital</p>
+                </div>
+              </motion.div>
+
+              {/* Right Center Badge */}
+              <motion.div
+                animate={{ x: [0, 10, 0] }}
+                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
+                className="absolute top-1/2 -translate-y-1/2 -right-6 sm:-right-16 bg-white rounded-[1.5rem] p-4 shadow-xl flex items-center gap-3 z-20 border border-slate-50"
+              >
+                <div className="relative w-12 h-12 flex-shrink-0">
+                  <svg className="w-full h-full transform -rotate-90" viewBox="0 0 36 36">
+                    <path
+                      className="text-slate-100"
+                      strokeWidth="3"
+                      stroke="currentColor"
+                      fill="none"
+                      d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                    />
+                    <path
+                      className="text-[#007B8A]"
+                      strokeWidth="3"
+                      strokeDasharray="90, 100"
+                      stroke="currentColor"
+                      fill="none"
+                      d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
+                    />
+                  </svg>
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <span className="text-[11px] font-bold text-slate-800">90%</span>
+                  </div>
+                </div>
+                <div>
+                  <p className="text-[11px] font-bold text-slate-800 leading-tight">Client<br />Satisfaction<br />Rate</p>
+                </div>
+              </motion.div>
+            </motion.div>
           </div>
+
         </div>
-      </section>
-      <div className="h-px bg-slate-100 w-full" />
-    </>
+      </div>
+    </section>
   );
 }
