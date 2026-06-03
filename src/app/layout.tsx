@@ -7,6 +7,7 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 import PageProgressBar from "@/components/PageProgressBar";
 import { AuthProvider } from "@/context/AuthContext";
 import { Suspense } from "react";
+import Chatbot from "@/components/chatbot/Chatbot";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -105,6 +106,7 @@ export default function RootLayout({
           <main className="flex-1">{children}</main>
           <Footer />
           <WhatsAppButton />
+          <Chatbot />
         </AuthProvider>
       </body>
     </html>

@@ -9,6 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@ai-sdk/google": "^3.0.80",
+    "@ai-sdk/react": "^3.0.197",
+    "ai": "^6.0.195",
     "framer-motion": "^11.15.0",
     "lucide-react": "^0.468.0",
     "mongoose": "^9.5.0",
@@ -16,7 +19,8 @@
     "react": "19.0.0",
     "react-dom": "19.0.0",
     "react-icons": "^5.4.0",
-    "react-intersection-observer": "^9.13.1"
+    "react-intersection-observer": "^9.13.1",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.0.0",
