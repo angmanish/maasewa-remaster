@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@ai-sdk/google": "^3.0.80",
-    "@ai-sdk/react": "^3.0.197",
     "ai": "^6.0.195",
     "framer-motion": "^11.15.0",
     "lucide-react": "^0.468.0",
