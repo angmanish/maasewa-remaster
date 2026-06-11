@@ -11,7 +11,7 @@ import {
   LayoutDashboard, Users, ClipboardList, CalendarDays,
   LogOut, Menu, X, Shield, User, UserCircle,
   DollarSign, Handshake, ClipboardCheck, CalendarCheck, FileText,
-  Clock, Receipt, Package, AlertTriangle, ShieldAlert
+  Clock, Receipt, Package, AlertTriangle, ShieldAlert, Briefcase
 } from "lucide-react";
 
 interface NavItem {
@@ -40,6 +40,7 @@ const navItems: NavItem[] = [
   { href: "/dashboard/attendance", label: "Attendance", icon: CalendarCheck, roles: ["ADMIN", "SUB_ADMIN"], section: "Management" },
   { href: "/dashboard/shifts", label: "Shifts", icon: Clock, roles: ["ADMIN", "SUB_ADMIN"], section: "Management" },
   { href: "/dashboard/inventory", label: "Inventory", icon: Package, roles: ["ADMIN", "SUB_ADMIN"], section: "Management" },
+  { href: "/dashboard/jobs", label: "Careers (Jobs)", icon: Briefcase, roles: ["ADMIN", "SUB_ADMIN"], section: "Management" },
 
   // ADMIN SECTION
   { href: "/dashboard/users", label: "User Management", icon: Users, roles: ["ADMIN"], section: "Admin" },

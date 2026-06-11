@@ -33,6 +33,7 @@ const navLinks = [
   { href: "/packages", label: "Packages" },
   { href: "/for-hospitals", label: "For Hospitals" },
   { href: "/blog", label: "Blog" },
+  { href: "/careers", label: "Careers" },
 ];
 
 export default function Navbar() {

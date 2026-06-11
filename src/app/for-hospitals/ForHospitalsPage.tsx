@@ -102,7 +102,7 @@ export default function ForHospitalsPage() {
             </div>
           </motion.div>
         </div>
-      </section>n>
+      </section>
 
       {/* Clinical Integration Section */}
       <section className="py-24 bg-white">

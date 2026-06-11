@@ -14,6 +14,7 @@ const footerLinks = {
     { href: "/packages", label: "Care Packages" },
     { href: "/for-hospitals", label: "For Hospitals" },
     { href: "/blog", label: "Blog" },
+    { href: "/careers", label: "Careers" },
     { href: "/faq", label: "FAQ" },
     { href: "/contact", label: "Contact Us" },
   ],

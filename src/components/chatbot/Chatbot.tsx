@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { usePathname } from "next/navigation";
 import { MessageSquare, X, Send, Bot, User, Sparkles } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -11,6 +12,7 @@ export type Message = {
 };
 
 export default function Chatbot() {
+  const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
@@ -126,6 +128,9 @@ export default function Chatbot() {
 
   const remainingMessages = MAX_DAILY_MESSAGES - messageCount;
   const isLimitReached = messageCount >= MAX_DAILY_MESSAGES;
+
+  // Return nothing if on dashboard route
+  if (pathname.startsWith("/dashboard")) return null;
 
   return (
     <div className="fixed bottom-24 right-5 z-50 flex flex-col items-end">
@@ -351,7 +356,7 @@ export default function Chatbot() {
               exit={{ rotate: -90, opacity: 0 }}
               transition={{ duration: 0.15 }}
             >
-              <MessageSquare className="w-6 h-6" />
+              <Sparkles className="w-6 h-6" />
             </motion.span>
           )}
         </AnimatePresence>
