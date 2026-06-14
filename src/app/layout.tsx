@@ -98,6 +98,38 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${inter.variable} ${plusJakarta.variable}`}>
       <body className="min-h-screen flex flex-col bg-white antialiased">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "MedicalOrganization",
+              name: "Maa Sewa Healthcare",
+              url: "https://maasewahealthcare.com",
+              logo: "https://maasewahealthcare.com/logo.png",
+              description: "Professional home nursing, elder care, ICU home setup, and post-operative care in Pune and Mumbai.",
+              address: {
+                "@type": "PostalAddress",
+                streetAddress: "Gate no 1313, Om Sai Housing Society, near Zenda Chowk",
+                addressLocality: "Pune",
+                addressRegion: "Maharashtra",
+                postalCode: "411062",
+                addressCountry: "IN",
+              },
+              contactPoint: {
+                "@type": "ContactPoint",
+                telephone: "+91-6361376521",
+                contactType: "customer service",
+                areaServed: ["Pune", "Mumbai"],
+                availableLanguage: ["English", "Hindi", "Marathi"],
+              },
+              areaServed: [
+                { "@type": "City", name: "Pune" },
+                { "@type": "City", name: "Mumbai" },
+              ],
+            }),
+          }}
+        />
         <AuthProvider>
           <Suspense>
             <PageProgressBar />

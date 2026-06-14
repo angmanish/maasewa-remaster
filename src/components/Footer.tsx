@@ -184,6 +184,30 @@ export default function Footer() {
           </div>
         </div>
 
+        {/* SEO Geo Grid */}
+        <div className="border-t border-blue-800/50 pt-8 mt-4 mb-8">
+          <h3
+            className="text-white font-bold mb-5 text-sm tracking-wide uppercase"
+            style={{ fontFamily: "var(--font-jakarta)" }}
+          >
+            Popular Service Locations
+          </h3>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-y-3 gap-x-4 text-sm">
+            <Link href="/services/home-nursing" className="text-blue-200 hover:text-white hover:underline transition-colors">Home Nursing in Pune</Link>
+            <Link href="/services/home-nursing" className="text-blue-200 hover:text-white hover:underline transition-colors">Home Nursing in Mumbai</Link>
+            <Link href="/services/elder-care" className="text-blue-200 hover:text-white hover:underline transition-colors">Elder Care in Pune</Link>
+            <Link href="/services/elder-care" className="text-blue-200 hover:text-white hover:underline transition-colors">Elder Care in Mumbai</Link>
+            <Link href="/services/icu-home-setup" className="text-blue-200 hover:text-white hover:underline transition-colors">ICU Setup at Home Pune</Link>
+            <Link href="/services/icu-home-setup" className="text-blue-200 hover:text-white hover:underline transition-colors">ICU Setup at Home Mumbai</Link>
+            <Link href="/services/post-op-care" className="text-blue-200 hover:text-white hover:underline transition-colors">Post-Op Care Pune</Link>
+            <Link href="/services/post-op-care" className="text-blue-200 hover:text-white hover:underline transition-colors">Post-Op Care Mumbai</Link>
+            <Link href="/services/specialized-care" className="text-blue-200 hover:text-white hover:underline transition-colors">Stroke Recovery Pune</Link>
+            <Link href="/services/specialized-care" className="text-blue-200 hover:text-white hover:underline transition-colors">Dementia Care Mumbai</Link>
+            <Link href="/services/injection-visit" className="text-blue-200 hover:text-white hover:underline transition-colors">Injection at Home Pune</Link>
+            <Link href="/services/injection-visit" className="text-blue-200 hover:text-white hover:underline transition-colors">IV Drip at Home Mumbai</Link>
+          </div>
+        </div>
+
         <div className="border-t border-blue-800 pt-8 mb-8">
           <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-10">
             {trustBadges.map(({ icon: Icon, label }) => (

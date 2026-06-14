@@ -30,18 +30,19 @@ const servicesData: Record<string, any> = {
   },
 };
 
-export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
-  const service = servicesData[params.slug];
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
+  const service = servicesData[slug];
   if (!service) return { title: "Service | Maa Sewa Healthcare" };
 
   return {
     title: service.title,
     description: service.desc,
-    alternates: { canonical: `${BASE_URL}/services/${params.slug}` },
+    alternates: { canonical: `${BASE_URL}/services/${slug}` },
     openGraph: {
       title: `${service.title} | Maa Sewa Healthcare`,
       description: service.desc,
-      url: `${BASE_URL}/services/${params.slug}`,
+      url: `${BASE_URL}/services/${slug}`,
       type: "article",
     },
   };

@@ -19,6 +19,7 @@ export default function CareersPage() {
   const [jobs, setJobs] = useState<Job[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedJob, setSelectedJob] = useState<Job | null>(null);
+  const [modalMode, setModalMode] = useState<"details" | "apply">("details");
 
   // Form State
   const [formData, setFormData] = useState({
@@ -49,8 +50,9 @@ export default function CareersPage() {
     fetchJobs();
   }, []);
 
-  const handleApplyClick = (job: Job) => {
+  const handleViewClick = (job: Job) => {
     setSelectedJob(job);
+    setModalMode("details");
     setSuccessMsg("");
     setErrorMsg("");
     setFormData({ fullName: "", email: "", phone: "", coverLetter: "" });
@@ -183,10 +185,10 @@ export default function CareersPage() {
                   </div>
 
                   <button
-                    onClick={() => handleApplyClick(job)}
+                    onClick={() => handleViewClick(job)}
                     className="w-full mt-4 flex items-center justify-center gap-2 bg-slate-50 hover:bg-sky-500 text-slate-700 hover:text-white font-semibold py-3 rounded-xl transition-all duration-300"
                   >
-                    Apply Now <ArrowRight className="w-4 h-4" />
+                    View Details <ArrowRight className="w-4 h-4" />
                   </button>
                 </div>
               ))}
@@ -240,8 +242,54 @@ export default function CareersPage() {
                           {successMsg} Our HR team will review your profile and get back to you soon.
                         </p>
                       </div>
+                    ) : modalMode === "details" ? (
+                      <div>
+                        <div className="flex flex-wrap items-center gap-4 text-sm text-slate-600 mb-6 pb-6 border-b border-slate-100">
+                          <span className="flex items-center gap-1.5"><MapPin className="w-4 h-4" /> {selectedJob.location}</span>
+                          <span className="flex items-center gap-1.5"><Briefcase className="w-4 h-4" /> {selectedJob.jobType}</span>
+                          {selectedJob.salaryRange && (
+                            <span className="flex items-center gap-1.5 font-medium bg-slate-100 px-2 py-0.5 rounded-md">
+                              {selectedJob.salaryRange}
+                            </span>
+                          )}
+                        </div>
+
+                        <div className="mb-6">
+                          <h4 className="text-lg font-bold text-slate-800 mb-3">Job Description</h4>
+                          <p className="text-slate-600 leading-relaxed whitespace-pre-wrap">{selectedJob.description}</p>
+                        </div>
+
+                        <div className="mb-8">
+                          <h4 className="text-lg font-bold text-slate-800 mb-3">Requirements</h4>
+                          <ul className="text-sm text-slate-600 space-y-3">
+                            {selectedJob.requirements.map((req, i) => (
+                              <li key={i} className="flex items-start gap-2.5">
+                                <span className="w-1.5 h-1.5 rounded-full bg-sky-400 mt-2 shrink-0" />
+                                <span className="leading-relaxed">{req}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
+
+                        <button
+                          onClick={() => setModalMode("apply")}
+                          className="w-full flex items-center justify-center gap-2 bg-sky-600 hover:bg-sky-700 text-white font-bold py-4 rounded-xl transition-all shadow-lg shadow-sky-200"
+                        >
+                          Proceed to Apply <ArrowRight className="w-4 h-4" />
+                        </button>
+                      </div>
                     ) : (
                       <form onSubmit={handleSubmit} className="space-y-5">
+                        {/* Header with back button */}
+                        <div className="flex items-center gap-3 mb-2">
+                          <button 
+                            type="button" 
+                            onClick={() => setModalMode("details")}
+                            className="text-sm text-slate-500 hover:text-sky-600 font-semibold"
+                          >
+                            &larr; Back to Details
+                          </button>
+                        </div>
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                           <div>
                             <label className="block text-sm font-semibold text-slate-700 mb-1.5">Full Name</label>
