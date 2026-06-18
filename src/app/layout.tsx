@@ -104,10 +104,18 @@ export default function RootLayout({
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "MedicalOrganization",
+              "@id": "https://maasewahealthcare.com/#organization",
               name: "Maa Sewa Healthcare",
+              alternateName: "Maasewa Healthcare",
               url: "https://maasewahealthcare.com",
-              logo: "https://maasewahealthcare.com/logo.png",
-              description: "Professional home nursing, elder care, ICU home setup, and post-operative care in Pune and Mumbai.",
+              logo: {
+                "@type": "ImageObject",
+                url: "https://maasewahealthcare.com/logo.png",
+                width: 300,
+                height: 100,
+              },
+              description: "Professional home nursing, elder care, ICU home setup, and post-operative care in Pune and Mumbai. Certified, police-verified nurses available 24/7.",
+              foundingDate: "2022",
               address: {
                 "@type": "PostalAddress",
                 streetAddress: "Gate no 1313, Om Sai Housing Society, near Zenda Chowk",
@@ -116,17 +124,59 @@ export default function RootLayout({
                 postalCode: "411062",
                 addressCountry: "IN",
               },
-              contactPoint: {
-                "@type": "ContactPoint",
-                telephone: "+91-6361376521",
-                contactType: "customer service",
-                areaServed: ["Pune", "Mumbai"],
-                availableLanguage: ["English", "Hindi", "Marathi"],
-              },
+              contactPoint: [
+                {
+                  "@type": "ContactPoint",
+                  telephone: "+91-6361376521",
+                  contactType: "customer service",
+                  areaServed: ["IN"],
+                  availableLanguage: ["English", "Hindi", "Marathi"],
+                  contactOption: "TollFree",
+                  hoursAvailable: {
+                    "@type": "OpeningHoursSpecification",
+                    dayOfWeek: ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+                    opens: "00:00",
+                    closes: "23:59",
+                  },
+                },
+              ],
               areaServed: [
                 { "@type": "City", name: "Pune" },
                 { "@type": "City", name: "Mumbai" },
+                { "@type": "City", name: "Pimpri-Chinchwad" },
               ],
+              knowsAbout: [
+                "Home Nursing",
+                "ICU Home Setup",
+                "Elder Care",
+                "Post-Operative Care",
+                "Dementia Care",
+                "Stroke Rehabilitation",
+                "Palliative Care",
+                "Physiotherapy at Home",
+                "Tracheostomy Care",
+                "Wound Care Management",
+              ],
+              hasOfferCatalog: {
+                "@type": "OfferCatalog",
+                name: "Home Healthcare Services",
+                itemListElement: [
+                  { "@type": "Offer", itemOffered: { "@type": "MedicalTherapy", name: "Home Nursing", url: "https://maasewahealthcare.com/services/home-nursing" } },
+                  { "@type": "Offer", itemOffered: { "@type": "MedicalTherapy", name: "ICU Home Setup", url: "https://maasewahealthcare.com/services/icu-home-setup" } },
+                  { "@type": "Offer", itemOffered: { "@type": "MedicalTherapy", name: "Elder Care", url: "https://maasewahealthcare.com/services/elder-care" } },
+                  { "@type": "Offer", itemOffered: { "@type": "MedicalTherapy", name: "Post-Operative Care", url: "https://maasewahealthcare.com/services/post-op-care" } },
+                  { "@type": "Offer", itemOffered: { "@type": "MedicalTherapy", name: "Specialized Care", url: "https://maasewahealthcare.com/services/specialized-care" } },
+                  { "@type": "Offer", itemOffered: { "@type": "MedicalTherapy", name: "Injection & IV Visit", url: "https://maasewahealthcare.com/services/injection-visit" } },
+                ],
+              },
+              sameAs: [
+                "https://facebook.com/maasewahealthcare",
+                "https://instagram.com/maasewahealthcare",
+              ],
+              speakable: {
+                "@type": "SpeakableSpecification",
+                cssSelector: ["h1", ".hero-description", ".trust-bar"],
+              },
             }),
           }}
         />

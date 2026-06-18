@@ -17,12 +17,29 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
   const post = blogPosts.find((p) => p.slug === slug);
-  if (!post) return { title: "Post Not Found | Maasewa Healthcare" };
+  if (!post) return { title: "Post Not Found | Maa Sewa Healthcare" };
+
+  const BASE_URL = "https://maasewahealthcare.com";
 
   return {
-    title: `${post.title} | Maasewa Health Blog`,
+    title: `${post.title} | Maa Sewa Health Blog`,
     description: post.metaDescription,
+    authors: [{ name: post.author }],
+    alternates: { canonical: `${BASE_URL}/blog/${post.slug}` },
     openGraph: {
+      title: post.title,
+      description: post.metaDescription,
+      url: `${BASE_URL}/blog/${post.slug}`,
+      type: "article",
+      publishedTime: new Date(post.date).toISOString(),
+      authors: [post.author],
+      siteName: "Maa Sewa Healthcare",
+      locale: "en_IN",
+      images: [{ url: post.image, width: 1200, height: 630, alt: post.title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      site: "@MaasewaHealth",
       title: post.title,
       description: post.metaDescription,
       images: [post.image],
@@ -38,31 +55,70 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
     notFound();
   }
 
-  // Schema for rich results
+  const BASE_URL = "https://maasewahealthcare.com";
+
+  // Full Article schema for Google News, Knowledge Panels, and AI citations
   const articleSchema = {
     "@context": "https://schema.org",
-    "@type": "Article",
+    "@type": "BlogPosting",
+    "@id": `${BASE_URL}/blog/${post.slug}#article`,
     headline: post.title,
     description: post.metaDescription,
-    image: post.image,
+    image: {
+      "@type": "ImageObject",
+      url: post.image,
+      width: 1200,
+      height: 630,
+    },
     author: {
       "@type": "Person",
       name: post.author,
+      worksFor: {
+        "@type": "MedicalOrganization",
+        name: "Maa Sewa Healthcare",
+        url: BASE_URL,
+      },
     },
     publisher: {
       "@type": "Organization",
-      name: "Maasewa Healthcare",
+      name: "Maa Sewa Healthcare",
       logo: {
         "@type": "ImageObject",
-        url: "https://maasewahealthcare.com/logo.png",
+        url: `${BASE_URL}/logo.png`,
       },
     },
     datePublished: new Date(post.date).toISOString(),
+    dateModified: new Date(post.date).toISOString(),
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `${BASE_URL}/blog/${post.slug}`,
+    },
+    speakable: {
+      "@type": "SpeakableSpecification",
+      cssSelector: ["article", "h1", "p"],
+    },
+    inLanguage: "en-IN",
+    isPartOf: {
+      "@type": "Blog",
+      name: "Maa Sewa Healthcare Health Blog",
+      url: `${BASE_URL}/blog`,
+    },
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: BASE_URL },
+      { "@type": "ListItem", position: 2, name: "Blog", item: `${BASE_URL}/blog` },
+      { "@type": "ListItem", position: 3, name: post.title, item: `${BASE_URL}/blog/${post.slug}` },
+    ],
   };
 
   return (
     <main className="min-h-screen bg-white pt-24 pb-20">
       <JsonLd data={articleSchema} />
+      <JsonLd data={breadcrumbSchema} />
       
       {/* Article Header */}
       <header className="bg-slate-50 pt-16 pb-24 border-b border-slate-200">

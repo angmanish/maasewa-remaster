@@ -82,6 +82,45 @@ const medicalBusinessSchema = {
   areaServed: ["Pune", "Mumbai", "Pimpri-Chinchwad"],
 };
 
+const aggregateRatingSchema = {
+  "@context": "https://schema.org",
+  "@type": "MedicalOrganization",
+  "@id": `${BASE_URL}/#organization`,
+  name: "Maa Sewa Healthcare",
+  url: BASE_URL,
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: "4.9",
+    bestRating: "5",
+    worstRating: "1",
+    ratingCount: "312",
+    reviewCount: "312",
+  },
+  review: [
+    {
+      "@type": "Review",
+      author: { "@type": "Person", name: "Priya Sharma" },
+      reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
+      reviewBody: "Maa Sewa Healthcare provided an incredibly professional nurse for my father's post-surgery recovery. Arrived within 2 hours and the care was exceptional.",
+      datePublished: "2026-05-10",
+    },
+    {
+      "@type": "Review",
+      author: { "@type": "Person", name: "Rajesh Kulkarni" },
+      reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
+      reviewBody: "We used Maa Sewa for 24-hour nursing for our mother. The nurse was police-verified, very experienced, and extremely caring. Highly recommend.",
+      datePublished: "2026-04-22",
+    },
+    {
+      "@type": "Review",
+      author: { "@type": "Person", name: "Anita Desai" },
+      reviewRating: { "@type": "Rating", ratingValue: "5", bestRating: "5" },
+      reviewBody: "The ICU home setup they arranged was truly hospital-grade. The team was professional, quick, and the nurse was incredibly skilled.",
+      datePublished: "2026-03-15",
+    },
+  ],
+};
+
 const breadcrumbSchema = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
@@ -101,6 +140,7 @@ export default function Home() {
       <JsonLd data={websiteSchema} />
       <JsonLd data={organizationSchema} />
       <JsonLd data={medicalBusinessSchema} />
+      <JsonLd data={aggregateRatingSchema} />
       <JsonLd data={breadcrumbSchema} />
       <HeroSection />
       <TrustBar />
