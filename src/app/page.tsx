@@ -8,6 +8,7 @@ import CTABanner from "@/components/home/CTABanner";
 import WhyChooseUs from "@/components/home/WhyChooseUs";
 import BlogPreview from "@/components/home/BlogPreview";
 import ClinicalExcellence from "@/components/home/ClinicalExcellence";
+import SeoContent from "@/components/home/SeoContent";
 import JsonLd from "@/components/JsonLd";
 
 const BASE_URL = "https://maasewahealthcare.com";
@@ -151,6 +152,7 @@ export default function Home() {
       <BlogPreview />
       <ClinicalExcellence />
       <Testimonials />
+      <SeoContent />
       <CTABanner />
     </>
   );

@@ -123,9 +123,13 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
       {/* Article Header */}
       <header className="bg-slate-50 pt-16 pb-24 border-b border-slate-200">
         <div className="max-w-4xl mx-auto px-4 sm:px-6">
-          <Link href="/blog" className="inline-flex items-center gap-2 text-primary font-semibold hover:gap-3 transition-all mb-8">
-            <ArrowLeft className="w-4 h-4" /> Back to Blog
-          </Link>
+          <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-sm text-slate-500 mb-8 font-semibold">
+            <Link href="/" className="hover:text-primary">Home</Link>
+            <span aria-hidden="true">/</span>
+            <Link href="/blog" className="hover:text-primary">Blog</Link>
+            <span aria-hidden="true">/</span>
+            <span aria-current="page" className="text-slate-800 line-clamp-1">{post.title}</span>
+          </nav>
           
           <h1 className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 leading-[1.1] mb-6" style={{ fontFamily: "var(--font-jakarta)" }}>
             {post.title}

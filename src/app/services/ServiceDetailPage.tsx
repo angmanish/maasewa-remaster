@@ -220,12 +220,12 @@ export default function ServiceDetailPage() {
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.4 }}
             >
-              <nav className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-primary mb-6">
+              <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-primary mb-6">
                 <Link href="/" className="hover:underline">Home</Link>
-                <ArrowRight size={12} />
+                <ArrowRight size={12} aria-hidden="true" />
                 <Link href="/services" className="hover:underline">Services</Link>
-                <ArrowRight size={12} />
-                <span className="text-slate-400">{service.title}</span>
+                <ArrowRight size={12} aria-hidden="true" />
+                <span aria-current="page" className="text-slate-400">{service.title}</span>
               </nav>
               
               <h1 className="text-4xl md:text-6xl font-black text-text-heading leading-tight mb-6" style={{ fontFamily: "var(--font-jakarta)" }}>

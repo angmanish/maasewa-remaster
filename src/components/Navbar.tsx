@@ -160,6 +160,7 @@ export default function Navbar() {
               <Link
                 href="/login"
                 className="p-2 text-text-body hover:text-primary transition-colors"
+                aria-label="User Login"
               >
                 <User size={22} />
               </Link>
@@ -207,6 +208,7 @@ export default function Navbar() {
                 <button
                   onClick={() => setMobileOpen(false)}
                   className="p-1.5 rounded-lg hover:bg-gray-100 transition-colors"
+                  aria-label="Close menu"
                 >
                   <X size={20} className="text-text-body" />
                 </button>
@@ -283,13 +285,13 @@ export default function Navbar() {
                   Get Aftercare Now
                 </Link>
                 <div className="flex items-center justify-center gap-4 pt-1">
-                  <a href="https://www.facebook.com/profile.php?id=61578668799642" className="text-text-muted hover:text-primary transition-colors">
+                  <a href="https://www.facebook.com/profile.php?id=61578668799642" className="text-text-muted hover:text-primary transition-colors" aria-label="Visit our Facebook page">
                     <FaFacebook size={20} />
                   </a>
-                  <a href="https://www.instagram.com/maasewa/" className="text-text-muted hover:text-primary transition-colors">
+                  <a href="https://www.instagram.com/maasewa/" className="text-text-muted hover:text-primary transition-colors" aria-label="Visit our Instagram page">
                     <FaInstagram size={20} />
                   </a>
-                  <a href="https://x.com/Maasewa_care" className="text-text-muted hover:text-primary transition-colors">
+                  <a href="https://x.com/Maasewa_care" className="text-text-muted hover:text-primary transition-colors" aria-label="Visit our Twitter/X page">
                     <FaTwitter size={20} />
                   </a>
                 </div>
