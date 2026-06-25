@@ -66,7 +66,7 @@ export default function WhyChooseUs() {
             transition={{ delay: 0.2 }}
             className="text-text-body text-lg max-w-2xl mx-auto opacity-70"
           >
-            We combine high-end medical expertise with compassionate care to ensure a smooth recovery for your loved ones.
+            We offer expert medical care and warm support. This helps your loved ones recover safely and quickly.
           </motion.p>
         </div>
 

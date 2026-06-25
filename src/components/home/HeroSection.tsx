@@ -34,7 +34,7 @@ export default function HeroSection() {
             </h1>
 
             <p className="text-lg text-slate-600 mb-16 lg:mb-24 max-w-lg leading-relaxed">
-              We are committed to providing you with the best medical and healthcare services to help you live healthier and happier.
+              We bring expert medical care right to your home. Live a healthier, happier life with our trusted team.
             </p>
 
             {/* Bottom Card */}

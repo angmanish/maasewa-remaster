@@ -27,11 +27,11 @@ const BASE_URL = "https://maasewahealthcare.com";
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    default: "Maa Sewa Healthcare",
+    default: "Maa Sewa Healthcare - Home Nursing & Patient Care",
     template: "%s | Maa Sewa Healthcare",
   },
   description:
-    "Maa Sewa Healthcare provides professional home nursing, elder care, ICU home setup, and post-operative care in Pune and Mumbai. Certified, police-verified nurses available 24/7. Average arrival in 1.5 hours.",
+    "Professional home nursing, ICU setup, and elder care in Pune & Mumbai. Certified 24/7 nurses. Fast arrival. Get reliable post-operative care today.",
   keywords: [
     "home nursing services",
     "home healthcare Pune",

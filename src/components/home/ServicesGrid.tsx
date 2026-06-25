@@ -125,7 +125,7 @@ export default function ServicesGrid() {
                 href={service.href}
                 className="inline-flex items-center gap-1.5 text-primary text-sm font-semibold hover:gap-3 transition-all"
               >
-                Learn more <ArrowRight size={15} />
+                Explore {service.title} <ArrowRight size={15} />
               </Link>
             </motion.div>
           ))}

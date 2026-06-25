@@ -49,8 +49,7 @@ export default function HowItWorksPreview() {
             <span className="text-primary">in 1.5 Hours</span>
           </h2>
           <p className="text-text-body text-lg max-w-xl mx-auto">
-            A seamless, stress-free transition from discharge to comfortable
-            home recovery.
+            A smooth and easy move from the hospital to your home.
           </p>
         </motion.div>
 

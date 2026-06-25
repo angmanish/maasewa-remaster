@@ -85,7 +85,7 @@ export default function BlogPreview() {
                    {post.excerpt}
                 </p>
                 <NextLink href="/blog" className="inline-flex items-center gap-2 text-primary font-bold text-sm">
-                   Read Full Story <ArrowRight size={16} />
+                   Read {post.title} <ArrowRight size={16} />
                 </NextLink>
               </div>
             </motion.div>
